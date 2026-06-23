@@ -1,0 +1,18 @@
+# Artifacts
+dist/
+node_modules/
+package-lock.json
+
+# IDEs and Tools
+.vscode/
+.idea/
+.angular/
+
+# Coverage
+coverage/
+
+# Manifests
+manifest.webmanifest
+
+# Assets
+src/assets/

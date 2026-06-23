@@ -1,0 +1,12 @@
+export { ArchitectureIconComponent } from './architecture-icon.component';
+export { DashboardIconComponent } from './dashboard-icon.component';
+export { DescriptionIconComponent } from './description-icon.component';
+export { EventIconComponent } from './event-icon.component';
+export { GroupsIconComponent } from './groups-icon.component';
+export { HubIconComponent } from './hub-icon.component';
+export { InventoryIconComponent } from './inventory-icon.component';
+export { MailIconComponent } from './mail-icon.component';
+export { MonitoringIconComponent } from './monitoring-icon.component';
+export { RocketIconComponent } from './rocket-icon.component';
+export { SettingsIconComponent } from './settings-icon.component';
+export { SheildIconComponent } from './sheild-icon.component';
