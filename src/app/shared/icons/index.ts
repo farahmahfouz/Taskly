@@ -10,3 +10,4 @@ export { MonitoringIconComponent } from './monitoring-icon.component';
 export { RocketIconComponent } from './rocket-icon.component';
 export { SettingsIconComponent } from './settings-icon.component';
 export { SheildIconComponent } from './sheild-icon.component';
+export { ShowPasswordComponent } from './show-password.component';

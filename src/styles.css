@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
 
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-background);
+}
+
 @theme {
   /* Action Blue & Tonal Range */
   --color-primary: #003d9b;
@@ -19,23 +26,25 @@
   --color-error: #ba1a1a;
   --color-warning: #ffb300;
 
+  --color-error-surface: #FFDAD6;
+
   /* Typography */
   --font-sans: 'Inter', sans-serif;
-
   --text-display-lg: 3.5rem; /* 56px */
   --text-headline-lg: 2rem; /* 32px */
+  --text-title-lg: 1.875rem; /* 30px */
   --text-title-md: 1.125rem; /* 18px */
   --text-body-md: 0.875rem; /* 14px */
   --text-label-sm: 0.6875rem; /* 11px */
 
   --font-weight-display-lg: 700; /* Bold */
   --font-weight-headline-lg: 600; /* Semi-Bold */
-  --font-weight-title-md: 500; /* Meduim */
+  --font-weight-title-md: 500; /* Medium */
   --font-weight-body-md: 400; /* Regular */
-  --font-weight-label-sm: 700; /* Bold */
 
   --line-height-display-lg: 56px;
   --line-height-headline-lg: 40px;
+  --line-height-headline-md: 36px;
   --line-height-title-md: 27px;
   --line-height-body-md: 22.75px;
   --line-height-body-sm: 20px;
@@ -44,20 +53,27 @@
   /* Letter Spacing */
   --letter-spacing-lg: -2.8px;
   --letter-spacing-sm: 1.1px;
+  --letter-spacing-xs: -0.75px;
 
   /* Border radius */
-  --raduis-xs: 2px;
+  --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
   --radius-full: 9999px;
+
+  --box-shadow: 0px 24px 48px 0px #041b3c0f;
 }
 
+/* ============================================================
+   UTILITY LAYER
+   ============================================================ */
 @layer utilities {
+  /* BUTTONS */
   .btn {
     height: 40px;
     padding: 10px 24px;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
     font-family: var(--font-sans);
     font-size: var(--text-body-md);
     font-weight: var(--font-weight-headline-lg);
@@ -76,7 +92,6 @@
       var(--color-primary-container) 100%
     );
     color: #ffffff;
-    width: 148.36px;
   }
 
   .btn-secondary {
@@ -94,6 +109,212 @@
     box-shadow: none;
     width: 134.45px;
     opacity: 0.6;
+  }
+
+  /* COLORS — Background */
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-primary-container {
+    background-color: var(--color-primary-container);
+  }
+  .bg-surface-highest {
+    background-color: var(--color-surface-highest);
+  }
+  .bg-surface-low {
+    background-color: var(--color-surface-low);
+  }
+  .bg-background {
+    background-color: var(--color-background);
+  }
+
+  .bg-neutral-dark {
+    background-color: var(--color-neutral-dark);
+  }
+  .bg-neutral-mid {
+    background-color: var(--color-neutral-mid);
+  }
+  .bg-neutral-light {
+    background-color: var(--color-neutral-light);
+  }
+
+  .bg-success {
+    background-color: var(--color-success);
+  }
+  .bg-error {
+    background-color: var(--color-error);
+  }
+  .bg-warning {
+    background-color: var(--color-warning);
+  }
+
+  /* ----------------------------------------------------------
+     COLORS — Text
+  ---------------------------------------------------------- */
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-primary-container {
+    color: var(--color-primary-container);
+  }
+  .text-surface-highest {
+    color: var(--color-surface-highest);
+  }
+  .text-surface-low {
+    color: var(--color-surface-low);
+  }
+
+  .text-neutral-dark {
+    color: var(--color-neutral-dark);
+  }
+  .text-neutral-mid {
+    color: var(--color-neutral-mid);
+  }
+  .text-neutral-light {
+    color: var(--color-neutral-light);
+  }
+
+  .text-success {
+    color: var(--color-success);
+  }
+  .text-error {
+    color: var(--color-error);
+  }
+  .text-warning {
+    color: var(--color-warning);
+  }
+
+  /* COLORS — Border */
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  .border-primary-container {
+    border-color: var(--color-primary-container);
+  }
+  .border-surface-highest {
+    border-color: var(--color-surface-highest);
+  }
+  .border-surface-low {
+    border-color: var(--color-surface-low);
+  }
+
+  .border-neutral-dark {
+    border-color: var(--color-neutral-dark);
+  }
+  .border-neutral-mid {
+    border-color: var(--color-neutral-mid);
+  }
+  .border-neutral-light {
+    border-color: var(--color-neutral-light);
+  }
+
+  .border-success {
+    border-color: var(--color-success);
+  }
+  .border-error {
+    border-color: var(--color-error);
+  }
+  .border-warning {
+    border-color: var(--color-warning);
+  }
+
+  /* TYPOGRAPHY — Font sizes */
+  .text-display-lg {
+    font-size: var(--text-display-lg);
+  }
+  .text-headline-lg {
+    font-size: var(--text-headline-lg);
+  }
+  .text-title-lg {
+    font-size: var(--text-title-lg);
+  }
+  .text-title-md {
+    font-size: var(--text-title-md);
+  }
+  .text-body-md {
+    font-size: var(--text-body-md);
+  }
+  .text-label-sm {
+    font-size: var(--text-label-sm);
+  }
+
+  /* TYPOGRAPHY — Font weights */
+  .font-weight-display-lg {
+    font-weight: var(--font-weight-display-lg);
+  }
+  .font-weight-headline-lg {
+    font-weight: var(--font-weight-headline-lg);
+  }
+  .font-weight-title-md {
+    font-weight: var(--font-weight-title-md);
+  }
+  .font-weight-body-md {
+    font-weight: var(--font-weight-body-md);
+  }
+
+  /* TYPOGRAPHY — Line heights */
+  .leading-display-lg {
+    line-height: var(--line-height-display-lg);
+  }
+  .leading-headline-lg {
+    line-height: var(--line-height-headline-lg);
+  }
+  .leading-headline-md {
+    line-height: var(--line-height-headline-md);
+  }
+  .leading-title-md {
+    line-height: var(--line-height-title-md);
+  }
+  .leading-body-md {
+    line-height: var(--line-height-body-md);
+  }
+  .leading-body-sm {
+    line-height: var(--line-height-body-sm);
+  }
+  .leading-label-sm {
+    line-height: var(--line-height-label-sm);
+  }
+
+  /* TYPOGRAPHY — Letter spacing */
+
+  .tracking-lg {
+    letter-spacing: var(--letter-spacing-lg);
+  }
+  .tracking-sm {
+    letter-spacing: var(--letter-spacing-sm);
+  }
+
+  .tracking-xs {
+    letter-spacing: var(--letter-spacing-xs);
+  }
+
+  /*  BORDER RADIUS */
+  .rounded-xs {
+    border-radius: var(--radius-xs);
+  }
+  .rounded-sm {
+    border-radius: var(--radius-sm);
+  }
+  .rounded-md {
+    border-radius: var(--radius-md);
+  }
+  .rounded-lg {
+    border-radius: var(--radius-lg);
+  }
+  .rounded-full {
+    border-radius: var(--radius-full);
+  }
+
+  .shadow-md {
+    box-shadow: var(--box-shadow);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-container) 100%
+    );
   }
 }
 

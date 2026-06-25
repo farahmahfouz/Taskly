@@ -1,0 +1,19 @@
+<div [class.has-error]="hasError">
+  <label class="control-label block uppercase font-weight-display-lg text-label-sm mb-1">
+    {{ label }}
+  </label>
+
+  <div class="input-wrapper">
+    <ng-content select="input, div" />
+
+    <button *ngIf="isPassword" type="button" class="toggle-btn" (click)="toggleVisibility()">
+      <app-show-password *ngIf="!isVisible" />
+      <app-hide-password *ngIf="isVisible" />
+    </button>
+    <div class="error-message" *ngIf="hasError">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <ng-content select="small, p" />
+</div>

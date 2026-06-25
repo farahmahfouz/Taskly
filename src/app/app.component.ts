@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { DashboardIconComponent } from './shared/icons';
+import { RouterOutlet } from '@angular/router';
+import { LogoComponent } from "./shared/components/logo/logo.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DashboardIconComponent],
+  imports: [RouterOutlet, LogoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
