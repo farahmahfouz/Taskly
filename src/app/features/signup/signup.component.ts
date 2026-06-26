@@ -12,12 +12,12 @@ import { FormLayoutComponent } from '../../shared/components/form-layout/form-la
 import { PasswordHintsComponent } from '../../shared/components/password-hints/password-hints.component';
 import { SignUpRequest } from './signup';
 import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ControlComponent, ReactiveFormsModule, FormLayoutComponent, PasswordHintsComponent],
+  imports: [ControlComponent, ReactiveFormsModule, FormLayoutComponent, PasswordHintsComponent, RouterLink],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })

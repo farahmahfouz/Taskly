@@ -1,7 +1,7 @@
 <app-form-layout title="Welcome Back" description="Please enter your details to access your workspace">
-  <form >
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="flex flex-col gap-6">
-      <app-control label="Email">
+      <app-control label="Email" [errorMessage]="getError('email')">
         <input
           type="email"
           placeholder="yourname@company.com"
@@ -10,7 +10,7 @@
           class="input"
         />
       </app-control>
-      <app-control label="Password" [isPassword]="true" #passControl>
+      <app-control label="Password" [isPassword]="true" #passControl [errorMessage]="getError('password')">
         <input
           #passwordInput
           [type]="passControl.isVisible ? 'text' : 'password'"
@@ -19,12 +19,23 @@
           autocomplete="new-password"
           class="input"
         />
+      @if (errorMessage) {
+        <p class="text-error text-xs text-start pt-1">{{ errorMessage }}</p>
+      }
       </app-control>
+      <div class="flex justify-between">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 cursor-pointer accent-gray-800" formControlName="rememberMe" />
+          <span class="text-xs weight-medium leading-xs text-[#434654]">Remember Me</span>
+        </label>
+
+        <p class="text-primary text-xs weight-medium leading-xs">Forgot Password?</p>
+      </div>
       <button class="btn btn-primary">Log in</button>
     </div>
   </form>
-  <div class="pt-8 flex gap-1 justify-center">
+  <div class="pt-8 flex gap-1 justify-center mt-auto">
     <span class="text-neutral-mid text-xs weight-regular leading-xs">Don't have an account? </span>
-    <span class="text-primary text-xs weight-semibold leading-xs">Sign Up</span>
+    <a class="text-primary text-xs weight-semibold leading-xs" routerLink="/signup">Sign Up</a>
   </div>
 </app-form-layout>
