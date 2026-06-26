@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-// signup.component.ts
 import { passwordValidator, isMatchPw } from '../../core/utils/password.validator';
 
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,

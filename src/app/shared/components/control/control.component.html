@@ -1,6 +1,10 @@
 <div [class.has-error]="hasError">
-  <label class="control-label block uppercase font-weight-display-lg text-label-sm mb-1">
+  <label class="control-label block uppercase weight-bold text-2xs mb-1">
     {{ label }}
+
+    @if (optional) {
+      <span class="text-[#737685]">(Optional)</span>
+    }
   </label>
 
   <div class="input-wrapper">

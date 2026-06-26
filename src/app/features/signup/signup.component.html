@@ -14,7 +14,7 @@
           autocomplete="name"
           class="input"
         />
-        <p class="hidden md:block text-label-sm text-neutral-light mt-2">3-50 characters, letters only.</p>
+        <p class="hidden md:block text-2xs text-neutral-light mt-2">3-50 characters, letters only.</p>
       </app-control>
       <app-control label="Email" [errorMessage]="getError('email')">
         <input
@@ -25,7 +25,7 @@
           class="input"
         />
       </app-control>
-      <app-control label="Job Title (Optional)">
+      <app-control label="Job Title" [optional]="true">
         <input
           type="text"
           placeholder="e.g. Project Manager"
@@ -60,7 +60,7 @@
     </div>
   </form>
   <div class="pt-8 flex gap-1 justify-center">
-    <span class="text-neutral-mid text-body-md font-weight-body-md leading-body-sm">Already have an account?</span>
-    <span class="text-primary text-body-md font-weight-headline-lg leading-body-sm">Log in</span>
+    <span class="text-neutral-mid text-xs weight-regular leading-xs">Already have an account?</span>
+    <span class="text-primary text-xs weight-semibold leading-xs">Log in</span>
   </div>
 </app-form-layout>

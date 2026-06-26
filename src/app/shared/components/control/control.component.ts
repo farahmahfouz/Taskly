@@ -13,6 +13,7 @@ import { HidePasswordComponent } from '../../icons/hide-password.component';
 })
 export class ControlComponent {
   @Input({ required: true }) label!: string;
+  @Input() optional = false;
   @Input() errorMessage = '';
   @Input() isPassword = false;
 
