@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 export class FormLayoutComponent {
   @Input({ required: true }) title!: string;
   @Input({ required: true }) description!: string;
+  @Input() mobileDescription = '';
 }
