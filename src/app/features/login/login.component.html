@@ -1,0 +1,30 @@
+<app-form-layout title="Welcome Back" description="Please enter your details to access your workspace">
+  <form >
+    <div class="flex flex-col gap-6">
+      <app-control label="Email">
+        <input
+          type="email"
+          placeholder="yourname@company.com"
+          formControlName="email"
+          autocomplete="email"
+          class="input"
+        />
+      </app-control>
+      <app-control label="Password" [isPassword]="true" #passControl>
+        <input
+          #passwordInput
+          [type]="passControl.isVisible ? 'text' : 'password'"
+          placeholder="Password"
+          formControlName="password"
+          autocomplete="new-password"
+          class="input"
+        />
+      </app-control>
+      <button class="btn btn-primary">Log in</button>
+    </div>
+  </form>
+  <div class="pt-8 flex gap-1 justify-center">
+    <span class="text-neutral-mid text-xs weight-regular leading-xs">Don't have an account? </span>
+    <span class="text-primary text-xs weight-semibold leading-xs">Sign Up</span>
+  </div>
+</app-form-layout>
