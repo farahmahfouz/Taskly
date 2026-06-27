@@ -16,6 +16,7 @@ body {
   --color-surface-highest: #d7e2ff;
   --color-surface-low: #f1f3ff;
   --color-background: #f9f9ff;
+  --color-white: #FFFFFF;
 
   /* Slate Neutrals */
   --color-neutral-dark: #041b3c;
@@ -145,6 +146,9 @@ body {
   }
   .bg-warning {
     background-color: var(--color-warning);
+  }
+  .bg-white {
+    background-color: var(--color-white);
   }
 
   /* COLORS — Text */
