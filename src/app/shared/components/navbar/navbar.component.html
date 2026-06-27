@@ -1,3 +1,7 @@
-<nav class="flex items-center justify-end w-full px-6 py-4 bg-transparent border-b border-neutral-light">
-  <p class="text-neutral-dark weight-medium">Farah Mahfouz</p>
+<nav class="flex items-center justify-end gap-4 w-full px-6 py-3 bg-transparent border-b border-neutral-light">
+  <div class="flex flex-col gap-1 items-end">
+    <span class="text-xs text-neutral-dark weight-semibold">{{ user?.name }}</span>
+    <span class="text-xs text-primary weight-bold">{{ user?.department }}</span>
+  </div>
+  <div class="bg-primary-container rounded-sm w-10 h-10 text-white flex items-center justify-center">{{ userInitial }}</div>
 </nav>

@@ -3,6 +3,7 @@ import { SignupComponent } from './features/signup/signup.component';
 import { ProjectComponent } from './features/project/project.component';
 import { LoginComponent } from './features/login/login.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { authGuard } from './core/Guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -27,7 +28,8 @@ export const routes: Routes = [
       {
         path: 'project',
         component: ProjectComponent,
-        title: 'Project'
+        title: 'Project',
+        canActivate: [authGuard]
       }
     ]
   },

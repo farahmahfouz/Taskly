@@ -64,7 +64,9 @@ export class LoginComponent {
           const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
           localStorage.setItem('session_expiry', String(expiry));
         }
-        this.router.navigate(['/project']);
+        this.authService.getUser().subscribe(() => {
+          this.router.navigate(['/project']);
+        });
       },
       error: err => {
         if (err.error?.error_code === 'invalid_credentials') {
