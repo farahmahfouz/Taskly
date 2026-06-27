@@ -1,9 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { DetailsComponent, EpicsComponent, MembersComponent, ProjectsComponent, TasksComponent, CollapseOpenIconComponent } from '../../icons/index';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  DetailsComponent,
+  EpicsComponent,
+  MembersComponent,
+  ProjectsComponent,
+  TasksComponent,
+  CollapseOpenIconComponent,
+} from '../../icons/index';
 import { NgComponentOutlet } from '@angular/common';
 import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,14 +22,16 @@ import { LogoutIconComponent } from '../../icons/logout-icon.component';
     NgComponentOutlet,
     CollapseIconComponent,
     LogoutIconComponent,
-    CollapseOpenIconComponent
-],
+    CollapseOpenIconComponent,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
   @Output() collapsedChange = new EventEmitter<boolean>();
-  
+
   navItems = [
     { label: 'Projects', route: '/project', icon: ProjectsComponent },
     { label: 'Project Epics', route: '/epics', icon: EpicsComponent },
@@ -36,5 +46,19 @@ export class SidebarComponent {
     this.collapsed = !this.collapsed;
     this.collapsedChange.emit(this.collapsed);
   }
-  
+
+  logout(event: MouseEvent) {
+    event.stopPropagation();
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        console.log('Logout failed, please try again.');
+      },
+    });
+  }
 }

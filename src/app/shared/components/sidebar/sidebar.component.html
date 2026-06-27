@@ -59,7 +59,7 @@
     <div
       class="flex gap-2 p-2 text-error cursor-pointer justify-center"
       [class.lg:justify-start]="!collapsed"
-      (click)="toggleSidebar()"
+      (click)="logout($event)"
     >
       <app-logout-icon />
       @if (!collapsed) {

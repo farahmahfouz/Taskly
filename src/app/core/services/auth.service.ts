@@ -52,4 +52,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('access_token');
   }
+
+  logout(){
+    return this.http.post('/auth/v1/logout', {})
+  }
 }

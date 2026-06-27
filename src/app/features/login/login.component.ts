@@ -55,7 +55,6 @@ export class LoginComponent {
 
     this.authService.login(body).subscribe({
       next: res => {
-        console.log(res);
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem('access_token', res.access_token);
         storage.setItem('refresh_token', res.refresh_token);
