@@ -8,7 +8,6 @@ body {
   background-color: var(--color-background);
 }
 
-
 @theme {
   /* Action Blue & Tonal Range */
   --color-primary: #003d9b;
@@ -16,7 +15,7 @@ body {
   --color-surface-highest: #d7e2ff;
   --color-surface-low: #f1f3ff;
   --color-background: #f9f9ff;
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
 
   /* Slate Neutrals */
   --color-neutral-dark: #041b3c;
@@ -83,7 +82,7 @@ body {
     cursor: pointer;
     border: none;
     outline: none;
-    transition: opacity 0.15s;
+    transition: opacity 0.3s ease;
     box-shadow: 0px 1px 2px 0px #0000000d;
   }
 
@@ -94,6 +93,10 @@ body {
       var(--color-primary-container) 100%
     );
     color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
   }
 
   .btn-secondary {
@@ -113,7 +116,7 @@ body {
     opacity: 0.6;
   }
 
-   /* COLORS — Background */
+  /* COLORS — Background */
   .bg-primary {
     background-color: var(--color-primary);
   }
