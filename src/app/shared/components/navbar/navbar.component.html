@@ -1,7 +1,21 @@
-<nav class="flex items-center justify-end gap-4 w-full px-6 py-3 bg-transparent border-b border-neutral-light">
-  <div class="flex flex-col gap-1 items-end">
-    <span class="text-xs text-neutral-dark weight-semibold">{{ user?.name }}</span>
-    <span class="text-xs text-primary weight-bold">{{ user?.department }}</span>
+<nav class="flex items-center justify-between w-full px-6 py-3 bg-transparent border-b border-neutral-light">
+  <button class="md:hidden cursor-pointer flex items-center gap-4"  (click)="openMenu()">
+    <app-menu-icon />
+    <p class="uppercase text-neutral-dark weight-bold leading-lg text-base">taskly</p>
+  </button>
+
+  <div class="flex items-center gap-4 ml-auto">
+    <div class="flex flex-col items-end">
+      <span class="text-xs text-neutral-dark weight-semibold hidden md:block">
+        {{ user?.name }}
+      </span>
+      <span class="text-xs text-primary weight-bold hidden md:block">
+        {{ user?.department }}
+      </span>
+    </div>
+
+    <div class="bg-primary-container rounded-sm w-10 h-10 text-white flex items-center justify-center">
+      {{ userInitial }}
+    </div>
   </div>
-  <div class="bg-primary-container rounded-sm w-10 h-10 text-white flex items-center justify-center">{{ userInitial }}</div>
 </nav>

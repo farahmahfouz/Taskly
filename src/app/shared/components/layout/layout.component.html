@@ -1,8 +1,15 @@
 <div class="layout" [class.collapsed]="isCollapsed">
-  <app-sidebar (collapsedChange)="isCollapsed = $event"/>
+  <app-sidebar
+    (collapsedChange)="isCollapsed = $event"
+    [mobileOpen]="isMobileOpen"
+    (mobileOpenChange)="isMobileOpen = $event"
+  />
+  @if (isMobileOpen) {
+    <div class="fixed inset-0 bg-[#041B3C66] blur-xs z-40 md:hidden" (click)="isMobileOpen = false"></div>
+  }
 
   <div class="main">
-    <app-navbar></app-navbar>
+    <app-navbar (menuClick)="toggleMobileSidebar()" />
 
     <main class="main-content">
       <router-outlet></router-outlet>

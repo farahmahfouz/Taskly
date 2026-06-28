@@ -1,10 +1,11 @@
 <aside
-  class="sidebar fixed top-0 left-0 min-h-screen bg-surface-low flex flex-col gap-2 p-4 items-center justify-between text-xs text-neutral-dark weight-medium leading-xs"
+  class="sidebar fixed top-0 left-0 min-h-screen bg-surface-low flex-col gap-2 p-4 items-center justify-between text-xs text-neutral-dark weight-medium leading-xs flex"
   [class.collapsed]="collapsed"
+  [class.mobile-open]="mobileOpen"
 >
   <div>
     <div
-      class="h-17 w-full flex items-center justify-center lg:justify-start"
+      class="h-17 w-full gap-2 flex items-center justify-start"
       [class.lg:justify-center]="collapsed"
       [class.lg:justify-start]="!collapsed"
       [class.lg:px-2]="!collapsed"
@@ -18,25 +19,25 @@
       </svg>
 
       @if (!collapsed) {
-        <p class="uppercase text-neutral-dark weight-bold leading-lg text-base hidden lg:block">taskly</p>
+        <p class="uppercase text-neutral-dark weight-bold leading-lg text-base">taskly</p>
       }
     </div>
 
     <ul
-      class="flex flex-col gap-1 outline-none w-full items-center lg:items-stretch"
+      class="flex flex-col gap-1 outline-none w-full"
       [class.w-56]="!collapsed"
       [class.w-full]="collapsed"
     >
       @for (item of navItems; track item.route) {
         <li>
           <a
-            class="flex items-center justify-center lg:justify-start gap-0 lg:gap-2 rounded-xs py-3 px-2 lg:px-3 transition hover:bg-white"
+            class="flex items-center justify-start gap-2 rounded-xs py-3 px-2 lg:px-3 transition hover:bg-white font-medium"
             [routerLink]="item.route"
-            routerLinkActive="bg-white font-medium text-primary"
+            routerLinkActive="bg-white  text-primary"
           >
             <ng-container [ngComponentOutlet]="item.icon" />
             @if (!collapsed) {
-              <span class="hidden lg:inline">{{ item.label }}</span>
+              <span >{{ item.label }}</span>
             }
           </a>
         </li>
@@ -45,7 +46,7 @@
   </div>
   <div class="flex flex-col gap-3 w-full">
     <div
-      class="flex gap-2 p-2 cursor-pointer justify-center"
+      class=" gap-2 p-2 cursor-pointer justify-center hidden md:flex"
       [class.lg:justify-start]="!collapsed"
       (click)="toggleSidebar()"
     >
@@ -57,13 +58,13 @@
       }
     </div>
     <div
-      class="flex gap-2 p-2 text-error cursor-pointer justify-center"
+      class="flex gap-2 p-2 text-error cursor-pointer justify-start md:justify-center"
       [class.lg:justify-start]="!collapsed"
       (click)="logout($event)"
     >
       <app-logout-icon />
       @if (!collapsed) {
-        <span class="hidden lg:block">Logout</span>
+        <span>Logout</span>
       }
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   DetailsComponent,
@@ -30,6 +30,9 @@ import { AuthService } from '../../../core/services/auth.service';
 export class SidebarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  @Input() mobileOpen = false;
+  @Output() mobileOpenChange = new EventEmitter<boolean>();
   @Output() collapsedChange = new EventEmitter<boolean>();
 
   navItems = [
@@ -45,6 +48,11 @@ export class SidebarComponent {
   toggleSidebar() {
     this.collapsed = !this.collapsed;
     this.collapsedChange.emit(this.collapsed);
+  }
+
+  closeSidebar() {
+    this.mobileOpen = false;
+    this.mobileOpenChange.emit(false);
   }
 
   logout(event: MouseEvent) {

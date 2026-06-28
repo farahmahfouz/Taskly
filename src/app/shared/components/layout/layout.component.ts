@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,8 +8,13 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [SidebarComponent, NavbarComponent, RouterOutlet],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrl: './layout.component.css',
 })
 export class LayoutComponent {
-  isCollapsed = false
+  isCollapsed = false;
+  isMobileOpen = false;
+
+  toggleMobileSidebar() {
+    this.isMobileOpen = !this.isMobileOpen;
+  }
 }

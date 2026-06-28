@@ -1,5 +1,6 @@
 .sidebar {
   width: 256px;
+  z-index: 9999;
   transition: width 0.3s ease;
 }
 
@@ -7,8 +8,13 @@
   width: 80px;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .sidebar {
-    width: 80px;
+    transform: translateX(-100%);
+    transition: transform .3s;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
   }
 }
