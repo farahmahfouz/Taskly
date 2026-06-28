@@ -4,6 +4,7 @@ import { ProjectComponent } from './features/project/project.component';
 import { LoginComponent } from './features/login/login.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { authGuard } from './core/Guards/auth.guard';
+import { DetailsComponent, EpicsComponent, MembersComponent, TasksComponent } from './shared/icons';
 
 export const routes: Routes = [
   {
@@ -29,8 +30,28 @@ export const routes: Routes = [
         path: 'project',
         component: ProjectComponent,
         title: 'Project',
-        canActivate: [authGuard]
-      }
-    ]
+      },
+      {
+        path: 'tasks',
+        component: TasksComponent,
+        title: 'Tasks'
+      },
+      {
+        path: 'members',
+        component: MembersComponent,
+        title: 'Members'
+      },
+      {
+        path: 'epics',
+        component: EpicsComponent,
+        title: 'Epics'
+      },
+      {
+        path: 'details',
+        component: DetailsComponent,
+        title: 'Details'
+      },
+    ],
+    canActivate: [authGuard]
   },
 ];
