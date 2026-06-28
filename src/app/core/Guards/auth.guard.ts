@@ -7,6 +7,12 @@ export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
+  const expiry = localStorage.getItem('session_expiry');
+  if (expiry && Date.now() > Number(expiry)) {
+    localStorage.clear();
+    return router.createUrlTree(['/login']);
+  }
+
   if (auth.getCurrentUser()) {
     return true;
   }
@@ -14,8 +20,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   return auth.getUser().pipe(
     map(() => true),
     catchError(() => {
-      router.navigate(['/login']);
-      return of(false);
-    })
+      return of(router.createUrlTree(['/login']));
+    }),
   );
 };

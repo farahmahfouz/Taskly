@@ -63,8 +63,11 @@ export class LoginComponent {
 
         if (rememberMe) {
           const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
-          localStorage.setItem('session_expiry', String(expiry));
+          localStorage.setItem('session_expiry', expiry.toString());
+        } else {
+          localStorage.removeItem('session_expiry');
         }
+        
         this.authService.getUser().subscribe(() => {
           this.router.navigate(['/project']);
         });
