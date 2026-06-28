@@ -1,18 +1,24 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService, CurrentUser } from '../../../core/services/auth.service';
-import { MenuIconComponent } from "../../icons/Menu-icon.component";
+import { MenuIconComponent } from '../../icons/Menu-icon.component';
+import { LogoutIconComponent } from '../../icons/logout-icon.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenuIconComponent],
+  imports: [MenuIconComponent, LogoutIconComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
   user: CurrentUser | null = null;
   userInitial: string = '?';
+  openDropdownMenu = false;
 
   @Output() menuClick = new EventEmitter<void>();
 
@@ -27,11 +33,30 @@ export class NavbarComponent implements OnInit {
 
   getInitials(name: string): string {
     const words = name.trim().split(' ');
-    if (words.length === 1) return words[0].substring(0, 2).toUpperCase(); 
-    return (words[0][0] + words[1][0]).toUpperCase(); 
+    if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+    return (words[0][0] + words[1][0]).toUpperCase();
   }
 
-   openMenu() {
+  openMenu() {
     this.menuClick.emit();
+  }
+
+  openDropDown() {
+    this.openDropdownMenu = !this.openDropdownMenu;
+  }
+
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        console.log('Logout failed, please try again.');
+      },
+    });
   }
 }

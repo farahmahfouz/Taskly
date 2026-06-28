@@ -113,7 +113,7 @@ body {
     opacity: 0.6;
   }
 
-  /* COLORS — Background */
+   /* COLORS — Background */
   .bg-primary {
     background-color: var(--color-primary);
   }
