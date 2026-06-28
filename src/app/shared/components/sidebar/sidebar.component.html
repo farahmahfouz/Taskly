@@ -18,14 +18,14 @@
         />
       </svg>
 
-      @if (!collapsed) {
+      @if (isMobile || !collapsed) {
         <p class="uppercase text-neutral-dark weight-bold leading-lg text-base">taskly</p>
       }
     </div>
 
     <ul
       class="flex flex-col gap-1 outline-none w-full"
-      [class.w-56]="!collapsed"
+      [class.w-56]="isMobile || !collapsed"
       [class.w-full]="collapsed"
     >
       @for (item of navItems; track item.route) {
@@ -36,7 +36,7 @@
             routerLinkActive="bg-white  text-primary"
           >
             <ng-container [ngComponentOutlet]="item.icon" />
-            @if (!collapsed) {
+            @if (isMobile || !collapsed) {
               <span >{{ item.label }}</span>
             }
           </a>
@@ -50,7 +50,7 @@
       [class.lg:justify-start]="!collapsed"
       (click)="toggleSidebar()"
     >
-      @if (!collapsed) {
+      @if (isMobile || !collapsed) {
         <app-collapse-icon />
         <span class="hidden lg:block">Collapse</span>
       } @else {
@@ -63,7 +63,7 @@
       (click)="logout($event)"
     >
       <app-logout-icon />
-      @if (!collapsed) {
+      @if (isMobile || !collapsed) {
         <span>Logout</span>
       }
     </div>

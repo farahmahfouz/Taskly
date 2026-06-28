@@ -12,6 +12,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { AuthService } from '../../../core/services/auth.service';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -44,6 +45,16 @@ export class SidebarComponent {
   ];
 
   collapsed = false;
+  isMobile = window.innerWidth < 768;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
+    if (this.isMobile) {
+    this.collapsed = false;
+    this.collapsedChange.emit(false);
+  }
+  }
 
   toggleSidebar() {
     this.collapsed = !this.collapsed;
