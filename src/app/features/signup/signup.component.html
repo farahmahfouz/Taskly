@@ -56,7 +56,13 @@
         </app-control>
       </div>
       <app-password-hints [hints]="hints" />
-      <button class="btn btn-primary">Create Account</button>
+      <button class="btn btn-primary">
+        @if (isLoading) {
+          <span>Loading...</span>
+        } @else {
+          <span>Create Account</span>
+        }
+      </button>
     </div>
   </form>
   <div class="pt-8 flex gap-1 justify-center">

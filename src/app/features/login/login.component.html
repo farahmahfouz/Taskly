@@ -19,9 +19,9 @@
           autocomplete="new-password"
           class="input"
         />
-      @if (errorMessage) {
-        <p class="text-error text-xs text-start pt-1">{{ errorMessage }}</p>
-      }
+        @if (errorMessage) {
+          <p class="text-error text-xs text-start pt-1">{{ errorMessage }}</p>
+        }
       </app-control>
       <div class="flex justify-between">
         <label class="flex items-center gap-2 cursor-pointer">
@@ -31,7 +31,13 @@
 
         <p class="text-primary text-xs weight-medium leading-xs">Forgot Password?</p>
       </div>
-      <button class="btn btn-primary">Log in</button>
+      <button class="btn btn-primary">
+        @if (isLoading) {
+          <span>Loading...</span>
+        } @else {
+          <span>Log in</span>
+        }
+      </button>
     </div>
   </form>
   <div class="pt-8 flex gap-1 justify-center mt-auto md:mt-0">

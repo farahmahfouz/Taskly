@@ -23,6 +23,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class SignupComponent {
   constructor(private authService: AuthService, private router: Router) {}
+  isLoading = false;
+
   form = new FormGroup(
     {
       name: new FormControl('', [
@@ -125,9 +127,11 @@ export class SignupComponent {
 
     this.authService.signUp(body).subscribe({
       next: res => {
+        this.isLoading = true;
         this.router.navigate(['/project'])
       },
       error: err => {
+        this.isLoading = false;
         console.log(err.error.message);
       },
     });

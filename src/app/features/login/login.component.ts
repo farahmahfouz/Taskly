@@ -20,6 +20,7 @@ export class LoginComponent {
   ) {}
 
   errorMessage = '';
+  isLoading = false;
 
   loginForm = new FormGroup({
     email: new FormControl('test666@gmail.com', [Validators.required, Validators.email]),
@@ -55,6 +56,7 @@ export class LoginComponent {
 
     this.authService.login(body).subscribe({
       next: res => {
+        this.isLoading = true;
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem('access_token', res.access_token);
         storage.setItem('refresh_token', res.refresh_token);
@@ -68,6 +70,7 @@ export class LoginComponent {
         });
       },
       error: err => {
+        this.isLoading = false;
         if (err.error?.error_code === 'invalid_credentials') {
           this.errorMessage = 'Invalid email or password';
         }
