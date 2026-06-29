@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService, CurrentUser } from '../../../core/services/auth.service';
 import { MenuIconComponent } from '../../icons/Menu-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private destroyRef: DestroyRef,
   ) {}
   user: CurrentUser | null = null;
   userInitial: string = '?';
@@ -23,7 +25,7 @@ export class NavbarComponent implements OnInit {
   @Output() menuClick = new EventEmitter<void>();
 
   ngOnInit() {
-    this.authService.currentUser$.subscribe(user => {
+    this.authService.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
       if (user?.name) {
         this.userInitial = this.getInitials(user.name);
@@ -44,7 +46,6 @@ export class NavbarComponent implements OnInit {
   openDropDown() {
     this.openDropdownMenu = !this.openDropdownMenu;
   }
-
 
   logout() {
     this.authService.logout().subscribe({
