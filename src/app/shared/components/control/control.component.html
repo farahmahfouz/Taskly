@@ -10,13 +10,20 @@
   <div class="input-wrapper">
     <ng-content select="input, div" />
 
-    <button *ngIf="isPassword" type="button" class="toggle-btn" (click)="toggleVisibility()">
-      <app-show-password *ngIf="!isVisible" />
-      <app-hide-password *ngIf="isVisible" />
-    </button>
-    <div class="error-message" *ngIf="hasError">
-      {{ errorMessage }}
-    </div>
+    @if (isPassword) {
+      <button type="button" class="toggle-btn" (click)="toggleVisibility()">
+        @if (isVisible) {
+          <app-hide-password />
+        } @else {
+          <app-show-password />
+        }
+      </button>
+    }
+    @if (hasError) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
   </div>
 
   <ng-content select="small, p" />
