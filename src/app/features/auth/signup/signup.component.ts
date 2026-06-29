@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { passwordValidator, isMatchPw } from '../../core/utils/password.validator';
+import { passwordValidator, isMatchPw } from '../../../core/utils/password.validator';
 
 import {
   FormControl,
@@ -7,11 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ControlComponent } from '../../shared/components/control/control.component';
-import { FormLayoutComponent } from '../../shared/components/form-layout/form-layout.component';
-import { PasswordHintsComponent } from '../../shared/components/password-hints/password-hints.component';
+import { ControlComponent } from '../../../shared/components/control/control.component';
+import { FormLayoutComponent } from '../components/form-layout/form-layout.component';
+import { PasswordHintsComponent } from '../components/password-hints/password-hints.component';
 import { SignUpRequest } from './signup';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({

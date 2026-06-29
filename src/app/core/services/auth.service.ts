@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignUpRequest } from '../../features/signup/signup';
-import { LoginRequest, LoginResponse } from '../../features/login/login';
+import { SignUpRequest } from '../../features/auth/signup/signup';
+import { LoginRequest, LoginResponse } from '../../features/auth/login/login';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API, STORAGE_KEYS } from '../utils/constants';
 

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormLayoutComponent } from '../../shared/components/form-layout/form-layout.component';
-import { ControlComponent } from '../../shared/components/control/control.component';
+import { FormLayoutComponent } from '../components/form-layout/form-layout.component';
+import { ControlComponent } from '../../../shared/components/control/control.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
-import { AuthService } from '../../core/services/auth.service';
-import { STORAGE_KEYS } from '../../core/utils/constants';
+import { AuthService } from '../../../core/services/auth.service';
+import { STORAGE_KEYS } from '../../../core/utils/constants';
 
 @Component({
   selector: 'app-login',

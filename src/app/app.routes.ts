@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { SignupComponent } from './features/signup/signup.component';
+import { SignupComponent } from './features/auth/signup/signup.component';
 import { ProjectComponent } from './features/project/project.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/auth/login/login.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { authGuard } from './core/Guards/auth.guard';
 import { DetailsComponent, EpicsComponent, MembersComponent, TasksComponent } from './shared/icons';
