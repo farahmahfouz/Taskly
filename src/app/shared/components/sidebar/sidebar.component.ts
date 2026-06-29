@@ -13,6 +13,7 @@ import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { AuthService } from '../../../core/services/auth.service';
 import { HostListener } from '@angular/core';
+import { STORAGE_KEYS } from '../../../core/utils/constants';
 
 @Component({
   selector: 'app-sidebar',
@@ -70,8 +71,8 @@ export class SidebarComponent {
     event.stopPropagation();
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
 
         this.router.navigate(['/login']);
       },

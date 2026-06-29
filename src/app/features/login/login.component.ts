@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
 import { AuthService } from '../../core/services/auth.service';
+import { STORAGE_KEYS } from '../../core/utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -58,14 +59,14 @@ export class LoginComponent {
       next: res => {
         this.isLoading = true;
         const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem('access_token', res.access_token);
-        storage.setItem('refresh_token', res.refresh_token);
+        storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
+        storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
 
         if (rememberMe) {
           const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
-          localStorage.setItem('session_expiry', expiry.toString());
+          localStorage.setItem(STORAGE_KEYS.SESSION_EXPIRY, expiry.toString());
         } else {
-          localStorage.removeItem('session_expiry');
+          localStorage.removeItem(STORAGE_KEYS.SESSION_EXPIRY);
         }
         
         this.authService.getUser().subscribe(() => {

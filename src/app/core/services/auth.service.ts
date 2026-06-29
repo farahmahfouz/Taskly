@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SignUpRequest } from '../../features/signup/signup';
 import { LoginRequest, LoginResponse } from '../../features/login/login';
 import { BehaviorSubject, tap } from 'rxjs';
-import { API } from '../utils/api.constants';
+import { API, STORAGE_KEYS } from '../utils/constants';
 
 export interface CurrentUser {
   id: string;
@@ -27,7 +27,7 @@ export class AuthService {
   login(body: LoginRequest) {
     return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
       tap((res: any) => {
-        localStorage.setItem('access_token', res.access_token);
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
       }),
     );
   }
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('access_token');
+    return !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
   }
 
   logout(){

@@ -4,6 +4,7 @@ import { MenuIconComponent } from '../../icons/Menu-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { STORAGE_KEYS } from '../../../core/utils/constants';
 
 @Component({
   selector: 'app-navbar',
@@ -50,8 +51,8 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
 
         this.router.navigate(['/login']);
       },
