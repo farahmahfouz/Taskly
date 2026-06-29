@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SignUpRequest } from '../../features/signup/signup';
 import { LoginRequest, LoginResponse } from '../../features/login/login';
 import { BehaviorSubject, tap } from 'rxjs';
+import { API } from '../utils/api.constants';
 
 export interface CurrentUser {
   id: string;
@@ -20,11 +21,11 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   signUp(body: SignUpRequest) {
-    return this.http.post('/auth/v1/signup', body);
+    return this.http.post(`${API.AUTH}/signup`, body);
   }
 
   login(body: LoginRequest) {
-    return this.http.post<LoginResponse>('/auth/v1/token?grant_type=password', body).pipe(
+    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
       tap((res: any) => {
         localStorage.setItem('access_token', res.access_token);
       }),
@@ -32,7 +33,7 @@ export class AuthService {
   }
 
   getUser() {
-    return this.http.get<any>('/auth/v1/user').pipe(
+    return this.http.get<any>(`${API.AUTH}/user`).pipe(
       tap(res => {
         const user: CurrentUser = {
           id: res.id,
@@ -54,6 +55,6 @@ export class AuthService {
   }
 
   logout(){
-    return this.http.post('/auth/v1/logout', {})
+    return this.http.post(`${API.AUTH}/logout`, {})
   }
 }
