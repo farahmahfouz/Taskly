@@ -1,31 +1,36 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
-  DetailsComponent,
-  EpicsComponent,
-  MembersComponent,
-  ProjectsComponent,
-  TasksComponent,
   CollapseOpenIconComponent,
+  EpicsIconComponent,
+  ProjectsIconComponent,
+  TasksIconComponent,
 } from '../../icons/index';
-import { NgComponentOutlet } from '@angular/common';
 import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { AuthService } from '../../../core/services/auth.service';
 import { HostListener } from '@angular/core';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
+import { MembersIconComponent } from '../../icons/members-icon.component';
+import { DetailsIconComponent } from '../../icons/details-icon.component';
+import { LogoIconComponent } from "../../icons/logo-icon.component";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
     RouterLink,
+    ProjectsIconComponent,
+    EpicsIconComponent,
+    MembersIconComponent,
+    TasksIconComponent,
+    DetailsIconComponent,
     RouterLinkActive,
-    NgComponentOutlet,
     CollapseIconComponent,
     LogoutIconComponent,
     CollapseOpenIconComponent,
-  ],
+    LogoIconComponent
+],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
@@ -38,11 +43,11 @@ export class SidebarComponent {
   @Output() collapsedChange = new EventEmitter<boolean>();
 
   navItems = [
-    { label: 'Projects', route: '/project', icon: ProjectsComponent },
-    { label: 'Project Epics', route: '/epics', icon: EpicsComponent },
-    { label: 'Project Tasks', route: '/tasks', icon: TasksComponent },
-    { label: 'Project Members', route: '/members', icon: MembersComponent },
-    { label: 'Project Details', route: '/details', icon: DetailsComponent },
+    { label: 'Projects', route: '/project', icon: 'projects' },
+    { label: 'Project Epics', route: '/epics', icon: 'epics' },
+    { label: 'Project Tasks', route: '/tasks', icon: 'tasks' },
+    { label: 'Project Members', route: '/members', icon: 'members' },
+    { label: 'Project Details', route: '/details', icon: 'details' },
   ];
 
   collapsed = false;
@@ -52,9 +57,9 @@ export class SidebarComponent {
   onResize() {
     this.isMobile = window.innerWidth < 768;
     if (this.isMobile) {
-    this.collapsed = false;
-    this.collapsedChange.emit(false);
-  }
+      this.collapsed = false;
+      this.collapsedChange.emit(false);
+    }
   }
 
   toggleSidebar() {

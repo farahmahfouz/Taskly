@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { passwordValidator, isMatchPw } from '../../../core/utils/password.validator';
+import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
+import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
 
 import {
   FormControl,
@@ -8,8 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ControlComponent } from '../../../shared/components/control/control.component';
-import { FormLayoutComponent } from '../components/form-layout/form-layout.component';
-import { PasswordHintsComponent } from '../components/password-hints/password-hints.component';
+
 import { SignUpRequest } from './signup';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';

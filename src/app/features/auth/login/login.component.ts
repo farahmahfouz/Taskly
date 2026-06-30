@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormLayoutComponent } from '../components/form-layout/form-layout.component';
 import { ControlComponent } from '../../../shared/components/control/control.component';
 import { Router, RouterLink } from '@angular/router';
+import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
 import { AuthService } from '../../../core/services/auth.service';

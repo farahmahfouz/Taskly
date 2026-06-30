@@ -1,7 +1,6 @@
 export { ArchitectureIconComponent } from './architecture-icon.component';
-import { MembersComponent } from './members-icon.component';
-import { DetailsComponent } from './details-icon.component';
-export { DashboardIconComponent } from './dashboard-icon.component';
+import { MembersIconComponent } from './members-icon.component';
+import { DetailsIconComponent } from './details-icon.component';
 export { DescriptionIconComponent } from './description-icon.component';
 export { EventIconComponent } from './event-icon.component';
 export { GroupsIconComponent } from './groups-icon.component';
@@ -12,11 +11,10 @@ export { MonitoringIconComponent } from './monitoring-icon.component';
 export { RocketIconComponent } from './rocket-icon.component';
 export { SettingsIconComponent } from './settings-icon.component';
 export { SheildIconComponent } from './sheild-icon.component';
-export { ShowPasswordComponent } from './show-password.component';
-export { ProjectsComponent } from './projects.component';
-export { EpicsComponent } from './epics-icon.component';
-export { TasksComponent } from './tasks-icon.component';
-export { MembersComponent } from './members-icon.component';
-export { DetailsComponent } from './details-icon.component';
+export { ShowPasswordIconComponent } from './show-password.component';
+export { HidePasswordIconComponent } from './hide-password.component';
+export { ProjectsIconComponent } from './projects.component';
+export { EpicsIconComponent } from './epics-icon.component';
+export { TasksIconComponent } from './tasks-icon.component';
 export { CollapseOpenIconComponent } from './collapse-open-icon.component';
 

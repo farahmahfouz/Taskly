@@ -1,11 +1,11 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { ShowPasswordComponent } from '../../icons';
-import { HidePasswordComponent } from '../../icons/hide-password.component';
+import { HidePasswordIconComponent, ShowPasswordIconComponent } from '../../icons';
+
 
 @Component({
   selector: 'app-control',
   standalone: true,
-  imports: [ShowPasswordComponent, HidePasswordComponent],
+  imports: [ShowPasswordIconComponent, HidePasswordIconComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './control.component.html',
   styleUrl: './control.component.css',

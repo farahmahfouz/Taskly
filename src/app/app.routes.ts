@@ -4,7 +4,10 @@ import { ProjectComponent } from './features/project/project.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { authGuard } from './core/Guards/auth.guard';
-import { DetailsComponent, EpicsComponent, MembersComponent, TasksComponent } from './shared/icons';
+import { TasksComponent } from './features/tasks/tasks.component';
+import { MembersComponent } from './features/members/members.component';
+import { EpicsComponent } from './features/epics/epics.component';
+import { DetailsComponent } from './features/details/details.component';
 
 export const routes: Routes = [
   {
