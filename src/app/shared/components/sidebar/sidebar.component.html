@@ -29,6 +29,7 @@
             class="flex items-center justify-start gap-2 rounded-xs py-3 px-2 lg:px-3 transition hover:bg-white font-medium"
             [routerLink]="item.route"
             routerLinkActive="bg-white  text-primary"
+            (click)="closeSidebar()"
           >
             @switch (item.icon) {
               @case ('projects') {
