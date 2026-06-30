@@ -57,7 +57,7 @@
   </div>
   <div class="flex flex-col gap-3 w-full">
     <div
-      class="gap-2 pl-1 p-2 cursor-pointer justify-center hidden md:flex"
+      class="gap-2 pl-1 p-2 cursor-pointer lg:justify-center hidden md:flex"
       [class.lg:justify-start]="!collapsed"
       (click)="toggleSidebar()"
     >
@@ -69,7 +69,7 @@
       }
     </div>
     <div
-      class="flex gap-2 p-2 text-error cursor-pointer justify-start md:justify-center"
+      class="flex gap-2 p-2 text-error cursor-pointer justify-start lg:justify-center"
       [class.lg:justify-start]="!collapsed"
       (click)="logout($event)"
     >
