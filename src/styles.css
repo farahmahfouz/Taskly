@@ -61,11 +61,11 @@ body {
   --tracking-wide: 1.1px;
 
   /* Border Radius */
-  --radius-2xs: 2px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-full: 9999px;
+  --rounded-2xs: 2px;
+  --rounded-xs: 4px;
+  --rounded-sm: 8px;
+  --rounded-md: 16px;
+  --rounded-full: 9999px;
 
   --box-shadow: 0px 24px 48px 0px #041b3c0f;
 }
@@ -116,128 +116,6 @@ body {
     opacity: 0.6;
   }
 
-  /* COLORS — Background */
-  .bg-primary {
-    background-color: var(--color-primary);
-  }
-  .bg-primary-container {
-    background-color: var(--color-primary-container);
-  }
-  .bg-surface-highest {
-    background-color: var(--color-surface-highest);
-  }
-  .bg-surface-low {
-    background-color: var(--color-surface-low);
-  }
-  .bg-background {
-    background-color: var(--color-background);
-  }
-  .bg-neutral-dark {
-    background-color: var(--color-neutral-dark);
-  }
-  .bg-neutral-mid {
-    background-color: var(--color-neutral-mid);
-  }
-  .bg-neutral-light {
-    background-color: var(--color-neutral-light);
-  }
-  .bg-success {
-    background-color: var(--color-success);
-  }
-  .bg-error {
-    background-color: var(--color-error);
-  }
-  .bg-warning {
-    background-color: var(--color-warning);
-  }
-  .bg-white {
-    background-color: var(--color-white);
-  }
-
-  /* COLORS — Text */
-  .text-primary {
-    color: var(--color-primary);
-  }
-  .text-primary-container {
-    color: var(--color-primary-container);
-  }
-  .text-surface-highest {
-    color: var(--color-surface-highest);
-  }
-  .text-surface-low {
-    color: var(--color-surface-low);
-  }
-  .text-neutral-dark {
-    color: var(--color-neutral-dark);
-  }
-  .text-neutral-mid {
-    color: var(--color-neutral-mid);
-  }
-  .text-neutral-light {
-    color: var(--color-neutral-light);
-  }
-  .text-success {
-    color: var(--color-success);
-  }
-  .text-error {
-    color: var(--color-error);
-  }
-  .text-warning {
-    color: var(--color-warning);
-  }
-
-  /* COLORS — Border */
-  .border-primary {
-    border-color: var(--color-primary);
-  }
-  .border-primary-container {
-    border-color: var(--color-primary-container);
-  }
-  .border-surface-highest {
-    border-color: var(--color-surface-highest);
-  }
-  .border-surface-low {
-    border-color: var(--color-surface-low);
-  }
-  .border-neutral-dark {
-    border-color: var(--color-neutral-dark);
-  }
-  .border-neutral-mid {
-    border-color: var(--color-neutral-mid);
-  }
-  .border-neutral-light {
-    border-color: var(--color-neutral-light);
-  }
-  .border-success {
-    border-color: var(--color-success);
-  }
-  .border-error {
-    border-color: var(--color-error);
-  }
-  .border-warning {
-    border-color: var(--color-warning);
-  }
-
-  /* TYPOGRAPHY — Font Size */
-  .text-2xs {
-    font-size: var(--text-2xs);
-  }
-  .text-xs {
-    font-size: var(--text-xs);
-  }
-  .text-sm {
-    font-size: var(--text-sm);
-  }
-  .text-md {
-    font-size: var(--text-md);
-  }
-  .text-lg {
-    font-size: var(--text-lg);
-  }
-  .text-xl {
-    font-size: var(--text-xl);
-  }
-
   /* TYPOGRAPHY — Font Weight */
   .weight-regular {
     font-weight: var(--weight-regular);
@@ -252,57 +130,6 @@ body {
     font-weight: var(--weight-bold);
   }
 
-  /* TYPOGRAPHY — Line Height */
-  .leading-2xs {
-    line-height: var(--leading-2xs);
-  }
-  .leading-xs {
-    line-height: var(--leading-xs);
-  }
-  .leading-sm {
-    line-height: var(--leading-sm);
-  }
-  .leading-md {
-    line-height: var(--leading-md);
-  }
-  .leading-lg {
-    line-height: var(--leading-lg);
-  }
-  .leading-xl {
-    line-height: var(--leading-xl);
-  }
-  .leading-2xl {
-    line-height: var(--leading-2xl);
-  }
-
-  /* TYPOGRAPHY — Letter Spacing */
-  .tracking-tight {
-    letter-spacing: var(--tracking-tight);
-  }
-  .tracking-normal {
-    letter-spacing: var(--tracking-normal);
-  }
-  .tracking-wide {
-    letter-spacing: var(--tracking-wide);
-  }
-
-  /* BORDER RADIUS */
-  .rounded-2xs {
-    border-radius: var(--radius-2xs);
-  }
-  .rounded-xs {
-    border-radius: var(--radius-xs);
-  }
-  .rounded-sm {
-    border-radius: var(--radius-sm);
-  }
-  .rounded-md {
-    border-radius: var(--radius-md);
-  }
-  .rounded-full {
-    border-radius: var(--radius-full);
-  }
-
   .shadow-md {
     box-shadow: var(--box-shadow);
   }
@@ -314,19 +141,4 @@ body {
       var(--color-primary-container) 100%
     );
   }
-}
-
-.icon {
-  color: var(--color-primary);
-  display: inline-flex;
-  align-items: center;
-}
-
-.icon svg {
-  width: 1em;
-  height: 1em;
-}
-
-.icon svg path {
-  fill: currentColor;
 }
