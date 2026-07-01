@@ -25,11 +25,7 @@ export class AuthService {
   }
 
   login(body: LoginRequest) {
-    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
-      tap((res: any) => {
-        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
-      }),
-    );
+    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body);
   }
 
   getUser() {
@@ -46,15 +42,38 @@ export class AuthService {
     );
   }
 
+  refreshToken() {
+    const refreshToken =
+      localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN) ??
+      sessionStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+
+    return this.http
+      .post<any>(`${API.AUTH}/token?grant_type=refresh_token`, {
+        refresh_token: refreshToken,
+      })
+      .pipe(
+        tap(res => {
+          const storage = localStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY)
+            ? localStorage
+            : sessionStorage;
+          storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
+          storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
+        }),
+      );
+  }
+
   getCurrentUser() {
     return this.currentUserSubject.value;
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+    return !!(
+      localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN) ||
+      sessionStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+    );
   }
 
-  logout(){
-    return this.http.post(`${API.AUTH}/logout`, {})
+  logout() {
+    return this.http.post(`${API.AUTH}/logout`, {});
   }
 }

@@ -3,7 +3,7 @@ import { environment } from '../utils/enviroment';
 import { STORAGE_KEYS } from '../utils/constants';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+  const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN) || sessionStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
 
   const apiReq = req.clone({
     url: environment.apiUrl + req.url,
