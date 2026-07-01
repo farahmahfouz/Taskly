@@ -9,7 +9,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ControlComponent } from '../../../shared/components/control/control.component';
 
 import { SignUpRequest } from './signup';
 import { AuthService } from '../../../core/services/auth.service';
