@@ -1,0 +1,46 @@
+<div [class.has-error]="!!errorMessage">
+  <label class="control-label">
+    {{ label }}
+
+    @if (optional) {
+      <span>(Optional)</span>
+    }
+  </label>
+
+  <div class="input-wrapper">
+    <input
+      class="input"
+      [type]="inputType"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      (input)="updateValue($event)"
+      (blur)="onTouched()"
+    />
+
+    @if (showPasswordToggle) {
+      <button type="button" class="toggle-btn" (click)="toggleVisibility()">
+        @if (isVisible) {
+          <svg icon-hide-password class="size-6 text-[#737685]"></svg>
+        } @else {
+          <svg icon-show-password class="size-6 text-[#737685]"></svg>
+        }
+      </button>
+    }
+    @if (errorMessage) {
+      <small class="error-message">
+        {{ errorMessage }}
+      </small>
+    }
+    @if (serverError) {
+      <small class="server-error">
+        {{ serverError }}
+      </small>
+    }
+  </div>
+  @if (hint) {
+    <p class="hidden md:block text-2xs text-neutral-light mt-2">
+      {{ hint }}
+    </p>
+  }
+</div>

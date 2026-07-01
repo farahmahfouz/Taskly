@@ -1,61 +1,59 @@
 <app-form-layout
   title="Create your workspace"
   description="Join the editorial approach to task management."
-  mobileDescription="Join the curated environment for institutional trust
-  and task precision."
+  mobileDescription="Join the curated environment for institutional trust and task precision."
 >
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-6">
-      <app-control label="Name" [errorMessage]="getError('name')">
-        <input
-          type="text"
-          placeholder="Enter Your full name"
-          formControlName="name"
-          autocomplete="name"
-          class="input"
-        />
-        <p class="hidden md:block text-2xs text-neutral-light mt-2">3-50 characters, letters only.</p>
-      </app-control>
-      <app-control label="Email" [errorMessage]="getError('email')">
-        <input
-          type="email"
-          placeholder="yourname@company.com"
-          formControlName="email"
-          autocomplete="email"
-          class="input"
-        />
-      </app-control>
-      <app-control label="Job Title" [optional]="true">
-        <input
-          type="text"
-          placeholder="e.g. Project Manager"
-          formControlName="job_title"
-          class="input"
-          autocomplete="organization-title"
-        />
-      </app-control>
+
+      <app-input
+        label="Name"
+        placeholder="Enter your full name"
+        type="text"
+        formControlName="name"
+        [errorMessage]="getError('name')"
+        hint="3-50 characters, letters only."
+      />
+
+      <app-input
+        label="Email"
+        placeholder="yourname@company.com"
+        type="email"
+        formControlName="email"
+        [errorMessage]="getError('email')"
+      />
+
+      <app-input
+        label="Job Title"
+        placeholder="e.g. Project Manager"
+        type="text"
+        formControlName="job_title"
+        [optional]="true"
+      />
+
       <div class="flex flex-col gap-6 md:flex-row md:justify-between">
-        <app-control label="Password" [errorMessage]="getError('password')" [isPassword]="true" #passControl>
-          <input
-            #passwordInput
-            [type]="passControl.isVisible ? 'text' : 'password'"
-            placeholder="Password"
-            formControlName="password"
-            autocomplete="new-password"
-            class="input"
-          />
-        </app-control>
-        <app-control label="Confirm Password" [errorMessage]="getError('confirmPassword')">
-          <input
-            type="text"
-            placeholder="Repeat your password"
-            formControlName="confirmPassword"
-            class="input"
-            autocomplete="new-password"
-          />
-        </app-control>
+        <app-input
+          class="flex-1"
+          label="Password"
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+          [showPasswordToggle]="true"
+          [errorMessage]="getError('password')"
+        />
+
+        <app-input
+          class="flex-1"
+          label="Confirm Password"
+          placeholder="Repeat your password"
+          type="password"
+          formControlName="confirmPassword"
+          [errorMessage]="getError('confirmPassword')"
+        />
       </div>
+
       <app-password-hints [hints]="hints" />
+
       <button class="btn btn-primary">
         @if (isLoading) {
           <span>Loading...</span>
@@ -63,10 +61,20 @@
           <span>Create Account</span>
         }
       </button>
+
     </div>
   </form>
+
   <div class="pt-8 flex gap-1 justify-center">
-    <span class="text-neutral-mid text-xs weight-regular leading-xs">Already have an account?</span>
-    <a class="text-primary text-xs weight-semibold leading-xs" routerLink="/login">Log in</a>
+    <span class="text-neutral-mid text-xs weight-regular leading-xs">
+      Already have an account?
+    </span>
+
+    <a
+      class="text-primary text-xs weight-semibold leading-xs"
+      routerLink="/login"
+    >
+      Log in
+    </a>
   </div>
 </app-form-layout>

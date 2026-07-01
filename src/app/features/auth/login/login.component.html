@@ -1,28 +1,24 @@
 <app-form-layout title="Welcome Back" description="Please enter your details to access your workspace">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="flex flex-col gap-6">
-      <app-control label="Email" [errorMessage]="getError('email')">
-        <input
-          type="email"
-          placeholder="yourname@company.com"
-          formControlName="email"
-          autocomplete="email"
-          class="input"
-        />
-      </app-control>
-      <app-control label="Password" [isPassword]="true" #passControl [errorMessage]="getError('password')">
-        <input
-          #passwordInput
-          [type]="passControl.isVisible ? 'text' : 'password'"
-          placeholder="Password"
-          formControlName="password"
-          autocomplete="new-password"
-          class="input"
-        />
-        @if (errorMessage) {
-          <p class="text-error text-xs text-start pt-1">{{ errorMessage }}</p>
-        }
-      </app-control>
+      <app-input
+        label="Email"
+        placeholder="yourname@company.com"
+        type="email"
+        formControlName="email"
+        [errorMessage]="getError('email')"
+      />
+
+      <app-input
+        label="Password"
+        placeholder="Password"
+        [showPasswordToggle]="true"
+        type="password"
+        formControlName="password"
+        [errorMessage]="getError('password')"
+        [serverError]="serverError"
+      />
+
       <div class="flex justify-between">
         <label class="flex items-center gap-2 cursor-pointer">
           <input type="checkbox" class="w-4 h-4 cursor-pointer accent-gray-800" formControlName="rememberMe" />

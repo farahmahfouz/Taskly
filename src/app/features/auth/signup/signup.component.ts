@@ -14,11 +14,12 @@ import { ControlComponent } from '../../../shared/components/control/control.com
 import { SignUpRequest } from './signup';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { InputComponent } from "../../../shared/components/input/input.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ControlComponent, ReactiveFormsModule, FormLayoutComponent, PasswordHintsComponent, RouterLink],
+  imports: [ReactiveFormsModule, FormLayoutComponent, PasswordHintsComponent, RouterLink, InputComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
