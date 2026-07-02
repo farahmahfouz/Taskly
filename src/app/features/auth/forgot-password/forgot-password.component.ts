@@ -10,6 +10,7 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Subscription, timer } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,6 +23,7 @@ import { Subscription, timer } from 'rxjs';
     ClockIconComponent,
     CheckCircleIconComponent,
     ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',
