@@ -136,6 +136,23 @@ body {
     box-shadow: var(--box-shadow);
   }
 
+  /* BORDER RADIUS */
+  .rounded-2xs {
+    border-radius: var(--rounded-2xs);
+  }
+  .rounded-xs {
+    border-radius: var(--rounded-xs);
+  }
+  .rounded-sm {
+    border-radius: var(--rounded-sm);
+  }
+  .rounded-md {
+    border-radius: var(--rounded-md);
+  }
+  .rounded-full {
+    border-radius: var(--rounded-full);
+  }
+
   .gradient-primary {
     background: linear-gradient(
       135deg,
