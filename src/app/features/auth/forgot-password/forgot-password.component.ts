@@ -31,6 +31,7 @@ export class ForgotPasswordComponent {
   isMobile = window.innerWidth < 768;
   isLoading = false;
   showSuccess = false;
+  serverError = '';
 
   @HostListener('window:resize')
   onResize() {
@@ -40,6 +41,22 @@ export class ForgotPasswordComponent {
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
+
+  get emailError(): string {
+    const email = this.forgotPasswordForm.get('email');
+
+    if (!email?.touched) return '';
+
+    if (email.hasError('required')) {
+      return 'Email is required';
+    }
+
+    if (email.hasError('email')) {
+      return 'Please enter a valid email address';
+    }
+
+    return '';
+  }
 
   onSubmit() {
     if (this.forgotPasswordForm.invalid) {
@@ -59,10 +76,8 @@ export class ForgotPasswordComponent {
 
         if (err.status === 404) {
           this.showSuccess = true;
-        }
-
-        else {
-          console.log(err)
+        } else {
+          this.serverError = 'Something went wrong. Please try again.';
         }
       },
     });
