@@ -62,6 +62,10 @@ export class AuthService {
       );
   }
 
+  forgotPassword(email: string) {
+    return this.http.post(`${API.AUTH}/recover`, { email });
+  }
+
   getCurrentUser() {
     return this.currentUserSubject.value;
   }
