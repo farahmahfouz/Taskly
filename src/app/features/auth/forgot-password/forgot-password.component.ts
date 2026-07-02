@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../../shared/icons';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,13 +26,20 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnDestroy {
   constructor(private authService: AuthService) {}
 
   isMobile = window.innerWidth < 768;
   isLoading = false;
   showSuccess = false;
   serverError = '';
+
+  remainingSeconds = 300;
+  resendDisabled = true;
+
+  resendTrials = 3;
+
+  private timerSubscription?: Subscription;
 
   @HostListener('window:resize')
   onResize() {
@@ -58,28 +66,80 @@ export class ForgotPasswordComponent {
     return '';
   }
 
+  get formattedTime(): string {
+    const minutes = Math.floor(this.remainingSeconds / 60);
+    const seconds = this.remainingSeconds % 60;
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
   onSubmit() {
     if (this.forgotPasswordForm.invalid) {
       this.forgotPasswordForm.markAllAsTouched();
       return;
     }
 
+    this.serverError = '';
+    this.showSuccess = false;
     this.isLoading = true;
 
     this.authService.forgotPassword(this.forgotPasswordForm.value.email!).subscribe({
       next: () => {
         this.showSuccess = true;
         this.isLoading = false;
+        this.startTimer();
       },
       error: err => {
         this.isLoading = false;
 
         if (err.status === 404) {
           this.showSuccess = true;
+          this.startTimer();
         } else {
           this.serverError = 'Something went wrong. Please try again.';
         }
       },
     });
+  }
+
+  startTimer() {
+    this.remainingSeconds = 300;
+    this.resendDisabled = true;
+
+    this.timerSubscription?.unsubscribe();
+
+    this.timerSubscription = timer(1000, 1000).subscribe(() => {
+      if (this.remainingSeconds > 0) {
+        this.remainingSeconds--;
+      }
+
+      if (this.remainingSeconds === 0) {
+        this.resendDisabled = false;
+        this.timerSubscription?.unsubscribe();
+      }
+    });
+  }
+
+  resend() {
+    if (this.resendDisabled || this.resendTrials === 0) {
+      return;
+    }
+
+    this.resendTrials--;
+
+    this.serverError = '';
+
+    this.authService.forgotPassword(this.forgotPasswordForm.value.email!).subscribe({
+      next: () => {
+        this.startTimer();
+      },
+      error: () => {
+        this.serverError = 'Something went wrong. Please try again.';
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.timerSubscription?.unsubscribe();
   }
 }
