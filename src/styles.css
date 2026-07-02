@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 html,
 body {
   min-height: 100vh;
   margin: 0;
+  font-family: var(--font-sans);
   background-color: var(--color-background);
 }
 
@@ -36,8 +39,10 @@ body {
   /* Typography — Font Size */
   --text-2xs: 0.6875rem; /* 11px — label */
   --text-xs: 0.875rem; /* 14px — body */
+  --text-sm-xs: 1rem; /* 16px */
   --text-sm: 1.125rem; /* 18px — title */
-  --text-base: 1.25rem; /*20px */
+  --text-base: 1.25rem; /* 20px */
+  --text-md-sm: 1.5rem; /* 24px */
   --text-md: 1.875rem; /* 30px — title large */
   --text-lg: 2rem; /* 32px — headline */
   --text-xl: 3.5rem; /* 56px — display */

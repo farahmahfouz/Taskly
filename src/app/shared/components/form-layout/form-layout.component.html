@@ -1,21 +1,81 @@
 <app-logo />
-<div class="pt-4 flex justify-center px-6 md:px-0" [class]="hightClass">
-  <div class="w-full max-w-130 md:shadow-md md:rounded-sm flex flex-col" [ngClass]="[containerClass, contentClass]">
-    <ng-content select="[header]"></ng-content>
 
-    
-    <div class="flex flex-col gap-2 pb-10">
-      <h1 class="text-md weight-bold text-neutral-dark leading-lg tracking-normal" [class]="titleClass">
-        {{ title }}
-      </h1>
+@if (headerOutside) {
+  <!-- Mobile Header -->
+  <div class="pt-4 flex justify-center px-6 md:hidden" [class]="hightClass">
+    <div class="w-full max-w-130">
+      <div class="flex flex-col gap-2">
+        <h1
+          class="text-md-sm weight-semibold text-neutral-dark leading-lg tracking-normal"
+          [class]="titleClass"
+        >
+          {{ title }}
+        </h1>
 
-      <p class="text-xs weight-regular text-neutral-mid leading-xs" [class]="descriptionClass">
-        {{ description }}
-      </p>
-      <p class="block md:hidden text-xs weight-regular text-neutral-mid leading-xs whitespace-pre-line">
-        {{ mobileDescription }}
-      </p>
+        <p
+          class="text-xs weight-regular text-neutral-mid leading-xs"
+          [class]="descriptionClass"
+        >
+          {{ description }}
+        </p>
+
+        <p
+          class="text-xs weight-regular text-neutral-mid leading-xs whitespace-pre-line"
+        >
+          {{ mobileDescription }}
+        </p>
+      </div>
     </div>
+  </div>
+}
+
+<div class="pt-4 flex justify-center px-6 md:px-0" [class]="hightClass">
+  <div
+    class="w-full max-w-130 md:shadow-md md:rounded-sm flex flex-col"
+    [ngClass]="[containerClass, contentClass]"
+  >
+    @if (!headerOutside) {
+      <!-- Default Header (All Screens) -->
+      <div class="flex flex-col gap-2 pb-10">
+        <h1
+          class="text-md weight-bold text-neutral-dark leading-lg tracking-normal"
+          [class]="titleClass"
+        >
+          {{ title }}
+        </h1>
+
+        <p
+          class="text-xs weight-regular text-neutral-mid leading-xs"
+          [class]="descriptionClass"
+        >
+          {{ description }}
+        </p>
+
+        <p
+          class="block md:hidden text-xs weight-regular text-neutral-mid leading-xs whitespace-pre-line"
+        >
+          {{ mobileDescription }}
+        </p>
+      </div>
+    } @else {
+      <!-- Desktop Header -->
+      <div class="hidden md:flex flex-col gap-2 pb-10">
+        <h1
+          class="text-md weight-bold text-neutral-dark leading-lg tracking-normal"
+          [class]="titleClass"
+        >
+          {{ title }}
+        </h1>
+
+        <p
+          class="text-xs weight-regular text-neutral-mid leading-xs"
+          [class]="descriptionClass"
+        >
+          {{ description }}
+        </p>
+      </div>
+    }
+
     <ng-content />
   </div>
 </div>

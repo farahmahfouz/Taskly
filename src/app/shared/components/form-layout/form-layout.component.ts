@@ -25,4 +25,6 @@ export class FormLayoutComponent {
   @Input() mobileDescriptionClass = 'text-start';
 
   @Input() hightClass = 'min-h-[90vh] md:min-h-auto pb-12';
+
+  @Input() headerOutside = false;
 }
