@@ -17,4 +17,8 @@ export { ProjectsIconComponent } from './projects.component';
 export { EpicsIconComponent } from './epics-icon.component';
 export { TasksIconComponent } from './tasks-icon.component';
 export { CollapseOpenIconComponent } from './collapse-open-icon.component';
+export { IconForgotPasswordComponent } from './forgot-password-icon.component';
+export { ArrowBackIconComponent } from './arrow-back-icon.component';
+export { ClockIconComponent } from './clock-icon.component';
+export { CheckCircleIconComponent } from './check-circle-icon.component';
 

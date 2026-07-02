@@ -8,6 +8,7 @@ import { TasksComponent } from './features/tasks/tasks.component';
 import { MembersComponent } from './features/members/members.component';
 import { EpicsComponent } from './features/epics/epics.component';
 import { DetailsComponent } from './features/details/details.component';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,11 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     title: 'Login',
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    title: 'Forgot Password',
   },
   {
     path: '',

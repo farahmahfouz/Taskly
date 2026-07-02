@@ -1,16 +1,19 @@
-<app-logo/>
-<div class="pb-12 pt-4 flex justify-center min-h-[90vh] md:min-h-auto">
-  <div class="w-full max-w-130 md:shadow-md md:rounded-sm p-6 md:p-12 flex flex-col bg-background md:bg-white">
+<app-logo />
+<div class="pt-4 flex justify-center px-6 md:px-0" [class]="hightClass">
+  <div class="w-full max-w-130 md:shadow-md md:rounded-sm flex flex-col" [ngClass]="[containerClass, contentClass]">
+    <ng-content select="[header]"></ng-content>
+
+    
     <div class="flex flex-col gap-2 pb-10">
-      <h1 class="text-md weight-bold text-start md:text-center text-neutral-dark leading-lg tracking-normal">
+      <h1 class="text-md weight-bold text-neutral-dark leading-lg tracking-normal" [class]="titleClass">
         {{ title }}
       </h1>
 
-      <p class="hidden md:block text-xs weight-regular text-center text-neutral-mid leading-xs">
+      <p class="text-xs weight-regular text-neutral-mid leading-xs" [class]="descriptionClass">
         {{ description }}
       </p>
-      <p class="block md:hidden text-xs weight-regular text-start text-neutral-mid leading-xs whitespace-pre-line">
-        {{ mobileDescription || description }}
+      <p class="block md:hidden text-xs weight-regular text-neutral-mid leading-xs whitespace-pre-line">
+        {{ mobileDescription }}
       </p>
     </div>
     <ng-content />
