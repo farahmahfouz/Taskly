@@ -66,6 +66,18 @@ export class AuthService {
     return this.http.post(`${API.AUTH}/recover`, { email });
   }
 
+  resetPassword(password: string, token: string) {
+    return this.http.put(
+      `${API.AUTH}/user`,
+      { password },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+  }
+
   getCurrentUser() {
     return this.currentUserSubject.value;
   }

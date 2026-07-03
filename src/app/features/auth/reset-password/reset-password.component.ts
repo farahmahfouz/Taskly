@@ -4,24 +4,37 @@ import { InputComponent } from '../../../shared/components/input/input.component
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isMatchPw, passwordValidator } from '../../../core/utils/password.validator';
 import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormLayoutComponent, InputComponent, PasswordHintsComponent, RouterLink, ReactiveFormsModule],
+  imports: [
+    FormLayoutComponent,
+    InputComponent,
+    PasswordHintsComponent,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })
-export class ResetPasswordComponent implements OnInit{
-  constructor(private route: ActivatedRoute) {}
+export class ResetPasswordComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
+
   accessToken = '';
+  successMessage = '';
+  errorMessage = '';
+  isLoading = false;
 
   ngOnInit() {
-  this.route.queryParamMap.subscribe(params => {
-    this.accessToken = params.get('token') ?? '';
-  });
-}
+    this.accessToken = this.route.snapshot.queryParamMap.get('token') ?? '';
+  }
 
   form = new FormGroup(
     {
@@ -109,5 +122,25 @@ export class ResetPasswordComponent implements OnInit{
     }
 
     return '';
+  }
+
+  onSubmit() {
+    if (this.form.invalid || !this.accessToken) return;
+
+    this.isLoading = true;
+    this.authService.resetPassword(this.form.value.password!, this.accessToken).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.successMessage = 'Your password has been updated successfully. You can now log in.';
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000);
+      },
+      error: err => {
+        this.isLoading = false;
+        this.errorMessage = err.error?.message ?? 'Something went wrong. Please try again.';
+      },
+    });
   }
 }

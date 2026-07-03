@@ -33,15 +33,11 @@ export class SignupComponent implements OnInit{
 
   ngOnInit(): void {
     const hash = window.location.hash.substring(1);
-    console.log(hash)
 
     const params = new URLSearchParams(hash);
-    console.log(params)
 
     const type = params.get('type');
-    const accessToken = params.get('access_token');
-    console.log(accessToken)
-    
+    const accessToken = params.get('access_token');   
 
     if (type === 'recovery' && accessToken) {
       this.router.navigate(['/reset-password'], {
