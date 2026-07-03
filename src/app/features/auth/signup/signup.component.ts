@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { passwordValidator, isMatchPw } from '../../../core/utils/password.validator';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
-import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
+import { PasswordHintsComponent } from '../components/password-hints/password-hints.component';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 

@@ -3,7 +3,7 @@ import { FormLayoutComponent } from '../../../shared/components/form-layout/form
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isMatchPw, passwordValidator } from '../../../core/utils/password.validator';
-import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
+import { PasswordHintsComponent } from '../components/password-hints/password-hints.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
