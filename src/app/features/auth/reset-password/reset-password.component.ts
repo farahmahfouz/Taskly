@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isMatchPw, passwordValidator } from '../../../core/utils/password.validator';
 import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +13,16 @@ import { RouterLink } from '@angular/router';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit{
+  constructor(private route: ActivatedRoute) {}
+  accessToken = '';
+
+  ngOnInit() {
+  this.route.queryParamMap.subscribe(params => {
+    this.accessToken = params.get('token') ?? '';
+  });
+}
+
   form = new FormGroup(
     {
       password: new FormControl('', [

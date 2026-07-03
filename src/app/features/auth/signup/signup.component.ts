@@ -1,30 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { passwordValidator, isMatchPw } from '../../../core/utils/password.validator';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import { PasswordHintsComponent } from '../../../shared/components/password-hints/password-hints.component';
 
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { SignUpRequest } from './signup';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { InputComponent } from "../../../shared/components/input/input.component";
+import { InputComponent } from '../../../shared/components/input/input.component';
+import { STORAGE_KEYS } from '../../../core/utils/constants';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, FormLayoutComponent, PasswordHintsComponent, RouterLink, InputComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormLayoutComponent,
+    PasswordHintsComponent,
+    RouterLink,
+    InputComponent,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-export class SignupComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+export class SignupComponent implements OnInit{
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
   isLoading = false;
+
+  ngOnInit(): void {
+    const hash = window.location.hash.substring(1);
+    console.log(hash)
+
+    const params = new URLSearchParams(hash);
+    console.log(params)
+
+    const type = params.get('type');
+    const accessToken = params.get('access_token');
+    console.log(accessToken)
+    
+
+    if (type === 'recovery' && accessToken) {
+      this.router.navigate(['/reset-password'], {
+        queryParams: {
+          token: accessToken,
+        },
+      });
+    }
+  }
 
   form = new FormGroup(
     {
@@ -129,7 +155,7 @@ export class SignupComponent {
     this.authService.signUp(body).subscribe({
       next: res => {
         this.isLoading = true;
-        this.router.navigate(['/project'])
+        this.router.navigate(['/project']);
       },
       error: err => {
         this.isLoading = false;
