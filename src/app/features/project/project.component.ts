@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from "../../shared/components/sidebar/sidebar.component";
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [SidebarComponent],
+  imports: [ProjectCardComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })
 export class ProjectComponent {
-
+   projects = Array(5).fill({});
 }

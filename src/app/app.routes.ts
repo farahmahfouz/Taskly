@@ -44,7 +44,7 @@ export const routes: Routes = [
       {
         path: 'project',
         component: ProjectComponent,
-        title: 'Project',
+        title: 'Projects',
       },
       {
         path: 'tasks',
