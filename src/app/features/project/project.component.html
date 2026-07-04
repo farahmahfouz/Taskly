@@ -5,7 +5,7 @@
       <p class="text-[#434654]">Manage and curate your projects</p>
     </div>
 
-    <button class="btn btn-primary">+ Create New Project</button>
+    <button class="btn btn-primary bg-gradient-primary hidden md:flex">+ Create New Project</button>
   </header>
 
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -14,7 +14,7 @@
     }
 
     <button
-      class="min-h-52.5 border-2 border-dashed border-[#C3C6D633] rounded-xl bg-white flex flex-col justify-center items-center gap-3 cursor-pointer"
+      class="min-h-52.5 border-2 border-dashed border-[#C3C6D633] rounded-xl bg-white hidden md:flex flex-col justify-center items-center gap-3 cursor-pointer"
     >
       <span class="w-10.5 h-10.5 rounded-full bg-[#eef4ff] flex items-center justify-center text-[22px]"> + </span>
 
@@ -22,5 +22,13 @@
     </button>
   </section>
 
-  <app-pagination/>
+  <div class="flex justify-end md:hidden">
+    <button
+      class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
+    >
+      +
+    </button>
+  </div>
+
+  <app-pagination />
 </div>
