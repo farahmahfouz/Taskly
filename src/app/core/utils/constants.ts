@@ -1,6 +1,7 @@
 export const API = {
   AUTH: '/auth/v1',
-  PROJECT: '/rest/v1/projects'
+  PROJECT: '/rest/v1/projects',
+  MEMBERS: '/rest/v1/get_project_members',
 };
 
 export const STORAGE_KEYS = {

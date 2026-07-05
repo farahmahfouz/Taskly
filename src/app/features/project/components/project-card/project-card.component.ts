@@ -3,7 +3,7 @@ import { Project } from '../../project.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
-import { ClickOutsideDirective } from "../../../../shared/directives/click-outside.directive";
+import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 
 @Component({
   selector: 'app-project-card',
@@ -15,7 +15,7 @@ import { ClickOutsideDirective } from "../../../../shared/directives/click-outsi
 export class ProjectCardComponent {
   constructor(private router: Router) {}
   isMenuOpen = false;
-  
+
   @Input() project!: Project;
 
   toggleMenu() {
@@ -24,5 +24,9 @@ export class ProjectCardComponent {
 
   editProject() {
     this.router.navigate(['/project', this.project.id, 'edit']);
+  }
+
+  goToMembers() {
+    this.router.navigate(['/project', this.project.id, 'members']);
   }
 }

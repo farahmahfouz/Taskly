@@ -61,17 +61,17 @@ export const routes: Routes = [
             component: EditProjectComponent,
             title: 'Edit Project Component',
           },
+          {
+            path: ':id/members',
+            component: MembersComponent,
+            title: 'Members',
+          },
         ],
       },
       {
         path: 'tasks',
         component: TasksComponent,
         title: 'Tasks',
-      },
-      {
-        path: 'members',
-        component: MembersComponent,
-        title: 'Members',
       },
       {
         path: 'epics',

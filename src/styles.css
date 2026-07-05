@@ -19,11 +19,13 @@ body {
   --color-surface-low: #f1f3ff;
   --color-background: #f9f9ff;
   --color-white: #ffffff;
+  --color-dark: #434654;
 
   /* Slate Neutrals */
   --color-neutral-dark: #041b3c;
   --color-neutral-mid: #4f5f7b;
   --color-neutral-light: #c3c6d6;
+  --color-neutral-grey: '#43465499';
 
   /* Semantic */
   --color-success: #82f9be;
