@@ -1,0 +1,13 @@
+<div class="flex flex-col items-center justify-center py-60 text-center">
+  <div class="w-16 h-16 rounded-2xl bg-error-surface flex items-center justify-center">
+    <svg class="text-error size-5.5" icon-disconnect/>
+  </div>
+
+  <h2 class="mt-6 text-3xl font-semibold text-[#14213D]">Something went wrong</h2>
+
+  <p class="mt-3 max-w-sm text-[#434654] leading-7">
+    We're having trouble retrieving your projects right now. Please try again in a moment.
+  </p>
+
+  <button class="btn btn-primary gradient-primary mt-8" (click)="retry.emit()">Retry Connection</button>
+</div>

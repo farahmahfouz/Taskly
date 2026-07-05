@@ -6,17 +6,19 @@ import { ProjectService } from './project.service';
 import { Project } from './project.model';
 import { SkeltonComponent } from "./components/skelton/skelton.component";
 import { EmptyProjectsComponent } from "./components/empty-projects/empty-projects.component";
+import { ProjectErrorComponent } from './components/project-error/project-error.component';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [ProjectCardComponent, PaginationComponent, RouterLink, SkeltonComponent, EmptyProjectsComponent],
+  imports: [ProjectCardComponent, PaginationComponent, RouterLink, SkeltonComponent, EmptyProjectsComponent, ProjectErrorComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })
 export class ProjectComponent {
   projects: Project[] = [];
   isLoading = false;
+  isError = false;
 
   constructor(private projectService: ProjectService) {}
 
@@ -31,9 +33,11 @@ export class ProjectComponent {
       next: (res: Project[]) => {
         this.projects = res;
         this.isLoading = false;
+        this.isError = false;
       },
       error: () => {
         this.isLoading = false;
+        this.isError = true;
       },
     });
   }
