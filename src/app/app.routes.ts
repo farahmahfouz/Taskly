@@ -11,6 +11,7 @@ import { DetailsComponent } from './features/details/details.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
 import { AddProjectComponent } from './features/project/add-project/add-project.component';
+import { EditProjectComponent } from './features/project/edit-project/edit-project.component';
 
 export const routes: Routes = [
   {
@@ -48,12 +49,17 @@ export const routes: Routes = [
           {
             path: '',
             component: ProjectComponent,
-            title: 'Project'
+            title: 'Project',
           },
           {
             path: 'add',
             component: AddProjectComponent,
-            title: 'Add New Project'
+            title: 'Add New Project',
+          },
+          {
+            path: ':id/edit',
+            component: EditProjectComponent,
+            title: 'Edit Project Component',
           },
         ],
       },
