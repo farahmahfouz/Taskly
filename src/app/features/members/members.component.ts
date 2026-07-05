@@ -4,11 +4,12 @@ import { MembersService } from './members.service';
 import { Member } from './members.model';
 import { NgClass } from '@angular/common';
 import { EditIconComponent } from '../../shared/icons/edit-icon.component';
+import { ProjectErrorComponent } from '../project/components/project-error/project-error.component';
 
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [NgClass, EditIconComponent],
+  imports: [NgClass, EditIconComponent, ProjectErrorComponent],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -20,6 +21,7 @@ export class MembersComponent implements OnInit {
 
   members: Member[] = [];
   isLoading = false;
+  isError = false;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -35,6 +37,11 @@ export class MembersComponent implements OnInit {
     this.membersService.getProjectMembers(projectId).subscribe({
       next: res => {
         this.members = res;
+        this.isError = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.isError = true;
       },
     });
   }
