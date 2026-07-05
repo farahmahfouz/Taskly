@@ -5,11 +5,12 @@ import { RouterLink } from "@angular/router";
 import { ProjectService } from './project.service';
 import { Project } from './project.model';
 import { SkeltonComponent } from "./components/skelton/skelton.component";
+import { EmptyProjectsComponent } from "./components/empty-projects/empty-projects.component";
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [ProjectCardComponent, PaginationComponent, RouterLink, SkeltonComponent],
+  imports: [ProjectCardComponent, PaginationComponent, RouterLink, SkeltonComponent, EmptyProjectsComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })

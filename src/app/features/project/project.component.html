@@ -1,20 +1,24 @@
 <div class="flex flex-col gap-6 min-h-[726.5px]">
-  <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-    <div>
-      <h1 class="text-3xl font-semibold text-neutral-dark">Projects</h1>
-      <p class="text-[#434654]">Manage and curate your projects</p>
-    </div>
-    @if (isLoading) {
-      <div class="hidden md:flex justify-end">
-        <div class="skeleton h-12 w-48 rounded-lg"></div>
+  @if (projects.length > 0) {
+    <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h1 class="text-3xl font-semibold text-neutral-dark">Projects</h1>
+        <p class="text-[#434654]">Manage and curate your projects</p>
       </div>
-    } @else {
-      <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add">+ Create New Project</a>
-    }
-  </header>
+      @if (isLoading) {
+        <div class="hidden md:flex justify-end">
+          <div class="skeleton h-12 w-48 rounded-lg"></div>
+        </div>
+      } @else {
+        <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add">+ Create New Project</a>
+      }
+    </header>
+  }
 
   @if (isLoading) {
     <app-skelton />
+  } @else if (projects.length === 0) {
+    <app-empty-projects />
   } @else {
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mt-8">
       @for (project of projects; track project.id) {
@@ -40,5 +44,7 @@
     </a>
   </div>
 
-  <app-pagination />
+  @if (!isLoading && projects.length > 0) {
+    <app-pagination />
+  }
 </div>
