@@ -10,7 +10,7 @@ import { EpicsComponent } from './features/epics/epics.component';
 import { DetailsComponent } from './features/details/details.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
-import { AddProjectComponent } from './features/add-project/add-project.component';
+import { AddProjectComponent } from './features/project/add-project/add-project.component';
 
 export const routes: Routes = [
   {

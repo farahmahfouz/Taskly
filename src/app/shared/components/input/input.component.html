@@ -1,6 +1,9 @@
 <div [class.has-error]="!!errorMessage">
   <label class="control-label">
     {{ label }}
+    @if (required) {
+      <span class="text-error ml-1">*</span>
+    }
 
     @if (optional) {
       <span>(Optional)</span>

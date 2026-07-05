@@ -35,7 +35,7 @@
 
   font-size: var(--text-sm-xs);
   font-family: var(--font-sans);
-  color: #4F5F7B80;
+  color: var(--color-neutral-dark);
   background-color: var(--color-surface-highest);
 
   resize: none;

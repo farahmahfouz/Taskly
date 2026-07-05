@@ -25,6 +25,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() serverError = '';
   @Input() showPasswordToggle = false;
   @Input() hint = '';
+  @Input() required = false;
 
   value = '';
 
