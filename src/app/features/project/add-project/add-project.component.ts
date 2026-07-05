@@ -7,6 +7,7 @@ import { VerifiedIconComponent } from '../../../shared/icons/verified-icon.compo
 import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
 import { IdeaIconComponent } from '../../../shared/icons/idea-icon.component';
 import { ProjectService } from '../project.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-add-project',
@@ -30,6 +31,7 @@ export class AddProjectComponent {
     private fb: FormBuilder,
     private router: Router,
     private projectService: ProjectService,
+    private toast: ToastService,
   ) {
     this.projectForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -58,15 +60,15 @@ export class AddProjectComponent {
       description: this.projectForm.value.description?.trim() || undefined,
     };
 
-    console.log(payload);
-
     this.projectService.createProject(payload).subscribe({
-      next: res => {
+      next: () => {
         this.isLoading = false;
+        this.toast.showSuccess('Project created successfully');
         this.projectForm.reset();
       },
       error: err => {
         this.isLoading = false;
+        this.toast.showError(`Failed to create project: ${err.error?.message || err.message}`);
       },
     });
   }
