@@ -18,13 +18,14 @@
       <div
         class="bg-primary-container rounded-sm w-10 h-10 text-white flex items-center justify-center cursor-pointer"
         (click)="openDropDown()"
+        (appClickOutside)="openDropdownMenu = false" appClickOutside
       >
         {{ userInitial }}
       </div>
 
       @if (openDropdownMenu) {
         <div
-          class="absolute right-0 top-12 w-40 px-4 transition py-2 cursor-pointer items-center bg-white text-error rounded-xs hover:bg-background/90 hover:rounded-xs shadow-lg border border-neutral-light z-50 flex gap-2"
+          class="absolute right-0 top-12 w-40 px-4 transition py-2 cursor-pointer items-center bg-white text-error rounded-xs hover:bg-background/90 hover:rounded-xs shadow-lg  z-50 flex gap-2"
           (click)="logout()"
         >
           <svg icon-logout class="size-5 text-error"></svg>

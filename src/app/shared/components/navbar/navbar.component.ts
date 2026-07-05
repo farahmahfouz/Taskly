@@ -5,11 +5,12 @@ import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenuIconComponent, LogoutIconComponent],
+  imports: [MenuIconComponent, LogoutIconComponent, ClickOutsideDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
