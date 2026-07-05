@@ -3,14 +3,22 @@ import { InputComponent } from '../../../shared/components/input/input.component
 import { TextareaComponent } from '../../../shared/components/textarea/textarea.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { VerifiedIconComponent } from "../../../shared/icons/verified-icon.component";
-import { ErrorIconComponent } from "../../../shared/icons/error-icon.component";
+import { VerifiedIconComponent } from '../../../shared/icons/verified-icon.component';
+import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
 import { IdeaIconComponent } from '../../../shared/icons/idea-icon.component';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-add-project',
   standalone: true,
-  imports: [InputComponent, TextareaComponent, ReactiveFormsModule, VerifiedIconComponent, ErrorIconComponent, IdeaIconComponent],
+  imports: [
+    InputComponent,
+    TextareaComponent,
+    ReactiveFormsModule,
+    VerifiedIconComponent,
+    ErrorIconComponent,
+    IdeaIconComponent,
+  ],
   templateUrl: './add-project.component.html',
   styleUrl: './add-project.component.css',
 })
@@ -21,6 +29,7 @@ export class AddProjectComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private projectService: ProjectService,
   ) {
     this.projectForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -37,14 +46,12 @@ export class AddProjectComponent {
   }
 
   onSubmit() {
-
     if (this.projectForm.invalid) {
       this.projectForm.markAllAsTouched();
       return;
     }
 
     this.isLoading = true;
-
 
     const payload = {
       name: this.projectForm.value.name.trim(),
@@ -53,6 +60,15 @@ export class AddProjectComponent {
 
     console.log(payload);
 
+    this.projectService.createProject(payload).subscribe({
+      next: res => {
+        this.isLoading = false;
+        this.projectForm.reset();
+      },
+      error: err => {
+        this.isLoading = false;
+      },
+    });
   }
 
   onCancel() {

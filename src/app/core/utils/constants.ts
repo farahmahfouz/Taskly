@@ -1,5 +1,6 @@
 export const API = {
   AUTH: '/auth/v1',
+  PROJECT: '/rest/v1/projects'
 };
 
 export const STORAGE_KEYS = {
