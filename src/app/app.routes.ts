@@ -10,6 +10,7 @@ import { EpicsComponent } from './features/epics/epics.component';
 import { DetailsComponent } from './features/details/details.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
+import { AddProjectComponent } from './features/add-project/add-project.component';
 
 export const routes: Routes = [
   {
@@ -43,30 +44,40 @@ export const routes: Routes = [
     children: [
       {
         path: 'project',
-        component: ProjectComponent,
-        title: 'Projects',
+        children: [
+          {
+            path: '',
+            component: ProjectComponent,
+            title: 'Project'
+          },
+          {
+            path: 'add',
+            component: AddProjectComponent,
+            title: 'Add New Project'
+          },
+        ],
       },
       {
         path: 'tasks',
         component: TasksComponent,
-        title: 'Tasks'
+        title: 'Tasks',
       },
       {
         path: 'members',
         component: MembersComponent,
-        title: 'Members'
+        title: 'Members',
       },
       {
         path: 'epics',
         component: EpicsComponent,
-        title: 'Epics'
+        title: 'Epics',
       },
       {
         path: 'details',
         component: DetailsComponent,
-        title: 'Details'
+        title: 'Details',
       },
     ],
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
 ];
