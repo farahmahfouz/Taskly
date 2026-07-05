@@ -5,11 +5,12 @@ import { Member } from './members.model';
 import { NgClass } from '@angular/common';
 import { EditIconComponent } from '../../shared/icons/edit-icon.component';
 import { ProjectErrorComponent } from '../project/components/project-error/project-error.component';
+import { SkeltonComponent } from "./components/skelton/skelton.component";
 
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [NgClass, EditIconComponent, ProjectErrorComponent],
+  imports: [NgClass, EditIconComponent, ProjectErrorComponent, SkeltonComponent],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
