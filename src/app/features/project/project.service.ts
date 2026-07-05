@@ -12,4 +12,8 @@ export class ProjectService {
   createProject(data: CreateProjectPayload) {
     return this.http.post<Project>(`${API.PROJECT}`, data);
   }
+
+  getAllProjects(){
+    return this.http.get<Project[]>(`${API.PROJECT}`);
+  }
 }

@@ -4,30 +4,40 @@
       <h1 class="text-3xl font-semibold text-neutral-dark">Projects</h1>
       <p class="text-[#434654]">Manage and curate your projects</p>
     </div>
-
-    <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add">+ Create New Project</a>
+    @if (isLoading) {
+      <div class="hidden md:flex justify-end">
+        <div class="skeleton h-12 w-48 rounded-lg"></div>
+      </div>
+    } @else {
+      <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add">+ Create New Project</a>
+    }
   </header>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-    @for (project of projects; track $index) {
-      <app-project-card />
-    }
+  @if (isLoading) {
+    <app-skelton />
+  } @else {
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mt-8">
+      @for (project of projects; track project.id) {
+        <app-project-card [project]="project" />
+      }
 
-    <button
-      class="min-h-52.5 border-2 border-dashed border-[#C3C6D633] rounded-xl bg-white hidden md:flex flex-col justify-center items-center gap-3 cursor-pointer"
-    >
-      <span class="w-10.5 h-10.5 rounded-full bg-[#eef4ff] flex items-center justify-center text-[22px]"> + </span>
+      <button
+        class="min-h-52.5 border-2 border-dashed border-[#C3C6D633] rounded-xl bg-white hidden md:flex flex-col justify-center items-center gap-3 cursor-pointer"
+      >
+        <span class="w-10.5 h-10.5 rounded-full bg-[#eef4ff] flex items-center justify-center text-[22px]"> + </span>
 
-      <span class="text-xs font-bold uppercase text-[#434654] tracking-wide"> Add Project </span>
-    </button>
-  </section>
+        <span class="text-xs font-bold uppercase text-[#434654] tracking-wide"> Add Project </span>
+      </button>
+    </section>
+  }
 
   <div class="flex justify-end md:hidden">
-    <button
+    <a
+      routerLink="/project/add"
       class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
     >
       +
-    </button>
+    </a>
   </div>
 
   <app-pagination />
