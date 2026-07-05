@@ -119,7 +119,7 @@ body {
     color: var(--color-neutral-mid);
     border: none;
     box-shadow: none;
-    width: 134.45px;
+    /* width: 134.45px; */
     opacity: 0.6;
   }
 

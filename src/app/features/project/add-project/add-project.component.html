@@ -1,16 +1,15 @@
 <div class="min-h-screen">
-  <div class="flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2">
+  <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2">
     <p class="text-neutral-light">PROJECTS</p>
     <span class="text-neutral-light">›</span>
     <p class="text-primary">ADD NEW PROJECT</p>
   </div>
-  <h1 class="text-4xl font-semibold text-[#1a2358] mb-6 ml-2">Add New Project</h1>
+  <h1 class="hidden md:block text-4xl font-semibold text-[#1a2358] mb-6 ml-2">Add New Project</h1>
 
-  <div class="w-full max-w-2xl mx-auto bg-white rounded-lg border border-[#F1F3FF] shadow-[#0000000D] mt-10">
-
-    <div class="flex items-start gap-3 p-8 pb-10">
-      <div class="w-11.5 h-11 rounded-sm bg-surface-low flex items-center justify-center shrink-0">
-        <svg icon-verified class="text-primary size-5.5"/>
+  <div class="w-full max-w-2xl mx-auto md:bg-white rounded-lg border border-[#F1F3FF] shadow-[#0000000D] md:mt-10">
+    <div class="flex items-start gap-3 md:p-8 pb-5 md:pb-10">
+      <div class="w-11.5 h-11 rounded-sm bg-surface-low md:flex items-center justify-center shrink-0 hidden">
+        <svg icon-verified class="text-primary size-5.5" />
       </div>
       <div>
         <p class="text-md-sm font-semibold text-neutral-dark">Initialize New Project</p>
@@ -22,9 +21,9 @@
 
     <div class="border-t border-[#F1F3FF]"></div>
 
-    <form class="p-6 flex flex-col gap-8" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <form class="md:p-6 flex flex-col gap-8" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
       <div>
-        <app-input label="project title" placeholder="******" formControlName="name" [required]="true"/>
+        <app-input label="project title" placeholder="******" formControlName="name" [required]="true" />
 
         @if (projectForm.get('name')?.touched && projectForm.get('name')?.errors) {
           <div class="flex items-center gap-1 mt-1">
@@ -62,16 +61,19 @@
         }
       </div>
 
-      <div class="flex justify-between items-center my-6">
-        <button type="button" class="btn-ghost cursor-pointer" (click)="onCancel()" [disabled]="isLoading">Back</button>
-        <button type="submit" class="btn btn-primary gradient-primary">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 my-6">
+        <button type="button" class="btn btn-ghost w-full md:w-auto order-2 md:order-1" (click)="onCancel()" [disabled]="isLoading">
+          Back
+        </button>
+
+        <button type="submit" class="btn btn-primary gradient-primary w-full md:w-auto order-1 md:order-2" [disabled]="isLoading">
           {{ isLoading ? 'Creating...' : 'Create Project' }}
         </button>
       </div>
     </form>
 
-    <div class="bg-surface-low px-7 py-6 flex items-start gap-2 text-xs ">
-      <svg class="text-[#4F5F7B] size-3" icon-idea/>
+    <div class="bg-surface-low px-7 py-6 flex items-start gap-2 text-xs">
+      <svg class="text-[#4F5F7B] size-3 hidden md:block" icon-idea />
 
       <p class="text-[12px] weight-regular">
         <span class="font-bold text-[#4F5F7B]">Pro Tip:</span> You can invite project members and assign epics
