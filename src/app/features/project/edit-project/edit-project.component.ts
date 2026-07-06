@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { TextareaComponent } from '../../../shared/components/textarea/textarea.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,7 @@ import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
 import { IdeaIconComponent } from '../../../shared/icons/idea-icon.component';
 import { ProjectService } from '../project.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-edit-project',
@@ -34,6 +35,7 @@ export class EditProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private toast: ToastService,
+    private destroyRef: DestroyRef,
   ) {
     this.projectForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -58,21 +60,24 @@ export class EditProjectComponent implements OnInit {
   loadProject() {
     this.isLoading = true;
 
-    this.projectService.getProjectById(this.projectId).subscribe({
-      next: project => {
-        this.projectForm.patchValue({
-          name: project.name,
-          description: project.description,
-        });
+    this.projectService
+      .getProjectById(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: project => {
+          this.projectForm.patchValue({
+            name: project.name,
+            description: project.description,
+          });
 
-        this.isLoading = false;
-      },
-      error: err => {
-        this.isLoading = false;
-        this.toast.showError(err.error?.message || 'Failed to load project');
-        this.router.navigate(['/project']);
-      },
-    });
+          this.isLoading = false;
+        },
+        error: err => {
+          this.isLoading = false;
+          this.toast.showError(err.error?.message || 'Failed to load project');
+          this.router.navigate(['/project']);
+        },
+      });
   }
 
   onSubmit() {
@@ -88,17 +93,20 @@ export class EditProjectComponent implements OnInit {
       description: this.projectForm.value.description,
     };
 
-    this.projectService.updateProject(this.projectId, payload).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.toast.showSuccess('Project updated successfully');
-        this.router.navigate(['/project']);
-      },
-      error: err => {
-        this.isLoading = false;
-        this.toast.showError(err.error?.message || 'Failed to update project');
-      },
-    });
+    this.projectService
+      .updateProject(this.projectId, payload)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toast.showSuccess('Project updated successfully');
+          this.router.navigate(['/project']);
+        },
+        error: err => {
+          this.isLoading = false;
+          this.toast.showError(err.error?.message || 'Failed to update project');
+        },
+      });
   }
 
   onCancel() {

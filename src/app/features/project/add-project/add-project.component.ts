@@ -8,6 +8,8 @@ import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
 import { IdeaIconComponent } from '../../../shared/icons/idea-icon.component';
 import { ProjectService } from '../project.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-project',
@@ -32,6 +34,7 @@ export class AddProjectComponent {
     private router: Router,
     private projectService: ProjectService,
     private toast: ToastService,
+    private destroyRef: DestroyRef
   ) {
     this.projectForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -60,17 +63,20 @@ export class AddProjectComponent {
       description: this.projectForm.value.description?.trim() || undefined,
     };
 
-    this.projectService.createProject(payload).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.toast.showSuccess('Project created successfully');
-        this.projectForm.reset();
-      },
-      error: err => {
-        this.isLoading = false;
-        this.toast.showError(`Failed to create project: ${err.error?.message || err.message}`);
-      },
-    });
+    this.projectService
+      .createProject(payload)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toast.showSuccess('Project created successfully');
+          this.projectForm.reset();
+        },
+        error: err => {
+          this.isLoading = false;
+          this.toast.showError(`Failed to create project: ${err.error?.message || err.message}`);
+        },
+      });
   }
 
   onCancel() {

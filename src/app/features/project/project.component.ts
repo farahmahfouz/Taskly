@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { SkeltonComponent } from './components/skelton/skelton.component';
 import { EmptyProjectsComponent } from './components/empty-projects/empty-projects.component';
 import { ProjectErrorComponent } from './components/project-error/project-error.component';
 import { HttpResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-project',
@@ -29,12 +30,15 @@ export class ProjectComponent {
   isError = false;
 
   currentPage = 1;
-  limit = 3;
+  limit = 10;
 
   totalCount = 0;
   totalPages = 0;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private destroyRef: DestroyRef,
+  ) {}
 
   ngOnInit() {
     this.getProjects();
@@ -62,22 +66,25 @@ export class ProjectComponent {
   getProjects() {
     this.isLoading = true;
 
-    this.projectService.getAllProjects(this.limit, this.offset).subscribe({
-      next: (res: HttpResponse<Project[]>) => {
-        this.projects = res.body ?? [];
-        const contentRange = res.headers.get('Content-Range');
+    this.projectService
+      .getAllProjects(this.limit, this.offset)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res: HttpResponse<Project[]>) => {
+          this.projects = res.body ?? [];
+          const contentRange = res.headers.get('Content-Range');
 
-        this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
+          this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
 
-        this.totalPages = Math.ceil(this.totalCount / this.limit);
+          this.totalPages = Math.ceil(this.totalCount / this.limit);
 
-        this.isLoading = false;
-        this.isError = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.isError = true;
-      },
-    });
+          this.isLoading = false;
+          this.isError = false;
+        },
+        error: err => {
+          this.isLoading = false;
+          this.isError = true;
+        },
+      });
   }
 }
