@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SignUpRequest } from '../../features/auth/signup/signup';
 import { LoginRequest, LoginResponse } from '../../features/auth/login/login';
 import { BehaviorSubject, tap } from 'rxjs';
-import { API, STORAGE_KEYS } from '../utils/constants';
+import { API, STORAGE_KEYS } from '../../core/utils/constants';
 
 export interface CurrentUser {
   id: string;

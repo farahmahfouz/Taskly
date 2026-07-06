@@ -8,7 +8,7 @@ import {
   CheckCircleIconComponent,
 } from '../../../shared/icons';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../auth.service';
 import { Subscription, timer } from 'rxjs';
 import { RouterLink } from '@angular/router';
 

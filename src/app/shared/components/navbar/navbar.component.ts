@@ -1,5 +1,5 @@
 import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService, CurrentUser } from '../../../core/services/auth.service';
+import { AuthService, CurrentUser } from '../../../features/auth/auth.service';
 import { MenuIconComponent } from '../../icons/Menu-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

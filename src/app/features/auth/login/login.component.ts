@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../auth.service';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { InputComponent } from '../../../shared/components/input/input.component';
 

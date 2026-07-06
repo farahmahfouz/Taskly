@@ -6,7 +6,7 @@ import { PasswordHintsComponent } from '../components/password-hints/password-hi
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { SignUpRequest } from './signup';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { STORAGE_KEYS } from '../../../core/utils/constants';

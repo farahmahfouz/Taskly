@@ -5,7 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { isMatchPw, passwordValidator } from '../../../core/utils/password.validator';
 import { PasswordHintsComponent } from '../components/password-hints/password-hints.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-reset-password',

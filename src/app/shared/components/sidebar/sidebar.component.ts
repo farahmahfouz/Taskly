@@ -8,7 +8,7 @@ import {
 } from '../../icons/index';
 import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../features/auth/auth.service';
 import { HostListener } from '@angular/core';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { MembersIconComponent } from '../../icons/members-icon.component';
