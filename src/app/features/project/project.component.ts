@@ -1,4 +1,4 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })
-export class ProjectComponent {
+export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   isLoading = false;
   isError = false;
