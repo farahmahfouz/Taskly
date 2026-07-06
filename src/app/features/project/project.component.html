@@ -47,6 +47,12 @@
   </div>
 
   @if (!isLoading && projects.length > 0 && !isError) {
-    <app-pagination />
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [totalCount]="totalCount"
+      [pageSize]="limit"
+      (pageChange)="changePage($event)"
+    />
   }
 </div>

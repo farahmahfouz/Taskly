@@ -14,8 +14,13 @@ export class ProjectService {
     return this.http.post<Project>(`${API.PROJECT}`, data);
   }
 
-  getAllProjects() {
-    return this.http.get<Project[]>(`${API.PROJECT}`);
+  getAllProjects(limit: number, offset: number) {
+    return this.http.get<Project[]>(`/rest/v1/rpc/get_projects?limit=${limit}&offset=${offset}`, {
+      observe: 'response', // To retrieve all response not just body
+      headers: {
+        Prefer: 'count=exact', // To retrieve count of all projects and set the count to headers "Content-Range"
+      },
+    });
   }
 
   getProjectById(id: string) {
