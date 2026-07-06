@@ -20,9 +20,6 @@
 .has-error .input {
   background-color: var(--color-error-surface);
   color: var(--color-error);
-  padding-bottom: 28px;
-  height: auto;
-  min-height: 48px;
 }
 
 .control-label {
@@ -39,14 +36,14 @@
   color: var(--color-error);
 }
 
-.input-wrapper {
+.input-field {
   position: relative;
 }
 
 .toggle-btn {
   position: absolute;
   right: 13px;
-  top: 60%;
+  top: 65%;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -56,19 +53,10 @@
   align-items: center;
 }
 
-.error-message {
-  position: absolute;
-  bottom: 10px;
-  left: 16px;
-  font-size: 12px;
-  color: var(--color-error);
-  pointer-events: none;
-  z-index: 1;
-}
-
+.error-message,
 .server-error {
   display: block;
-  margin-top: 4px;
-  font-size: 14px;
+  font-size: 11px;
+  text-transform: capitalize;
   color: var(--color-error);
 }

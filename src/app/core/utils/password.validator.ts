@@ -7,7 +7,7 @@ export function passwordValidator(control: AbstractControl): ValidationErrors | 
   if (!/[A-Z]/.test(value)) errors['uppercase'] = true;
   if (!/[a-z]/.test(value)) errors['lowercase'] = true;
   if (!/\d/.test(value)) errors['digit'] = true;
-  if (!/[!@#$%^&*]/.test(value)) errors['special'] = true;
+  if (!/[^A-Za-z0-9]/.test(value)) errors['special'] = true;
   if (/\s/.test(value)) errors['whitespace'] = true;
 
   return Object.keys(errors).length ? errors : null;

@@ -10,30 +10,36 @@
     }
   </label>
 
-  <div class="input-wrapper">
-    <input
-      class="input"
-      [type]="inputType"
-      [placeholder]="placeholder"
-      [value]="value"
-      [disabled]="disabled"
-      (input)="updateValue($event)"
-      (blur)="onTouched()"
-    />
+  <div>
+    <div class="input-field">
+      <input
+        class="input"
+        [type]="inputType"
+        [placeholder]="placeholder"
+        [value]="value"
+        [disabled]="disabled"
+        (input)="updateValue($event)"
+        (blur)="onTouched()"
+      />
 
-    @if (showPasswordToggle) {
-      <button type="button" class="toggle-btn" (click)="toggleVisibility()">
-        @if (isVisible) {
-          <svg icon-hide-password class="size-6 text-[#737685]"></svg>
-        } @else {
-          <svg icon-show-password class="size-6 text-[#737685]"></svg>
-        }
-      </button>
-    }
+      @if (showPasswordToggle) {
+        <button type="button" class="toggle-btn" (click)="toggleVisibility()">
+          @if (isVisible) {
+            <svg icon-hide-password class="size-6 text-[#737685]"></svg>
+          } @else {
+            <svg icon-show-password class="size-6 text-[#737685]"></svg>
+          }
+        </button>
+      }
+    </div>
+
     @if (errorMessage) {
-      <small class="error-message">
-        {{ errorMessage }}
-      </small>
+      <div class="flex gap-2 items-center pt-2">
+        <svg icon-error class="text-error size-3.5" />
+        <small class="error-message">
+          {{ errorMessage }}
+        </small>
+      </div>
     }
     @if (serverError) {
       <small class="server-error">
@@ -41,7 +47,7 @@
       </small>
     }
   </div>
-  @if (hint) {
+  @if (hint && !errorMessage) {
     <p class="hidden md:block text-2xs text-neutral-light mt-2">
       {{ hint }}
     </p>

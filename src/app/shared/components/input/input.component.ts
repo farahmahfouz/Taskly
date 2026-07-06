@@ -1,11 +1,12 @@
 import { Component, forwardRef, Input, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HidePasswordIconComponent, ShowPasswordIconComponent } from '../../icons';
+import { ErrorIconComponent } from "../../icons/error-icon.component";
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [ShowPasswordIconComponent, HidePasswordIconComponent],
+  imports: [ShowPasswordIconComponent, HidePasswordIconComponent, ErrorIconComponent],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   providers: [
