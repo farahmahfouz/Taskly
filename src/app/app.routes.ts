@@ -14,76 +14,32 @@ import { AddProjectComponent } from './features/project/add-project/add-project.
 import { EditProjectComponent } from './features/project/edit-project/edit-project.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'signup',
-    pathMatch: 'full',
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    title: 'Sign Up',
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    title: 'Login',
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent,
-    title: 'Forgot Password',
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordComponent,
-    title: 'Reset Password',
-  },
+  { path: '', redirectTo: 'signup', pathMatch: 'full' },
+  { path: 'signup', component: SignupComponent, title: 'Sign Up' },
+  { path: 'login', component: LoginComponent, title: 'Login' },
+  { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Forgot Password' },
+  { path: 'reset-password', component: ResetPasswordComponent, title: 'Reset Password' },
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'project',
         children: [
+          { path: '', component: ProjectComponent, title: 'Project' },
+          { path: 'add', component: AddProjectComponent, title: 'Add New Project' },
           {
-            path: '',
-            component: ProjectComponent,
-            title: 'Project',
-          },
-          {
-            path: 'add',
-            component: AddProjectComponent,
-            title: 'Add New Project',
-          },
-          {
-            path: ':id/edit',
-            component: EditProjectComponent,
-            title: 'Edit Project Component',
-          },
-          {
-            path: ':id/members',
-            component: MembersComponent,
-            title: 'Members',
+            path: ':id',
+            children: [
+              { path: 'edit', component: EditProjectComponent, title: 'Edit Project' },
+              { path: 'members', component: MembersComponent, title: 'Members' },
+              { path: 'tasks', component: TasksComponent, title: 'Tasks' },
+              { path: 'epics', component: EpicsComponent, title: 'Epics' },
+            ],
           },
         ],
       },
-      {
-        path: 'tasks',
-        component: TasksComponent,
-        title: 'Tasks',
-      },
-      {
-        path: 'epics',
-        component: EpicsComponent,
-        title: 'Epics',
-      },
-      {
-        path: 'details',
-        component: DetailsComponent,
-        title: 'Details',
-      },
     ],
-    canActivate: [authGuard],
   },
 ];

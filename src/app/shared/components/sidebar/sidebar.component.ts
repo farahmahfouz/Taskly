@@ -1,5 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import {
   CollapseOpenIconComponent,
   EpicsIconComponent,
@@ -13,7 +19,8 @@ import { HostListener } from '@angular/core';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
-import { LogoIconComponent } from "../../icons/logo-icon.component";
+import { LogoIconComponent } from '../../icons/logo-icon.component';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,29 +36,52 @@ import { LogoIconComponent } from "../../icons/logo-icon.component";
     CollapseIconComponent,
     LogoutIconComponent,
     CollapseOpenIconComponent,
-    LogoIconComponent
-],
+    LogoIconComponent,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private routerSub?: Subscription;
 
   @Input() mobileOpen = false;
   @Output() mobileOpenChange = new EventEmitter<boolean>();
   @Output() collapsedChange = new EventEmitter<boolean>();
 
-  navItems = [
-    { label: 'Projects', route: '/project', icon: 'projects' },
-    { label: 'Project Epics', route: '/epics', icon: 'epics' },
-    { label: 'Project Tasks', route: '/tasks', icon: 'tasks' },
-    { label: 'Project Members', route: '/members', icon: 'members' },
-    { label: 'Project Details', route: '/details', icon: 'details' },
-  ];
+  get navItems() {
+    const id = this.projectId;
+    return [
+      { label: 'Projects', route: `/project`, icon: 'projects' },
+      { label: 'Tasks', route: `/project/${id}/tasks`, icon: 'tasks' },
+      { label: 'Members', route: `/project/${id}/members`, icon: 'members' },
+      { label: 'Epics', route: `/project/${id}/epics`, icon: 'epics' },
+      { label: 'Project Details', route: `/project/${id}/edit`, icon: 'details' },
+    ];
+  }
 
   collapsed = false;
   isMobile = window.innerWidth < 768;
+  projectId: string | null = null;
+
+  ngOnInit() {
+    this.updateProjectId();
+    this.routerSub = this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => this.updateProjectId());
+  }
+
+  ngOnDestroy() {
+    this.routerSub?.unsubscribe();
+  }
+
+  private updateProjectId() {
+    let r = this.route.root;
+    while (r.firstChild) r = r.firstChild;
+    this.projectId = r.snapshot.paramMap.get('id');
+  }
 
   @HostListener('window:resize')
   onResize() {

@@ -18,7 +18,8 @@ export class ProjectCardComponent {
 
   @Input() project!: Project;
 
-  toggleMenu() {
+  toggleMenu(event: MouseEvent) {
+    event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
   }
 
@@ -28,5 +29,9 @@ export class ProjectCardComponent {
 
   goToMembers() {
     this.router.navigate(['/project', this.project.id, 'members']);
+  }
+
+  goToEpics() {
+    this.router.navigate(['/project', this.project.id, 'epics']);
   }
 }
