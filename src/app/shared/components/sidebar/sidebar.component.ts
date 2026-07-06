@@ -63,7 +63,7 @@ export class SidebarComponent {
   }
 
   collapsed = false;
-  isMobile = window.innerWidth < 768;
+  isMobile = window.innerWidth < 1024;
   projectId: string | null = null;
 
   ngOnInit() {
