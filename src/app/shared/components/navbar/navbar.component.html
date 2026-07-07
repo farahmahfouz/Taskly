@@ -10,7 +10,7 @@
         {{ user?.name }}
       </span>
       <span class="text-xs text-primary weight-bold hidden md:block">
-        {{ user?.department }}
+        {{ user?.department || user?.job_title}}
       </span>
     </div>
 

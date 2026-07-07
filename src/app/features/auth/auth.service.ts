@@ -9,7 +9,8 @@ export interface CurrentUser {
   id: string;
   email: string;
   name: string;
-  department: string;
+  department?: string;
+  job_title?: string;
 }
 
 @Injectable({
@@ -36,6 +37,7 @@ export class AuthService {
           email: res.email,
           name: res.user_metadata.name,
           department: res.user_metadata.department,
+          job_title: res.user_metadata.job_title
         };
         this.currentUserSubject.next(user);
       }),
