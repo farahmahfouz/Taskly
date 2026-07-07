@@ -90,6 +90,8 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.post(`${API.AUTH}/logout`, {});
+    return this.http
+      .post(`${API.AUTH}/logout`, {})
+      .pipe(tap(() => this.currentUserSubject.next(null)));
   }
 }

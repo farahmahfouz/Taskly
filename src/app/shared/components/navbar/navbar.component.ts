@@ -4,8 +4,8 @@ import { MenuIconComponent } from '../../icons/Menu-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private destroyRef: DestroyRef,
+    private toaster: ToastService
   ) {}
   user: CurrentUser | null = null;
   userInitial: string = '?';
@@ -51,15 +52,17 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe({
-      next: () => {
-        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
-
-        this.router.navigate(['/login']);
-      },
+      next: () => this.clearAuthAndRedirect(),
       error: () => {
-        console.log('Logout failed, please try again.');
+        this.toaster.showError('Logout failed, please try again.');
+        this.clearAuthAndRedirect()
       },
     });
+  }
+
+  private clearAuthAndRedirect() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
