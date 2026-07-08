@@ -4,12 +4,12 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
 import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
-import { DropdownMenuComponent } from "../../../../shared/components/dropdown-menu/dropdown-menu.component";
+import { TooltipDirective } from '../../../../shared/directives/tooltip.directive';
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [DatePipe, EditIconComponent, ClickOutsideDirective],
+  imports: [DatePipe, EditIconComponent, ClickOutsideDirective, TooltipDirective],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
 })
