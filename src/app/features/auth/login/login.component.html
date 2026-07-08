@@ -1,5 +1,11 @@
-<app-form-layout title="Welcome Back" description="Please enter your details to access
-  your workspace" titleClass="text-center" hightClass="pt-[104px] md:pt-[147px] md:pb-[147px] min-h-[90vh] md:min-h-auto">
+<app-form-layout
+  title="Welcome Back"
+  description="Please enter your details to access
+  your workspace"
+  titleClass="text-center"
+  hightClass="pt-[104px] md:pt-[147px] md:pb-[147px] min-h-[90vh] md:min-h-auto"
+  contentClass="p-6 md:p-12 max-w-120"
+>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="flex flex-col gap-6">
       <app-input
@@ -37,7 +43,7 @@
       </button>
     </div>
   </form>
-  <div class="pt-8 flex gap-1 justify-center mt-auto md:mt-0">
+  <div class="pt-16 flex gap-1 justify-center mt-auto md:mt-0">
     <span class="text-neutral-mid text-xs weight-regular leading-xs">Don't have an account? </span>
     <a class="text-primary text-xs weight-semibold leading-xs" routerLink="/signup">Sign Up</a>
   </div>
