@@ -9,7 +9,7 @@ import { DropdownMenuComponent } from "../../../../shared/components/dropdown-me
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [DatePipe, EditIconComponent, ClickOutsideDirective, DropdownMenuComponent],
+  imports: [DatePipe, EditIconComponent, ClickOutsideDirective],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
 })
@@ -18,22 +18,6 @@ export class ProjectCardComponent {
   isMenuOpen = false;
 
   @Input() project!: Project;
-
-  toggleMenu(event: MouseEvent) {
-    event.stopPropagation();
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
-  projectItems = [
-    {
-      label: 'Details',
-      action: () => this.goToMembers(),
-    },
-    {
-      label: 'Edit Project',
-      action: () => this.editProject(),
-    },
-  ];
 
   editProject() {
     this.router.navigate(['/project', this.project.id, 'edit']);

@@ -5,13 +5,9 @@
     </h3>
 
     <div class="relative" (appClickOutside)="isMenuOpen = false" appClickOutside (click)="$event.stopPropagation()">
-      <button type="button" class="cursor-pointer p-1 rounded" (click)="toggleMenu($event)">
+      <button type="button" class="cursor-pointer p-1 rounded hover:bg-neutral-light/20 hover:rounded-2xl"  (click)="editProject()">
         <svg icon-edit class="text-neutral-light size-3" />
       </button>
-
-      @if (isMenuOpen) {
-        <app-dropdown-menu [items]="projectItems" top="top-8"  />
-      }
     </div>
   </div>
 

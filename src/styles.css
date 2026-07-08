@@ -97,7 +97,7 @@ body {
     box-shadow: var(--box-shadow);
   }
 
-  /* BORDER RADIUS */
+  BORDER RADIUS
   .rounded-2xs {
     border-radius: var(--rounded-2xs);
   }
@@ -147,6 +147,8 @@ body {
   background: transparent;
   color: var(--color-primary);
   box-shadow: none;
+  border: none;
+  outline: none;
 }
 
 @utility btn-ghost {

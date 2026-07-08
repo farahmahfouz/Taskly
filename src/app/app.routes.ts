@@ -7,7 +7,6 @@ import { authGuard } from './core/Guards/auth.guard';
 import { TasksComponent } from './features/tasks/tasks.component';
 import { MembersComponent } from './features/members/members.component';
 import { EpicsComponent } from './features/epics/epics.component';
-import { DetailsComponent } from './features/details/details.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
 import { projectResolver } from './features/project/project.resolver';
