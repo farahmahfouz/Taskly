@@ -21,7 +21,7 @@ export class LoginComponent {
   ) {}
 
   errorMessage = '';
-  serverError = ''
+  serverError = '';
   isLoading = false;
 
   loginForm = new FormGroup({
@@ -48,7 +48,10 @@ export class LoginComponent {
   }
 
   login() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
     const rememberMe = this.loginForm.value.rememberMe;
 
     const body: LoginRequest = {
@@ -69,7 +72,7 @@ export class LoginComponent {
         } else {
           localStorage.removeItem(STORAGE_KEYS.SESSION_EXPIRY);
         }
-        
+
         this.authService.getUser().subscribe(() => {
           this.router.navigate(['/project']);
         });

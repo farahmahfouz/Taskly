@@ -23,7 +23,7 @@ import { InputComponent } from '../../../shared/components/input/input.component
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-export class SignupComponent implements OnInit{
+export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit{
     const params = new URLSearchParams(hash);
 
     const type = params.get('type');
-    const accessToken = params.get('access_token');   
+    const accessToken = params.get('access_token');
 
     if (type === 'recovery' && accessToken) {
       this.router.navigate(['/reset-password'], {
@@ -136,7 +136,10 @@ export class SignupComponent implements OnInit{
     return '';
   }
   onSubmit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     const body: SignUpRequest = {
       email: this.form.value.email!,
@@ -149,7 +152,7 @@ export class SignupComponent implements OnInit{
 
     this.authService.signUp(body).subscribe({
       next: res => {
-        this.isLoading = true;
+        this.isLoading = false;
         this.router.navigate(['/project']);
       },
       error: err => {
