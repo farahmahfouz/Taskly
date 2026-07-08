@@ -6,11 +6,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { ToastService } from '../../../core/services/toast.service';
+import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenuIconComponent, LogoutIconComponent, ClickOutsideDirective],
+  imports: [MenuIconComponent, ClickOutsideDirective, DropdownMenuComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -19,18 +20,25 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private destroyRef: DestroyRef,
-    private toaster: ToastService
+    private toaster: ToastService,
   ) {}
   user: CurrentUser | null = null;
   userInitial: string = '?';
   openDropdownMenu = false;
+
+  logoutItems = [
+    {
+      label: 'Logout',
+      danger: true,
+      action: () => this.logout(),
+    },
+  ];
 
   @Output() menuClick = new EventEmitter<void>();
 
   ngOnInit() {
     this.authService.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.user = user;
-      console.log(this.user)
       if (user?.name) {
         this.userInitial = this.getInitials(user.name);
       }
@@ -56,7 +64,7 @@ export class NavbarComponent implements OnInit {
       next: () => this.clearAuthAndRedirect(),
       error: () => {
         this.toaster.showError('Logout failed, please try again.');
-        this.clearAuthAndRedirect()
+        this.clearAuthAndRedirect();
       },
     });
   }

@@ -10,20 +10,7 @@
       </button>
 
       @if (isMenuOpen) {
-        <div class="absolute right-0 top-8 z-10 w-32 rounded-lg bg-white shadow-lg">
-          <button
-            class="w-full px-4 py-2 text-left hover:bg-neutral-light/20 hover:rounded-lg cursor-pointer"
-            (click)="goToMembers()"
-          >
-            Details
-          </button>
-          <button
-            class="w-full px-4 py-2 text-left hover:bg-neutral-light/20 hover:rounded-lg cursor-pointer"
-            (click)="editProject()"
-          >
-            Edit Project
-          </button>
-        </div>
+        <app-dropdown-menu [items]="projectItems" top="top-8"  />
       }
     </div>
   </div>

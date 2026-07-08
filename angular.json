@@ -4,7 +4,7 @@
   "cli": {
     "packageManager": "pnpm",
     "schematicCollections": [
-      "angular-eslint"
+      "@angular-eslint/schematics"
     ]
   },
   "newProjectRoot": "projects",
