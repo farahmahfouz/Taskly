@@ -1,6 +1,6 @@
 import { Component, DestroyRef } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
 import { ProjectService } from '../../project.service';
 import { CreateProjectPayload } from '../../project.model';
 import { ToastService } from '../../../../core/services/toast.service';
@@ -9,18 +9,21 @@ import { TextareaComponent } from "../../../../shared/components/textarea/textar
 import { InputComponent } from "../../../../shared/components/input/input.component";
 import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
 import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-form',
   standalone: true,
-  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, VerifiedIconComponent, ErrorIconComponent],
+  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, VerifiedIconComponent, ErrorIconComponent, AsyncPipe],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
 })
 export class ProjectFormComponent {
-  mode: 'add' | 'edit' = 'add';
+  mode: 'add' | 'edit' = this.route.snapshot.paramMap.has('id') ? 'edit' : 'add';
   projectId: string | null = null;
   isLoading = false;
+
+  pageTitle$ = this.route.title;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,7 +74,7 @@ export class ProjectFormComponent {
           );
           this.router.navigate(['/project']);
         },
-        error: err => {
+        error: (err:any) => {
           this.isLoading = false;
 
           this.toast.showError(
@@ -86,3 +89,9 @@ export class ProjectFormComponent {
     this.router.navigate(['/project']);
   }
 }
+
+export const projectFormTitleResolver: ResolveFn<string> = (
+  route: ActivatedRouteSnapshot
+): string => {
+  return route.paramMap.has('id') ? 'Edit Project' : 'Add New Project';
+};

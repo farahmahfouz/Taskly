@@ -10,7 +10,8 @@ import { EpicsComponent } from './features/epics/epics.component';
 import { DetailsComponent } from './features/details/details.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
-import { ProjectFormComponent } from './features/project/components/project-form/project-form.component';
+import { projectResolver } from './features/project/project.resolver';
+import { ProjectFormComponent, projectFormTitleResolver } from './features/project/components/project-form/project-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'signup', pathMatch: 'full' },
@@ -30,8 +31,9 @@ export const routes: Routes = [
           { path: 'add', component: ProjectFormComponent, title: 'Add New Project' },
           {
             path: ':id',
+            resolve: { project: projectResolver },
             children: [
-              { path: 'edit', component: ProjectFormComponent, title: 'Edit Project' },
+              { path: 'edit', component: ProjectFormComponent, title: projectFormTitleResolver },
               { path: 'members', component: MembersComponent, title: 'Members' },
               { path: 'tasks', component: TasksComponent, title: 'Tasks' },
               { path: 'epics', component: EpicsComponent, title: 'Epics' },

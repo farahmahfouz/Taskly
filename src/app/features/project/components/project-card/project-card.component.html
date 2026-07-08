@@ -4,7 +4,7 @@
       {{ project.name }}
     </h3>
 
-    <div class="relative" (appClickOutside)="isMenuOpen = false" appClickOutside>
+    <div class="relative" (appClickOutside)="isMenuOpen = false" appClickOutside (click)="$event.stopPropagation()">
       <button type="button" class="cursor-pointer p-1 rounded" (click)="toggleMenu($event)">
         <svg icon-edit class="text-neutral-light size-3" />
       </button>

@@ -2,7 +2,7 @@ import { Component, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MembersService } from './members.service';
 import { Member } from './members.model';
-import { NgClass } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 import { EditIconComponent } from '../../shared/icons/edit-icon.component';
 import { ProjectErrorComponent } from '../project/components/project-error/project-error.component';
 import { SkeltonComponent } from "./components/skelton/skelton.component";
@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [NgClass, EditIconComponent, ProjectErrorComponent, SkeltonComponent],
+  imports: [NgClass, EditIconComponent, ProjectErrorComponent, SkeltonComponent, UpperCasePipe],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -23,10 +23,14 @@ export class MembersComponent implements OnInit {
   ) {}
 
   members: Member[] = [];
+  projectName = '';
   isLoading = false;
   isError = false;
 
   ngOnInit() {
+    const project = this.route.snapshot.data['project'];
+    this.projectName = project?.name ?? '';
+
     this.route.paramMap.subscribe(params => {
       const projectId = params.get('id');
 
