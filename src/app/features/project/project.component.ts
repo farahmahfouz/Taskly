@@ -9,6 +9,7 @@ import { EmptyProjectsComponent } from './components/empty-projects/empty-projec
 import { ProjectErrorComponent } from './components/project-error/project-error.component';
 import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 
 @Component({
   selector: 'app-project',
@@ -20,6 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     SkeltonComponent,
     EmptyProjectsComponent,
     ProjectErrorComponent,
+    InfinteScrollDirective,
   ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
@@ -30,7 +32,7 @@ export class ProjectComponent implements OnInit {
   isError = false;
 
   currentPage = 1;
-  limit = 10;
+  limit = 2;
 
   totalCount = 0;
   totalPages = 0;
@@ -63,15 +65,29 @@ export class ProjectComponent implements OnInit {
     this.changePage(this.currentPage - 1);
   }
 
-  getProjects() {
-    this.isLoading = true;
+  loadMore() {
+    if (this.isLoading) return;
+    if (this.currentPage >= this.totalPages) return;
+
+    this.currentPage++;
+    this.getProjects(true);
+  }
+
+  getProjects(mobileScreenLoader = false) {
+    if (mobileScreenLoader) {
+      this.isLoading = false;
+    } else {
+      this.isLoading = true;
+    }
 
     this.projectService
       .getAllProjects(this.limit, this.offset)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res: HttpResponse<Project[]>) => {
-          this.projects = res.body ?? [];
+          const newProjects = res.body ?? [];
+
+          this.projects = [...this.projects, ...newProjects];
           const contentRange = res.headers.get('Content-Range');
 
           this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
