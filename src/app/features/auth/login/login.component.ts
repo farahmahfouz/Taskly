@@ -6,6 +6,7 @@ import { LoginRequest } from './login';
 import { AuthService } from '../auth.service';
 import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { InputComponent } from '../../../shared/components/input/input.component';
+import { getControlError } from '../../../core/utils/form-error.util';
 
 @Component({
   selector: 'app-login',
@@ -31,20 +32,7 @@ export class LoginComponent {
   });
 
   getError(controlName: string): string {
-    const ctrl = this.loginForm.get(controlName);
-
-    if (!ctrl?.touched || !ctrl.errors) {
-      return '';
-    }
-
-    if (ctrl.errors['required']) {
-      return `${controlName} is required`;
-    }
-
-    if (ctrl.errors['email']) {
-      return 'Please enter a valid email';
-    }
-    return '';
+   return getControlError(this.loginForm.get(controlName))
   }
 
   login() {

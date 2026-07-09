@@ -11,6 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../auth.service';
 import { Subscription, timer } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { getControlError } from '../../../core/utils/form-error.util';
 
 @Component({
   selector: 'app-forgot-password',
@@ -23,7 +24,7 @@ import { RouterLink } from '@angular/router';
     ClockIconComponent,
     CheckCircleIconComponent,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',
@@ -52,20 +53,8 @@ export class ForgotPasswordComponent implements OnDestroy {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  get emailError(): string {
-    const email = this.forgotPasswordForm.get('email');
-
-    if (!email?.touched) return '';
-
-    if (email.hasError('required')) {
-      return 'Email is required';
-    }
-
-    if (email.hasError('email')) {
-      return 'Please enter a valid email address';
-    }
-
-    return '';
+  getError(controlName: string): string {
+    return getControlError(this.forgotPasswordForm.get(controlName));
   }
 
   get formattedTime(): string {

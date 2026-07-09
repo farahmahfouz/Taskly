@@ -9,6 +9,7 @@ import { SignUpRequest } from './signup';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
+import { getControlError } from '../../../core/utils/form-error.util';
 
 @Component({
   selector: 'app-signup',
@@ -83,58 +84,13 @@ export class SignupComponent implements OnInit {
   }
 
   getError(controlName: string): string {
-    const ctrl = this.form.get(controlName);
-
-    if (!ctrl?.touched) {
-      return '';
-    }
-
     if (controlName === 'confirmPassword' && this.form.hasError('notMatch')) {
       return 'Passwords do not match';
     }
-
-    if (!ctrl.errors) {
-      return '';
-    }
-
-    if (ctrl.errors['required']) {
-      return `${controlName} is required`;
-    }
-
-    if (ctrl.errors['email']) {
-      return 'Please enter a valid email';
-    }
-
-    if (ctrl.errors['minlength']) {
-      return `Minimum length is ${ctrl.errors['minlength'].requiredLength}`;
-    }
-
-    if (ctrl.errors['maxlength']) {
-      return `Maximum length is ${ctrl.errors['maxlength'].requiredLength}`;
-    }
-
-    if (ctrl.errors['uppercase']) {
-      return 'Password must contain an uppercase letter';
-    }
-
-    if (ctrl.errors['lowercase']) {
-      return 'Password must contain a lowercase letter';
-    }
-
-    if (ctrl.errors['digit']) {
-      return 'Password must contain a number';
-    }
-
-    if (ctrl.errors['special']) {
-      return 'Password must contain a special character';
-    }
-
-    if (ctrl.errors['whitespace']) {
-      return 'Password must not contain spaces';
-    }
-
-    return '';
+    return getControlError(this.form.get(controlName));
   }
+
+  
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
