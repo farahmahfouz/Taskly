@@ -3,17 +3,21 @@
     (collapsedChange)="isCollapsed = $event"
     [mobileOpen]="isMobileOpen"
     (mobileOpenChange)="isMobileOpen = $event"
+    [navItems]="navItems"
   />
   @if (isMobileOpen) {
     <div class="fixed inset-0 bg-[#041B3C66] blur-xs z-40 lg:hidden" (click)="isMobileOpen = false"></div>
   }
 
-  <div class="main">
+  <div>
     <app-navbar (menuClick)="toggleMobileSidebar()" />
 
     <main class="p-4 md:p-8">
       <app-toast />
       <router-outlet></router-outlet>
     </main>
+    @if (isMobile) {
+      <app-bottom-navbar [navItems]="navItems" />
+    }
   </div>
 </div>

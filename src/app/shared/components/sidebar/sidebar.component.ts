@@ -20,7 +20,6 @@ import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
 import { LogoIconComponent } from '../../icons/logo-icon.component';
-import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -44,45 +43,15 @@ import { filter, Subscription } from 'rxjs';
 export class SidebarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private routerSub?: Subscription;
 
   @Input() mobileOpen = false;
   @Output() mobileOpenChange = new EventEmitter<boolean>();
   @Output() collapsedChange = new EventEmitter<boolean>();
-
-  get navItems() {
-    const id = this.projectId;
-    return [
-      { label: 'Projects', route: `/project`, icon: 'projects' },
-      { label: 'Tasks', route: `/project/${id}/tasks`, icon: 'tasks' },
-      { label: 'Members', route: `/project/${id}/members`, icon: 'members' },
-      { label: 'Epics', route: `/project/${id}/epics`, icon: 'epics' },
-      { label: 'Project Details', route: `/project/${id}/edit`, icon: 'details' },
-    ];
-  }
+  @Input() navItems: any[] = [];
 
   collapsed = false;
   isMobile = window.innerWidth < 1024;
-  projectId: string | null = null;
-
-  ngOnInit() {
-    this.updateProjectId();
-    this.routerSub = this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => this.updateProjectId());
-  }
-
-  ngOnDestroy() {
-    this.routerSub?.unsubscribe();
-  }
-
-  private updateProjectId() {
-    let r = this.route.root;
-    while (r.firstChild) r = r.firstChild;
-    this.projectId = r.snapshot.paramMap.get('id');
-  }
-
+ 
   @HostListener('window:resize')
   onResize() {
     this.isMobile = window.innerWidth < 768;
