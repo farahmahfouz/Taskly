@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export interface DropdownItem {
   label: string;
@@ -13,6 +13,7 @@ export interface DropdownItem {
   imports: [],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownMenuComponent {
   @Input() items: DropdownItem[] = [];

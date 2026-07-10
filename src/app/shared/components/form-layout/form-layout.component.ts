@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { NgClass } from '@angular/common';
 
@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
   imports: [LogoComponent, NgClass],
   templateUrl: './form-layout.component.html',
   styleUrl: './form-layout.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormLayoutComponent {
   @Input({ required: true }) title!: string;

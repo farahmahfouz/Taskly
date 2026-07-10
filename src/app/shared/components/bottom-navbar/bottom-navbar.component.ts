@@ -1,14 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import {
-  CollapseOpenIconComponent,
-  EpicsIconComponent,
-  ProjectsIconComponent,
-  TasksIconComponent,
-} from '../../icons/index';
-import { CollapseIconComponent } from '../../icons/collapse-icon.component';
-import { LogoutIconComponent } from '../../icons/logout-icon.component';
+import { EpicsIconComponent, ProjectsIconComponent, TasksIconComponent } from '../../icons/index';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
 
@@ -26,6 +19,7 @@ import { DetailsIconComponent } from '../../icons/details-icon.component';
   ],
   templateUrl: './bottom-navbar.component.html',
   styleUrl: './bottom-navbar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BottomNavbarComponent {
   @Input() navItems: any[] = [];

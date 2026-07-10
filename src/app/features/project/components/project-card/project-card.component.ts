@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Project } from '../../project.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { TooltipDirective } from '../../../../shared/directives/tooltip.directiv
   imports: [DatePipe, EditIconComponent, ClickOutsideDirective, TooltipDirective],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent {
   constructor(private router: Router) {}

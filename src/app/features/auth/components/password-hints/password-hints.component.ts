@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export interface PasswordHint {
   label: string;
@@ -9,10 +9,11 @@ export interface PasswordHint {
   standalone: true,
   imports: [],
   templateUrl: './password-hints.component.html',
-  styleUrl: './password-hints.component.css'
+  styleUrl: './password-hints.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordHintsComponent {
   @Input({ required: true }) hints!: PasswordHint[];
   @Input() title!: string;
-  @Input() backgroundClass = 'bg-[#e8edff]'
+  @Input() backgroundClass = 'bg-[#e8edff]';
 }

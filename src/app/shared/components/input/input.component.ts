@@ -1,7 +1,13 @@
-import { Component, forwardRef, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HidePasswordIconComponent, ShowPasswordIconComponent } from '../../icons';
-import { ErrorIconComponent } from "../../icons/error-icon.component";
+import { ErrorIconComponent } from '../../icons/error-icon.component';
 
 @Component({
   selector: 'app-input',
@@ -16,6 +22,7 @@ import { ErrorIconComponent } from "../../icons/error-icon.component";
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent implements ControlValueAccessor {
   @Input({ required: true }) label!: string;

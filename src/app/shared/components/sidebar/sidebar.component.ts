@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -39,6 +46,7 @@ import { LogoIconComponent } from '../../icons/logo-icon.component';
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
   private authService = inject(AuthService);
@@ -51,7 +59,7 @@ export class SidebarComponent {
 
   collapsed = false;
   isMobile = window.innerWidth < 1024;
- 
+
   @HostListener('window:resize')
   onResize() {
     this.isMobile = window.innerWidth < 768;
