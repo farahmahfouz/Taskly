@@ -38,6 +38,7 @@ export class SignupComponent implements OnInit {
 
     const type = params.get('type');
     const accessToken = params.get('access_token');
+    const errorCode = params.get('error_code');
 
     if (type === 'recovery' && accessToken) {
       this.router.navigate(['/reset-password'], {
@@ -45,6 +46,10 @@ export class SignupComponent implements OnInit {
           token: accessToken,
         },
       });
+      return;
+    }
+    if (errorCode === 'otp_expired') {
+      this.router.navigate(['/reset-password']);
     }
   }
 
@@ -90,7 +95,6 @@ export class SignupComponent implements OnInit {
     return getControlError(this.form.get(controlName));
   }
 
-  
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

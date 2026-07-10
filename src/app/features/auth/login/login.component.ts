@@ -4,7 +4,6 @@ import { FormLayoutComponent } from '../../../shared/components/form-layout/form
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
 import { AuthService } from '../auth.service';
-import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { getControlError } from '../../../core/utils/form-error.util';
 
@@ -32,7 +31,7 @@ export class LoginComponent {
   });
 
   getError(controlName: string): string {
-   return getControlError(this.loginForm.get(controlName))
+    return getControlError(this.loginForm.get(controlName));
   }
 
   login() {
@@ -40,6 +39,8 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
+    
     const rememberMe = this.loginForm.value.rememberMe;
 
     const body: LoginRequest = {
@@ -47,20 +48,9 @@ export class LoginComponent {
       password: this.loginForm.value.password!,
     };
 
-    this.authService.login(body).subscribe({
-      next: res => {
-        this.isLoading = true;
-        const storage = rememberMe ? localStorage : sessionStorage;
-        storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
-        storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
-
-        if (rememberMe) {
-          const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
-          localStorage.setItem(STORAGE_KEYS.SESSION_EXPIRY, expiry.toString());
-        } else {
-          localStorage.removeItem(STORAGE_KEYS.SESSION_EXPIRY);
-        }
-
+    this.authService.login(body, !!rememberMe).subscribe({
+      next: () => {
+        this.isLoading = false;
         this.authService.getUser().subscribe(() => {
           this.router.navigate(['/project']);
         });

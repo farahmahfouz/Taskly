@@ -25,8 +25,10 @@ export class AuthService {
     return this.http.post(`${API.AUTH}/signup`, body);
   }
 
-  login(body: LoginRequest) {
-    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body);
+  login(body: LoginRequest, rememberMeValue: boolean) {
+    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
+      tap(res => this.rememberMe(res, rememberMeValue))
+    )
   }
 
   getUser() {
@@ -37,7 +39,7 @@ export class AuthService {
           email: res.email,
           name: res.user_metadata.name,
           department: res.user_metadata.department,
-          job_title: res.user_metadata.job_title
+          job_title: res.user_metadata.job_title,
         };
         this.currentUserSubject.next(user);
       }),
@@ -95,5 +97,18 @@ export class AuthService {
     return this.http
       .post(`${API.AUTH}/logout`, {})
       .pipe(tap(() => this.currentUserSubject.next(null)));
+  }
+
+  private rememberMe(res: LoginResponse, rememberMe: boolean) {
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
+    storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
+
+    if (rememberMe) {
+      const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
+      localStorage.setItem(STORAGE_KEYS.SESSION_EXPIRY, expiry.toString());
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.SESSION_EXPIRY);
+    }
   }
 }
