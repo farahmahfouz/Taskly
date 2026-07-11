@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -19,6 +19,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextareaComponent implements ControlValueAccessor {
+  constructor(private cdr: ChangeDetectorRef) {}
+
   @Input() label = '';
   @Input() placeholder = '';
   @Input() optional = false;
@@ -33,6 +35,7 @@ export class TextareaComponent implements ControlValueAccessor {
 
   writeValue(value: string): void {
     this.value = value || '';
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: any): void {
