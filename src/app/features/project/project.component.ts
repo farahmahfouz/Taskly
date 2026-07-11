@@ -10,6 +10,7 @@ import { ProjectErrorComponent } from './components/project-error/project-error.
 import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
+import { ProjectContextService } from '../../core/services/project-context.service';
 
 @Component({
   selector: 'app-project',
@@ -40,9 +41,11 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private destroyRef: DestroyRef,
+    private projectContextService: ProjectContextService,
   ) {}
 
   ngOnInit() {
+    this.projectContextService.clearProjectId();
     this.getProjects();
   }
 

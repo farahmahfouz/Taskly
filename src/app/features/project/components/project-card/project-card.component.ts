@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
 import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 import { TooltipDirective } from '../../../../shared/directives/tooltip.directive';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
 
 @Component({
   selector: 'app-project-card',
@@ -15,20 +16,23 @@ import { TooltipDirective } from '../../../../shared/directives/tooltip.directiv
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private projectContextService: ProjectContextService) {}
   isMenuOpen = false;
 
   @Input() project!: Project;
 
   editProject() {
+    this.projectContextService.setProjectId(this.project.id ?? '');
     this.router.navigate(['/project', this.project.id, 'edit']);
   }
 
   goToMembers() {
+    this.projectContextService.setProjectId(this.project.id ?? '');
     this.router.navigate(['/project', this.project.id, 'members']);
   }
 
   goToEpics() {
+    this.projectContextService.setProjectId(this.project.id ?? '');
     this.router.navigate(['/project', this.project.id, 'epics']);
   }
 }

@@ -1,10 +1,10 @@
-import { Component, HostListener, inject, Input } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from '../toast/toast.component';
-import { filter, Subscription } from 'rxjs';
 import { BottomNavbarComponent } from '../bottom-navbar/bottom-navbar.component';
+import { ProjectContextService } from '../../../core/services/project-context.service';
 
 @Component({
   selector: 'app-layout',
@@ -14,9 +14,7 @@ import { BottomNavbarComponent } from '../bottom-navbar/bottom-navbar.component'
   styleUrl: './layout.component.css',
 })
 export class LayoutComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private routerSub?: Subscription;
+  private projectContextService = inject(ProjectContextService);
 
   isCollapsed = false;
   isMobileOpen = false;
@@ -32,7 +30,7 @@ export class LayoutComponent {
   }
 
   get navItems() {
-    const id = this.projectId;
+    const id = this.projectContextService.activeProjectId();
 
     return [
       {
@@ -64,22 +62,4 @@ export class LayoutComponent {
   }
 
   collapsed = false;
-  projectId: string | null = null;
-
-  ngOnInit() {
-    this.updateProjectId();
-    this.routerSub = this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => this.updateProjectId());
-  }
-
-  ngOnDestroy() {
-    this.routerSub?.unsubscribe();
-  }
-
-  private updateProjectId() {
-    let r = this.route.root;
-    while (r.firstChild) r = r.firstChild;
-    this.projectId = r.snapshot.paramMap.get('id');
-  }
 }
