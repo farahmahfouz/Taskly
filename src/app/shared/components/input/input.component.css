@@ -3,7 +3,7 @@
   height: 48px;
   font-size: 16px;
   margin-top: 6px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--rounded-sm);
   padding: 14px 16px;
   font-family: var(--font-sans);
   color: var(--color-neutral-dark);
@@ -11,6 +11,12 @@
   outline: none;
   opacity: 1;
   transition: border-color 0.15s;
+}
+
+@media (min-width: 768px) {
+  .input {
+    border-radius: var(--rounded-2xs);
+  }
 }
 
 .input:focus {
