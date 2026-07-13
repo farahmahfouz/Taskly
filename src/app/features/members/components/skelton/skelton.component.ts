@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './skelton.component.html',
-  styleUrl: './skelton.component.css'
+  styleUrl: './skelton.component.css',
 })
 export class SkeltonComponent {
- rows = [1, 2, 3, 4, 5];
+  rows = [1, 2, 3, 4, 5];
 }

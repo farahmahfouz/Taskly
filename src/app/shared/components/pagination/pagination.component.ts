@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   imports: [],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
   @Input() currentPage = 1;
@@ -39,4 +39,4 @@ export class PaginationComponent {
   get showingCount(): number {
     return Math.min(this.currentPage * this.pageSize, this.totalCount);
   }
-} 
+}

@@ -16,7 +16,10 @@ import { ProjectContextService } from '../../../../core/services/project-context
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent {
-  constructor(private router: Router, private projectContextService: ProjectContextService) {}
+  constructor(
+    private router: Router,
+    private projectContextService: ProjectContextService,
+  ) {}
   isMenuOpen = false;
 
   @Input() project!: Project;

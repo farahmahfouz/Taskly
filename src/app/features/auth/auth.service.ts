@@ -26,9 +26,9 @@ export class AuthService {
   }
 
   login(body: LoginRequest, rememberMeValue: boolean) {
-    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
-      tap(res => this.rememberMe(res, rememberMeValue))
-    )
+    return this.http
+      .post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body)
+      .pipe(tap(res => this.rememberMe(res, rememberMeValue)));
   }
 
   getUser() {

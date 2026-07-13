@@ -5,7 +5,7 @@ import { Member } from './members.model';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { EditIconComponent } from '../../shared/icons/edit-icon.component';
 import { ProjectErrorComponent } from '../project/components/project-error/project-error.component';
-import { SkeltonComponent } from "./components/skelton/skelton.component";
+import { SkeltonComponent } from './components/skelton/skelton.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -41,18 +41,19 @@ export class MembersComponent implements OnInit {
   }
 
   getMembers(projectId: string) {
-    this.membersService.getProjectMembers(projectId)
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: res => {
-        this.members = res;
-        this.isError = false;
-      },
-      error: () => {
-        this.isLoading = false;
-        this.isError = true;
-      },
-    });
+    this.membersService
+      .getProjectMembers(projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.members = res;
+          this.isError = false;
+        },
+        error: () => {
+          this.isLoading = false;
+          this.isError = true;
+        },
+      });
   }
 
   getInitials(name?: string): string {

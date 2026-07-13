@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   standalone: true,
   imports: [NgClass],
   templateUrl: './toast.component.html',
-  styleUrl: './toast.component.css'
+  styleUrl: './toast.component.css',
 })
 export class ToastComponent {
   constructor(public toast: ToastService) {}

@@ -1,14 +1,12 @@
 <div class="flex flex-col gap-6 min-h-[726.5px]">
   @if (isLoading) {
-    <app-skelton  />
+    <app-skelton />
   } @else if (isError) {
     <app-project-error />
   } @else {
     <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
-        <div
-          class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2"
-        >
+        <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2">
           <p class="text-neutral-grey">PROJECTS</p>
           <span class="text-neutral-grey">›</span>
           <p class="text-neutral-grey">{{ projectName | uppercase }}</p>
@@ -16,24 +14,15 @@
           <p class="text-primary">MEMBERS</p>
         </div>
 
-        <h1
-          class="text-3xl font-semibold text-neutral-dark text-center md:text-start pt-4 md:pt-0"
-        >
+        <h1 class="text-3xl font-semibold text-neutral-dark text-center md:text-start pt-4 md:pt-0">
           Projects Members
         </h1>
       </div>
 
-      <a
-        class="btn btn-primary bg-gradient-primary hidden md:flex"
-        routerLink="/project/add"
-      >
-        Invite Members
-      </a>
+      <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add"> Invite Members </a>
     </header>
 
-    <div
-      class="bg-white rounded-lg md:border-4 border-[#F1F3FF] overflow-hidden md:w-197.25 md:mx-auto md:my-16"
-    >
+    <div class="bg-white rounded-lg md:border-4 border-[#F1F3FF] overflow-hidden md:w-197.25 md:mx-auto md:my-16">
       <div
         class="hidden md:grid grid-cols-[2fr_1fr_60px] items-center px-6 py-4 bg-[#E0E8FF4D] text-dark border-neutral-light text-2xs uppercase tracking-wide weight-bold"
       >
@@ -72,7 +61,7 @@
                   'bg-[#0052CC] text-white': member.role === 'owner',
                   'bg-surface-low text-[#51617E]': member.role === 'admin',
                   'bg-gray-100 text-gray-700': member.role === 'member',
-                  'bg-slate-100 text-slate-600': member.role === 'viewer'
+                  'bg-slate-100 text-slate-600': member.role === 'viewer',
                 }"
               >
                 {{ member.role }}

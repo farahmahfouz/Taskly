@@ -40,7 +40,7 @@ export class LoginComponent {
       return;
     }
     this.isLoading = true;
-    
+
     const rememberMe = this.loginForm.value.rememberMe;
 
     const body: LoginRequest = {

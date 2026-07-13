@@ -10,12 +10,7 @@ import { Component } from '@angular/core';
       stroke-width="2"
       stroke-linecap="round"
     />
-    <svg:path
-      d="M10 6V10L13 12"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-    />
+    <svg:path d="M10 6V10L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
   `,
   host: {
     '[attr.viewBox]': '"0 0 20 20"',

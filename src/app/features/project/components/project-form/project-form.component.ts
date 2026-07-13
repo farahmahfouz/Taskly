@@ -5,8 +5,8 @@ import { ProjectService } from '../../project.service';
 import { CreateProjectPayload } from '../../project.model';
 import { ToastService } from '../../../../core/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TextareaComponent } from "../../../../shared/components/textarea/textarea.component";
-import { InputComponent } from "../../../../shared/components/input/input.component";
+import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
 import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
 import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
 import { AsyncPipe } from '@angular/common';
@@ -14,7 +14,14 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-project-form',
   standalone: true,
-  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, VerifiedIconComponent, ErrorIconComponent, AsyncPipe],
+  imports: [
+    TextareaComponent,
+    InputComponent,
+    ReactiveFormsModule,
+    VerifiedIconComponent,
+    ErrorIconComponent,
+    AsyncPipe,
+  ],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
 })
@@ -74,7 +81,7 @@ export class ProjectFormComponent {
           );
           this.router.navigate(['/project']);
         },
-        error: (err:any) => {
+        error: (err: any) => {
           this.isLoading = false;
 
           this.toast.showError(
@@ -91,7 +98,7 @@ export class ProjectFormComponent {
 }
 
 export const projectFormTitleResolver: ResolveFn<string> = (
-  route: ActivatedRouteSnapshot
+  route: ActivatedRouteSnapshot,
 ): string => {
   return route.paramMap.has('id') ? 'Edit Project' : 'Add New Project';
 };

@@ -6,7 +6,6 @@
 >
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-6">
-
       <app-input
         label="Name"
         placeholder="Enter your full name"
@@ -62,20 +61,12 @@
           <span>Create Account</span>
         }
       </button>
-
     </div>
   </form>
 
   <div class="pt-8 flex gap-1 justify-center">
-    <span class="text-neutral-mid text-xs weight-regular leading-xs">
-      Already have an account?
-    </span>
+    <span class="text-neutral-mid text-xs weight-regular leading-xs"> Already have an account? </span>
 
-    <a
-      class="text-primary text-xs weight-semibold leading-xs"
-      routerLink="/login"
-    >
-      Log in
-    </a>
+    <a class="text-primary text-xs weight-semibold leading-xs" routerLink="/login"> Log in </a>
   </div>
 </app-form-layout>

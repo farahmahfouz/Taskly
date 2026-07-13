@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { ProjectComponent } from './project.component';
-import { ProjectFormComponent, projectFormTitleResolver } from './components/project-form/project-form.component';
+import {
+  ProjectFormComponent,
+  projectFormTitleResolver,
+} from './components/project-form/project-form.component';
 import { projectResolver } from './project.resolver';
 import { MembersComponent } from '../members/members.component';
 import { TasksComponent } from '../tasks/tasks.component';

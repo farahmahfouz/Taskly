@@ -6,8 +6,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
   imports: [],
   templateUrl: './skelton.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrl: './skelton.component.css'
+  styleUrl: './skelton.component.css',
 })
-export class SkeltonComponent {
-
-}
+export class SkeltonComponent {}

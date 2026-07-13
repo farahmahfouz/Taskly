@@ -21,4 +21,3 @@ export { IconForgotPasswordComponent } from './forgot-password-icon.component';
 export { ArrowBackIconComponent } from './arrow-back-icon.component';
 export { ClockIconComponent } from './clock-icon.component';
 export { CheckCircleIconComponent } from './check-circle-icon.component';
-

@@ -1,28 +1,35 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 
 @Directive({
   selector: '[appInfinteScroll]',
-  standalone: true
+  standalone: true,
 })
-export class InfinteScrollDirective  implements AfterViewInit, OnDestroy {
-
+export class InfinteScrollDirective implements AfterViewInit, OnDestroy {
   @Output() scrolled = new EventEmitter();
 
   private observer?: IntersectionObserver;
 
-  constructor(private el: ElementRef) { }
-  ngAfterViewInit(){
+  constructor(private el: ElementRef) {}
+  ngAfterViewInit() {
     this.observer = new IntersectionObserver(
       entries => {
-        if(entries[0].isIntersecting){
-          this.scrolled.emit()
+        if (entries[0].isIntersecting) {
+          this.scrolled.emit();
         }
-      },{
-        threshold: 0.3
-      }
-    )
+      },
+      {
+        threshold: 0.3,
+      },
+    );
 
-    this.observer.observe(this.el.nativeElement)
+    this.observer.observe(this.el.nativeElement);
   }
 
   ngOnDestroy() {
