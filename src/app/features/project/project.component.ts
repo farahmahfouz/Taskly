@@ -90,7 +90,7 @@ export class ProjectComponent implements OnInit {
         next: (res: HttpResponse<Project[]>) => {
           const newProjects = res.body ?? [];
 
-          this.projects = [...this.projects, ...newProjects];
+          this.projects = mobileScreenLoader ? [...this.projects, ...newProjects] : newProjects;
           const contentRange = res.headers.get('Content-Range');
 
           this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
