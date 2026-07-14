@@ -5,11 +5,12 @@ import { LayoutComponent } from './shared/components/layout/layout.component';
 import { authGuard } from './core/Guards/auth.guard';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
+import { guestGuard } from './core/Guards/guest.guard';
 
 export const routes: Routes = [
-  { path: '', component: SignupComponent, title: 'Sign Up' },
+  { path: '', component: SignupComponent, canActivate: [guestGuard], title: 'Sign Up' },
   { path: 'signup', redirectTo: '', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, title: 'Login' },
+  { path: 'login', component: LoginComponent, canActivate: [guestGuard], title: 'Login' },
   { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Forgot Password' },
   { path: 'reset-password', component: ResetPasswordComponent, title: 'Reset Password' },
   {

@@ -32,7 +32,13 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   return auth.getUser().pipe(
     map(() => true),
-    catchError(() => {
+    catchError(err => {
+      console.log('getUser Error:', err);
+
+      console.log('Access Token:', localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN));
+      console.log('Refresh Token:', localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN));
+      console.log('Session Expiry:', localStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY));
+
       localStorage.clear();
       sessionStorage.clear();
       return of(router.createUrlTree(['/login']));
