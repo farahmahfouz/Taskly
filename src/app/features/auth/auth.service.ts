@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignUpRequest } from '../../features/auth/signup/signup';
+import { GetUserResponse, SignUpRequest, SignUpResponse } from '../../features/auth/signup/signup';
 import { LoginRequest, LoginResponse } from '../../features/auth/login/login';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API, STORAGE_KEYS } from '../../core/utils/constants';
@@ -22,7 +22,7 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   signUp(body: SignUpRequest) {
-    return this.http.post(`${API.AUTH}/signup`, body);
+    return this.http.post<SignUpResponse>(`${API.AUTH}/signup`, body).pipe(tap(res => this.rememberMe(res, false)));
   }
 
   login(body: LoginRequest, rememberMeValue: boolean) {
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   getUser() {
-    return this.http.get<any>(`${API.AUTH}/user`).pipe(
+    return this.http.get<GetUserResponse>(`${API.AUTH}/user`).pipe(
       tap(res => {
         const user: CurrentUser = {
           id: res.id,
