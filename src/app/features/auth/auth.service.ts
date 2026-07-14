@@ -94,9 +94,13 @@ export class AuthService {
   }
 
   logout() {
-    return this.http
-      .post(`${API.AUTH}/logout`, {})
-      .pipe(tap(() => this.currentUserSubject.next(null)));
+    return this.http.post(`${API.AUTH}/logout`, {}).pipe(
+      tap(() => {
+        this.currentUserSubject.next(null);
+        localStorage.clear();
+        sessionStorage.clear();
+      }),
+    );
   }
 
   private rememberMe(res: LoginResponse, rememberMe: boolean) {

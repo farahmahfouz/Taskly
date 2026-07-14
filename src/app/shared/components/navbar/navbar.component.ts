@@ -61,17 +61,11 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe({
-      next: () => this.clearAuthAndRedirect(),
+      next: () => this.router.navigate(['/login']),
       error: () => {
-        this.toaster.showError('Logout failed, please try again.');
-        this.clearAuthAndRedirect();
+        (this.router.navigate(['/login']),
+          this.toaster.showError('Logout failed, please try again.'));
       },
     });
-  }
-
-  private clearAuthAndRedirect() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.router.navigate(['/login']);
   }
 }

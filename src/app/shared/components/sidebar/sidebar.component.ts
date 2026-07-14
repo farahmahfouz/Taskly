@@ -27,6 +27,7 @@ import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
 import { LogoIconComponent } from '../../icons/logo-icon.component';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -51,6 +52,7 @@ import { LogoIconComponent } from '../../icons/logo-icon.component';
 export class SidebarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toaster = inject(ToastService);
 
   @Input() mobileOpen = false;
   @Output() mobileOpenChange = new EventEmitter<boolean>();
@@ -83,13 +85,10 @@ export class SidebarComponent {
     event.stopPropagation();
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
-
         this.router.navigate(['/login']);
       },
       error: () => {
-        console.log('Logout failed, please try again.');
+        this.toaster.showError('Logout failed, please try again.');
       },
     });
   }
