@@ -6,13 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   CollapseOpenIconComponent,
   EpicsIconComponent,
@@ -23,7 +17,6 @@ import { CollapseIconComponent } from '../../icons/collapse-icon.component';
 import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { AuthService } from '../../../features/auth/auth.service';
 import { HostListener } from '@angular/core';
-import { STORAGE_KEYS } from '../../../core/utils/constants';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
 import { LogoIconComponent } from '../../icons/logo-icon.component';
@@ -60,7 +53,7 @@ export class SidebarComponent {
   @Input() navItems: any[] = [];
 
   collapsed = false;
-  isMobile = window.innerWidth < 1024;
+  isMobile = window.innerWidth < 768;
 
   @HostListener('window:resize')
   onResize() {
