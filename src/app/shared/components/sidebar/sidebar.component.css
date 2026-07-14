@@ -1,7 +1,7 @@
 .sidebar {
   width: 256px;
   z-index: 9999;
-  transition: width 0.6s ease;
+  transition: width 0.3s ease;
 }
 
 .sidebar.collapsed {
