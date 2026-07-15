@@ -4,7 +4,7 @@ import { InputComponent } from '../../../../shared/components/input/input.compon
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
 import { getControlError } from '../../../../core/utils/form-error.util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEpicRequest } from '../../epic.model';
 import { EpicsService } from '../../epics.service';
 import { MembersService } from '../../../members/members.service';
@@ -23,6 +23,7 @@ export class EpicFormComponent implements OnInit {
   today = new Date().toISOString().split('T')[0];
   errorMessage = '';
   projectId = '';
+  isLoading = false;
   members: Member[] = [];
 
   @HostListener('window:resize')
@@ -35,7 +36,8 @@ export class EpicFormComponent implements OnInit {
     private route: ActivatedRoute,
     private epicsService: EpicsService,
     private membersService: MembersService,
-    private toaster: ToastService
+    private toaster: ToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +72,8 @@ export class EpicFormComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     const body: CreateEpicRequest = {
       title: this.epicForm.value.title!,
       description: this.epicForm.value.description || '',
@@ -80,9 +84,12 @@ export class EpicFormComponent implements OnInit {
 
     this.epicsService.createNewEpic(body).subscribe({
       next: res => {
+        this.isLoading = false;
         this.toaster.showSuccess('Epic created Successfully');
+        this.router.navigate(['/project', this.projectId, 'epics']);
       },
       error: err => {
+        this.isLoading = false;
          this.toaster.showError('Failed to create epic.')
       },
     });
