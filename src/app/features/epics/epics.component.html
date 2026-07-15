@@ -1,5 +1,8 @@
 @if (isError) {
   <app-project-error (retry)="getProjectEpics(projectId)" />
+} @else if (epics.length === 0) {
+  <app-empty-epics />
+
 } @else {
   <div class="md:min-h-screen min-h-248.25 w-full mx-auto">
     <div class="flex justify-between items-center">

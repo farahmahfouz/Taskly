@@ -6,11 +6,12 @@ import { EpicsService } from './epics.service';
 import { Epic } from './epic.model';
 import { SearchIconComponent } from "../../shared/icons";
 import { ProjectErrorComponent } from "../project/components/project-error/project-error.component";
+import { EmptyEpicsComponent } from "./components/empty-epics/empty-epics.component";
 
 @Component({
   selector: 'app-epics',
   standalone: true,
-  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent, ProjectErrorComponent],
+  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent, ProjectErrorComponent, EmptyEpicsComponent],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })

@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'svg[icon-flow]',
+  standalone: true,
+  template: `
+    <svg:path
+      d="M0 22V16H2.5V14H0V8H2.5V6H0V0H7V6H4.5V8H7V10H10V8H17V14H10V12H7V14H4.5V16H7V22H0ZM2 20H5V18H2V20ZM2 12H5V10H2V12ZM12 12H15V10H12V12ZM2 4H5V2H2V4Z"
+      fill="currentColor"
+    />
+  `,
+  host: {
+    '[attr.viewBox]': '"0 0 17 22"',
+  },
+})
+export class FlowIconComponent {}

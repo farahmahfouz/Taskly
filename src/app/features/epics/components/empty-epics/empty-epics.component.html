@@ -1,0 +1,79 @@
+<div class="flex flex-col items-center justify-center px-4 py-16">
+  <div
+    class="w-56 h-56 rounded-4xl bg-white flex items-center justify-center backdrop-blur-3xl shadow-[0px_25px_50px_-12px_#003D9B1A]"
+  >
+    <div class="grid grid-cols-2 gap-2">
+      <div class="w-16 h-16 rounded-sm bg-[#0052CC33] flex items-center justify-center">
+        <svg icon-rocket class="text-primary size-5.5"></svg>
+      </div>
+
+      <div class="w-16 h-16 rounded-sm bg-[#0052CC33] opacity-70 flex items-center justify-center">
+        <svg icon-architecture class="size-5.5 text-neutral-grey"></svg>
+      </div>
+
+      <div class="w-16 h-16 rounded-sm bg-[#0052CC33] opacity-70 flex items-center justify-center">
+        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.4">
+            <path
+              d="M0 10V0H10V10H0ZM0 22.5V12.5H10V22.5H0ZM12.5 10V0H22.5V10H12.5ZM12.5 22.5V12.5H22.5V22.5H12.5ZM2.5 7.5H7.5V2.5H2.5V7.5ZM15 7.5H20V2.5H15V7.5ZM15 20H20V15H15V20ZM2.5 20H7.5V15H2.5V20Z"
+              fill="#737685"
+            />
+          </g>
+        </svg>
+      </div>
+
+      <div
+        class="w-16 h-16 rounded-sm border-2 border-dashed border-[#003D9B33] flex items-center justify-center text-[#003D9B33]"
+      >
+        +
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-10 text-md weight-semibold text-neutral-dark tracking-normal leading-lg">
+    No epics in this project yet.
+  </h2>
+
+  <p class="mt-4 max-w-md text-center text-sm leading-7.5 text-dark weight-regular">
+    Break down your large project into manageable epics to track progress better and maintain architectural clarity.
+  </p>
+
+  <button class="mt-10 btn btn-primary flex gap-1">
+    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.55 16.2L11.725 10H7.725L8.45 4.325L3.825 11H7.3L6.55 16.2ZM4 20L5 13H0L9 0H11L10 8H16L6 20H4Z"
+        fill="white"
+      />
+    </svg>
+
+    Create First Epic
+  </button>
+
+  <div class="mt-20 grid w-full max-w-2xl gap-6 md:grid-cols-3">
+    @for (item of features; track item.title) {
+      <div class="bg-surface-low rounded-sm border-[#000000] p-5.25">
+        <div class="mb-5 flex h-10 w-10 items-center justify-center rounded-xs bg-white">
+          @switch (item.icon) {
+            @case ('sparkle') {
+              <svg icon-sparkle class="size-5.5 text-primary"></svg>
+            }
+            @case ('flow') {
+              <svg icon-flow class="size-5.5 text-primary"></svg>
+            }
+            @case ('trend') {
+              <svg icon-trend class="size-5.5 text-primary"></svg>
+            }
+          }
+        </div>
+
+        <h3 class="font-semibold text-neutral-dark leading-6">
+          {{ item.title }}
+        </h3>
+
+        <p class="mt-1 text-[12px] leading-6 text-dark">
+          {{ item.description }}
+        </p>
+      </div>
+    }
+  </div>
+</div>

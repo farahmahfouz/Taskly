@@ -27,3 +27,6 @@ export { CheckCircleIconComponent } from './check-circle-icon.component';
 export { PeopleIconComponent } from './people-icon.component';
 export { DateIconComponent } from './date-icon.component';
 export { SearchIconComponent } from './search-icon.component';
+export { SparkleIconComponent } from './sparkle-icon.component';
+export { FlowIconComponent } from "./flow-icon.component";
+export { TrendIconComponent } from './trend-icon.component';
