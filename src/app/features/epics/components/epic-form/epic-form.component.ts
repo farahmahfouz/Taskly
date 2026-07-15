@@ -4,7 +4,7 @@ import { InputComponent } from '../../../../shared/components/input/input.compon
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
 import { getControlError } from '../../../../core/utils/form-error.util';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CreateEpicRequest } from '../../epic.model';
 import { EpicsService } from '../../epics.service';
 import { MembersService } from '../../../members/members.service';
@@ -14,7 +14,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 @Component({
   selector: 'app-epic-form',
   standalone: true,
-  imports: [TextareaComponent, InputComponent, ReactiveFormsModule],
+  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './epic-form.component.html',
   styleUrl: './epic-form.component.css',
 })
