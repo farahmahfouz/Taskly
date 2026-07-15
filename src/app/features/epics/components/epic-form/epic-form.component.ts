@@ -1,9 +1,15 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
 import { getControlError } from '../../../../core/utils/form-error.util';
+import { ActivatedRoute } from '@angular/router';
+import { CreateEpicRequest } from '../../epic.model';
+import { EpicsService } from '../../epics.service';
+import { MembersService } from '../../../members/members.service';
+import { Member } from './../../../members/members.model';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-epic-form',
@@ -12,20 +18,40 @@ import { getControlError } from '../../../../core/utils/form-error.util';
   templateUrl: './epic-form.component.html',
   styleUrl: './epic-form.component.css',
 })
-export class EpicFormComponent {
+export class EpicFormComponent implements OnInit {
   isDesktop = window.innerWidth >= 768;
   today = new Date().toISOString().split('T')[0];
   errorMessage = '';
+  projectId = '';
+  members: Member[] = [];
 
   @HostListener('window:resize')
   onResize() {
     this.isDesktop = window.innerWidth >= 768;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private epicsService: EpicsService,
+    private membersService: MembersService,
+    private toaster: ToastService
+  ) {}
+
+  ngOnInit(): void {
+    this.projectId = this.route.snapshot.paramMap.get('id')!;
+    this.membersService.getProjectMembers(this.projectId).subscribe({
+      next: members => {
+        this.members = members;
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
+  }
 
   epicForm = this.fb.group({
-    title: ['', Validators.required, Validators.minLength(3)],
+    title: ['', [Validators.required, Validators.minLength(3)]],
     description: ['', [Validators.maxLength(500)]],
     assignee: [''],
     deadline: ['', futureValidator],
@@ -43,6 +69,22 @@ export class EpicFormComponent {
       this.epicForm.markAllAsTouched();
       return;
     }
-    console.log('first');
+
+    const body: CreateEpicRequest = {
+      title: this.epicForm.value.title!,
+      description: this.epicForm.value.description || '',
+      assignee_id: this.epicForm.value.assignee || '',
+      project_id: this.projectId,
+      deadline: this.epicForm.value.deadline || '',
+    };
+
+    this.epicsService.createNewEpic(body).subscribe({
+      next: res => {
+        this.toaster.showSuccess('Epic created Successfully');
+      },
+      error: err => {
+         this.toaster.showError('Failed to create epic.')
+      },
+    });
   }
 }

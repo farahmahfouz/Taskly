@@ -38,20 +38,6 @@
           [horizontal]="isDesktop"
           [errorMessage]="getError('title')"
         />
-
-        <!-- @if (epicForm.get('title')?.touched && epicForm.get('title')?.errors) {
-          <div class="flex items-center gap-1 mt-1">
-            <svg icon-error class="text-error size-3.5" />
-
-            @if (epicForm.get('title')?.hasError('required')) {
-              <p class="text-error text-2xs">Project title is required.</p>
-            }
-
-            @if (epicForm.get('title')?.hasError('minlength')) {
-              <p class="text-error text-2xs">Project title must be at least 3 characters.</p>
-            }
-          </div>
-        } -->
       </div>
 
       <div>
@@ -71,9 +57,11 @@
 
           <select class="input" formControlName="assignee">
             <option value="" disabled selected>Select a member</option>
-            <option value="1">Member 1</option>
-            <option value="2">Member 2</option>
-            <option value="3">Member 3</option>
+            @for (member of members; track member.member_id) {
+              <option [value]="member.user_id">
+                {{ member.metadata.name }}
+              </option>
+            }
           </select>
         </div>
         <div class="w-full">
