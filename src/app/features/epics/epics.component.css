@@ -1,0 +1,19 @@
+.search {
+  width: 100%;
+  font-size: var(--text-xs);
+  border-radius: var(--rounded-sm);
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  color: var(--color-neutral-dark);
+  background-color: var(--color-surface-highest);
+  outline: none;
+  opacity: 1;
+  transition: border-color 0.15s;
+}
+
+@media (min-width: 48rem) {
+  .search {
+    border-radius: var(--rounded-2xs);
+    padding: 0.875rem 1rem; 
+  }
+}
