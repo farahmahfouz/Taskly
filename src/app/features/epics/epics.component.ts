@@ -5,17 +5,19 @@ import { ActivatedRoute } from '@angular/router';
 import { EpicsService } from './epics.service';
 import { Epic } from './epic.model';
 import { SearchIconComponent } from "../../shared/icons";
+import { ProjectErrorComponent } from "../project/components/project-error/project-error.component";
 
 @Component({
   selector: 'app-epics',
   standalone: true,
-  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent],
+  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent, ProjectErrorComponent],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
 export class EpicsComponent implements OnInit {
   projectId = '';
   epics: Epic[] = [];
+  isError = false;
   constructor(
     private route: ActivatedRoute,
     private epicsService: EpicsService,
@@ -32,9 +34,11 @@ export class EpicsComponent implements OnInit {
     this.epicsService.getAllProjectEpics(projectId).subscribe({
       next: res => {
         this.epics = res;
+        this.isError = false;
       },
       error: err => {
         console.log(err);
+        this.isError = true;
       },
     });
   }
