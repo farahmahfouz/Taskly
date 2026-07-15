@@ -1,4 +1,4 @@
-<div [class.has-error]="!!errorMessage">
+<div [class.has-error]="!!errorMessage" [class.horizontal]="horizontal">
   <label class="control-label">
     {{ label }}
     @if (required) {
@@ -10,7 +10,7 @@
     }
   </label>
 
-  <div>
+  <div class="field-wrapper">
     <div class="input-field">
       <input
         class="input"

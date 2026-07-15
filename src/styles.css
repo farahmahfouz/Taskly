@@ -141,6 +141,7 @@ body {
 @utility btn-primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
   color: var(--color-white);
+  background: linear-gradient(135deg, #003D9B 0%, #0052CC 100%);
 }
 
 @utility btn-secondary {

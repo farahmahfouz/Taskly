@@ -1,24 +1,26 @@
-<label class="control-label">
-  {{ label }}
+<div class="textarea-wrapper" [class.horizontal]="horizontal">
+  <label class="control-label">
+    {{ label }}
 
-  @if (optional) {
-    <span>Optional</span>
-  }
-</label>
+    @if (optional) {
+      <span>Optional</span>
+    }
+  </label>
 
-<div class="input-wrapper">
-  <textarea
-    class="textarea"
-    [placeholder]="placeholder"
-    [value]="value"
-    [disabled]="disabled"
-    [rows]="rows"
-    maxlength="maxLength"
-    (input)="updateValue($event)"
-    (blur)="onTouched()"
-  ></textarea>
+  <div class="field-wrapper">
+    <textarea
+      class="textarea"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      [rows]="rows"
+      maxlength="maxLength"
+      (input)="updateValue($event)"
+      (blur)="onTouched()"
+    ></textarea>
+
+    @if (maxLength) {
+      <p class="text-right text-2xs text-gray-400 mt-1.5 hidden md:block">{{ value.length }} / {{ maxLength }} characters</p>
+    }
+  </div>
 </div>
-
-@if (maxLength) {
-  <p class="text-right text-2xs text-gray-400 mt-1.5">{{ value.length }} / {{ maxLength }} characters</p>
-}

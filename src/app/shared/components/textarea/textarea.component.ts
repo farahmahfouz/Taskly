@@ -23,7 +23,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class TextareaComponent implements ControlValueAccessor {
   constructor(private cdr: ChangeDetectorRef) {}
-
+  @Input() horizontal: boolean = false;
   @Input() label = '';
   @Input() placeholder = '';
   @Input() optional = false;

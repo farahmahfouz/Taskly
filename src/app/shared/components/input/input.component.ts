@@ -4,6 +4,7 @@ import {
   Component,
   forwardRef,
   Input,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HidePasswordIconComponent, ShowPasswordIconComponent } from '../../icons';
@@ -23,10 +24,12 @@ import { ErrorIconComponent } from '../../icons/error-icon.component';
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class InputComponent implements ControlValueAccessor {
   constructor(private cdr: ChangeDetectorRef) {}
-
+  
+  @Input() horizontal: boolean = false;
   @Input({ required: true }) label!: string;
   @Input() placeholder = '';
   @Input() type: 'text' | 'email' | 'password' = 'text';
