@@ -1,13 +1,9 @@
-<div class="w-full min-w-117 rounded-sm bg-white p-4 shadow-[0_1px_2px_#0000000D] border-l-4 border-l-green">
+<div class="w-full rounded-sm bg-white p-4 shadow-[0_1px_2px_#0000000D] border-l-4 border-l-green">
   <div class="flex items-start justify-between">
     <span class="rounded-2xs px-3 py-1 text-[10px] font-bold text-green bg-success"> {{ epic.epic_id }} </span>
 
-    <button class="text-neutral-light hover:text-neutral">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-        <circle cx="12" cy="5" r="1.8" />
-        <circle cx="12" cy="12" r="1.8" />
-        <circle cx="12" cy="19" r="1.8" />
-      </svg>
+    <button class="cursor-pointer p-1 rounded hover:bg-neutral-light/20 hover:rounded-2xl">
+      <svg icon-edit class="text-neutral-light size-3" />
     </button>
   </div>
 
@@ -15,7 +11,7 @@
 
   <div class="mt-3 flex items-center gap-4">
     <div class="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-dark text-xs font-bold bg-success">
-      AM
+      {{ epic.assignee.name ? getInitials(epic.assignee.name) : '--' }}
     </div>
 
     <div>
@@ -25,39 +21,16 @@
   </div>
 
   <div class="mt-8 flex items-center justify-between border-t border-[#F1F3FF] pt-5 text-2xs text-[#434654CC]">
-    <div class="flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8zm8 10v-2a4 4 0 00-3-3.87"
-        />
-      </svg>
+    <div class="flex items-center gap-1">
+      <svg icon-people class="size-2.5"></svg>
 
       <span
-        >Created by: <strong class="text-neutral-dark">{{ epic.created_by.name }}</strong></span
+        >Created by: <span class="text-neutral-dark">{{ epic.created_by.name }}</span></span
       >
     </div>
 
     <div class="flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <rect x="3" y="4" width="18" height="18" rx="2" />
-        <path d="M16 2v4M8 2v4M3 10h18" />
-      </svg>
+      <svg icon-date class="size-2.5"></svg>
 
       <span>{{ epic.created_at | date: 'dd MMM yyyy' }}</span>
     </div>

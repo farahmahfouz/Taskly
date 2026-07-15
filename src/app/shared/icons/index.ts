@@ -1,6 +1,9 @@
 export { ArchitectureIconComponent } from './architecture-icon.component';
 import { MembersIconComponent } from './members-icon.component';
 import { DetailsIconComponent } from './details-icon.component';
+import { PeopleIconComponent } from './people-icon.component';
+import { DateIconComponent } from './date-icon.component';
+import { SearchIconComponent } from './search-icon.component';
 export { DescriptionIconComponent } from './description-icon.component';
 export { EventIconComponent } from './event-icon.component';
 export { GroupsIconComponent } from './groups-icon.component';
@@ -21,3 +24,6 @@ export { IconForgotPasswordComponent } from './forgot-password-icon.component';
 export { ArrowBackIconComponent } from './arrow-back-icon.component';
 export { ClockIconComponent } from './clock-icon.component';
 export { CheckCircleIconComponent } from './check-circle-icon.component';
+export { PeopleIconComponent } from './people-icon.component';
+export { DateIconComponent } from './date-icon.component';
+export { SearchIconComponent } from './search-icon.component';

@@ -4,11 +4,12 @@ import { EpicCardComponent } from './components/epic-card/epic-card.component';
 import { ActivatedRoute } from '@angular/router';
 import { EpicsService } from './epics.service';
 import { Epic } from './epic.model';
+import { SearchIconComponent } from "../../shared/icons";
 
 @Component({
   selector: 'app-epics',
   standalone: true,
-  imports: [PaginationComponent, EpicCardComponent],
+  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
