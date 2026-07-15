@@ -24,7 +24,11 @@
     </p>
   }
   <div class="rounded-lg md:border border-[#C3C6D61A] md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:mt-10">
-    <form class="md:p-8 md:py-10 flex flex-col gap-8 bg-background md:bg-white">
+    <form
+      class="md:p-8 md:py-10 flex flex-col gap-8 bg-background md:bg-white"
+      [formGroup]="epicForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div>
         <app-input
           label="title"
@@ -32,22 +36,19 @@
           formControlName="title"
           [required]="true"
           [horizontal]="isDesktop"
+          [errorMessage]="getError('title')"
         />
 
-        <!-- @if (projectForm.get('name')?.touched && projectForm.get('name')?.errors) {
+        <!-- @if (epicForm.get('title')?.touched && epicForm.get('title')?.errors) {
           <div class="flex items-center gap-1 mt-1">
             <svg icon-error class="text-error size-3.5" />
 
-            @if (projectForm.get('name')?.hasError('required')) {
+            @if (epicForm.get('title')?.hasError('required')) {
               <p class="text-error text-2xs">Project title is required.</p>
             }
 
-            @if (projectForm.get('name')?.hasError('minlength')) {
+            @if (epicForm.get('title')?.hasError('minlength')) {
               <p class="text-error text-2xs">Project title must be at least 3 characters.</p>
-            }
-
-            @if (projectForm.get('name')?.hasError('maxlength')) {
-              <p class="text-error text-2xs">Project title cannot exceed 100 characters.</p>
             }
           </div>
         } -->
@@ -63,26 +64,21 @@
           [maxLength]="500"
           [horizontal]="isDesktop"
         />
-        <!-- @if (projectForm.get('description')?.touched && projectForm.get('description')?.hasError('maxlength')) {
-          <div class="flex items-center gap-1 mt-1">
-            <svg icon-error class="text-error size-3.5" />
-            <p class="text-error text-2xs">Description cannot exceed 500 characters.</p>
-          </div>
-        } -->
       </div>
       <div class="flex flex-col md:flex-row md:justify-between gap-6 md:gap-8">
         <div class="w-full">
           <label class="control-label">Assignee</label>
-          <select class="input">
-            <option>Select a member</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+
+          <select class="input" formControlName="assignee">
+            <option value="" disabled selected>Select a member</option>
+            <option value="1">Member 1</option>
+            <option value="2">Member 2</option>
+            <option value="3">Member 3</option>
           </select>
         </div>
         <div class="w-full">
           <label class="control-label">deadline</label>
-          <input type="date" name="" id="" class="input" />
+          <input type="date" [min]="today" class="input" formControlName="deadline" />
         </div>
       </div>
       <div class="md:border-b border-[#C3C6D626]"></div>
