@@ -1,7 +1,6 @@
-<div class="w-full max-w-117 rounded-sm bg-white p-4 shadow-[0_1px_2px_#0000000D] border-l-4 border-l-green">
-  <!-- Header -->
+<div class="w-full min-w-117 rounded-sm bg-white p-4 shadow-[0_1px_2px_#0000000D] border-l-4 border-l-green">
   <div class="flex items-start justify-between">
-    <span class="rounded-2xs px-3 py-1 text-[10px] font-bold text-green bg-success"> EPIC-102 </span>
+    <span class="rounded-2xs px-3 py-1 text-[10px] font-bold text-green bg-success"> {{ epic.epic_id }} </span>
 
     <button class="text-neutral-light hover:text-neutral">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -12,10 +11,8 @@
     </button>
   </div>
 
-  <!-- Title -->
-  <h2 class="mt-4 text-base font-semibold leading-md text-neutral-dark">Sustainable Materials Integration</h2>
+  <h2 class="mt-4 text-base font-semibold leading-md text-neutral-dark">{{ epic.title }}</h2>
 
-  <!-- Assignee -->
   <div class="mt-3 flex items-center gap-4">
     <div class="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-dark text-xs font-bold bg-success">
       AM
@@ -23,11 +20,10 @@
 
     <div>
       <p class="text-2xs text-dark weight-regular leading-2xs">Assignee</p>
-      <p class="text-xs font-semibold text-neutral-dark">Alice Moore</p>
+      <p class="text-xs font-semibold text-neutral-dark">{{ epic.assignee.name }}</p>
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="mt-8 flex items-center justify-between border-t border-[#F1F3FF] pt-5 text-2xs text-[#434654CC]">
     <div class="flex items-center gap-2">
       <svg
@@ -45,7 +41,9 @@
         />
       </svg>
 
-      <span>Created by: <strong class="text-neutral-dark">Sarah Jenkins</strong></span>
+      <span
+        >Created by: <strong class="text-neutral-dark">{{ epic.created_by.name }}</strong></span
+      >
     </div>
 
     <div class="flex items-center gap-2">
@@ -61,7 +59,7 @@
         <path d="M16 2v4M8 2v4M3 10h18" />
       </svg>
 
-      <span>22 Oct 2025</span>
+      <span>{{ epic.created_at | date: 'dd MMM yyyy' }}</span>
     </div>
   </div>
 </div>

@@ -20,8 +20,10 @@
       <button class="btn btn-primary gradient-primary">+ New Epic</button>
     </div>
   </div>
-  <section class="py-10">
-    <app-epic-card/>
+  <section class="py-10 grid grid-cols-2 gap-6">
+    @for(epic of epics; track epic.id){
+      <app-epic-card [epic]="epic"/>
+    }
   </section>
   <app-pagination/>
 </div>
