@@ -23,6 +23,7 @@ export class EpicFormComponent implements OnInit {
   today = new Date().toISOString().split('T')[0];
   errorMessage = '';
   projectId = '';
+  projectName = '';
   isLoading = false;
   members: Member[] = [];
 
@@ -41,6 +42,9 @@ export class EpicFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const project = this.route.snapshot.data['project'];
+    this.projectName = project?.name ?? '';
+
     this.projectId = this.route.snapshot.paramMap.get('id')!;
     this.membersService.getProjectMembers(this.projectId).subscribe({
       next: members => {
