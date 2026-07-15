@@ -1,0 +1,39 @@
+<div class="min-h-screen w-full">
+  <div class="mb-8 flex items-center justify-between">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-2">
+        <div class="skeleton h-5 w-20 rounded-md"></div>
+        <span class="text-neutral-light">›</span>
+        <div class="skeleton h-5 w-24 rounded-md"></div>
+      </div>
+      <div class="skeleton h-10 w-3xs rounded-2sx"></div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="skeleton h-10 w-32 rounded-2sx"></div>
+      <div class="skeleton h-10 w-40 rounded-2sx"></div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    @for (item of [1, 2, 3, 4, 5, 6]; track $index) {
+      <div class="rounded-2xl bg-white p-5">
+        <div class="mb-4 flex items-start justify-between">
+          <div class="skeleton h-4 w-24 rounded-md"></div>
+          <div class="skeleton h-8 w-8 rounded-full"></div>
+        </div>
+
+        <div class="skeleton mb-5 h-4 w-full rounded-md"></div>
+
+        <div class="mb-5 flex items-center gap-3">
+          <div class="skeleton h-8 w-8 shrink-0 rounded-full"></div>
+          <div class="skeleton h-4 w-40 rounded-md"></div>
+        </div>
+
+        <div class="flex items-center justify-between border-t border-slate-100 pt-3">
+          <div class="skeleton h-3 w-14 rounded-md"></div>
+          <div class="skeleton h-3 w-12 rounded-md"></div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

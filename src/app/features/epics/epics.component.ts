@@ -7,11 +7,13 @@ import { Epic } from './epic.model';
 import { SearchIconComponent } from "../../shared/icons";
 import { ProjectErrorComponent } from "../project/components/project-error/project-error.component";
 import { EmptyEpicsComponent } from "./components/empty-epics/empty-epics.component";
+import { SkeltonComponent } from "../project/components/skelton/skelton.component";
+import { SkeltonEpicsComponent } from "./components/skelton-epics/skelton-epics.component";
 
 @Component({
   selector: 'app-epics',
   standalone: true,
-  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent, ProjectErrorComponent, EmptyEpicsComponent],
+  imports: [PaginationComponent, EpicCardComponent, SearchIconComponent, ProjectErrorComponent, EmptyEpicsComponent, SkeltonEpicsComponent],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
@@ -19,6 +21,7 @@ export class EpicsComponent implements OnInit {
   projectId = '';
   epics: Epic[] = [];
   isError = false;
+  isLoading = false;
   constructor(
     private route: ActivatedRoute,
     private epicsService: EpicsService,
@@ -32,13 +35,16 @@ export class EpicsComponent implements OnInit {
   }
 
   getProjectEpics(projectId: string) {
+    this.isLoading = true;
     this.epicsService.getAllProjectEpics(projectId).subscribe({
       next: res => {
         this.epics = res;
+        this.isLoading = false;
         this.isError = false;
       },
       error: err => {
         console.log(err);
+        this.isLoading = false;
         this.isError = true;
       },
     });

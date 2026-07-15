@@ -1,4 +1,7 @@
-@if (isError) {
+@if(isLoading){
+  <app-skelton-epics/>
+}
+@else if (isError) {
   <app-project-error (retry)="getProjectEpics(projectId)" />
 } @else if (epics.length === 0) {
   <app-empty-epics />
