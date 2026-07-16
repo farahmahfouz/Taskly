@@ -1,11 +1,9 @@
-@if(isLoading){
-  <app-skelton-epics/>
-}
-@else if (isError) {
-  <app-project-error (retry)="getProjectEpics(projectId)" />
+@if (isLoading) {
+  <app-skelton-epics />
+} @else if (isError) {
+  <app-project-error (retry)="getProjectEpics()" />
 } @else if (epics.length === 0) {
   <app-empty-epics />
-
 } @else {
   <div class="md:min-h-screen min-h-248.25 w-full mx-auto">
     <div class="flex justify-between items-center">
@@ -24,7 +22,7 @@
           Project Epics
         </h1>
       </div>
-      <div class="self-end flex gap-8">
+      <div class="md:self-end flex gap-8">
         <div class="relative w-75.75">
           <svg icon-search class="absolute left-4 top-1/2 size-2.5 text-dark -translate-y-1/2"></svg>
 
@@ -34,7 +32,11 @@
             class="w-full rounded-2xs bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
           />
         </div>
-        <button class="btn btn-primary gradient-primary">+ New Epic</button>
+        <a
+          class="btn btn-primary gradient-primary hidden md:flex"
+          [routerLink]="['/project', projectId, 'epics', 'new']"
+          >+ New Epic</a
+        >
       </div>
     </div>
     <section class="py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -42,6 +44,28 @@
         <app-epic-card [epic]="epic" />
       }
     </section>
-    <app-pagination />
+
+    <div class="flex justify-end md:hidden mb-20">
+      <a
+        [routerLink]="['/project', projectId, 'epics', 'new']"
+        class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
+      >
+        +
+      </a>
+    </div>
+
+    @if (!isLoading && epics.length > 0 && !isError) {
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [totalCount]="totalCount"
+        [pageSize]="limit"
+        (pageChange)="changePage($event)"
+      />
+    }
   </div>
+}
+
+@if (!isLoading && !isError) {
+  <div class="md:hidden h-1" appInfinteScroll (scrolled)="loadMore()"></div>
 }
