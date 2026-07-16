@@ -10,7 +10,8 @@ import { EmptyEpicsComponent } from './components/empty-epics/empty-epics.compon
 import { SkeltonComponent } from '../project/components/skelton/skelton.component';
 import { SkeltonEpicsComponent } from './components/skelton-epics/skelton-epics.component';
 import { HttpResponse } from '@angular/common/http';
-import { InfinteScrollDirective } from "../../shared/directives/infinte-scroll.directive";
+import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
+import { EpicPopupComponent } from './components/epic-popup/epic-popup.component';
 
 @Component({
   selector: 'app-epics',
@@ -23,8 +24,9 @@ import { InfinteScrollDirective } from "../../shared/directives/infinte-scroll.d
     EmptyEpicsComponent,
     SkeltonEpicsComponent,
     RouterLink,
-    InfinteScrollDirective
-],
+    InfinteScrollDirective,
+    EpicPopupComponent,
+  ],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
@@ -33,6 +35,9 @@ export class EpicsComponent implements OnInit {
   epics: Epic[] = [];
   isError = false;
   isLoading = false;
+
+  showEpicModal = false;
+  selectedEpicId!: string;
 
   currentPage = 1;
   limit = 2;
@@ -102,10 +107,14 @@ export class EpicsComponent implements OnInit {
         this.isError = false;
       },
       error: err => {
-        console.log(err);
         this.isLoading = false;
         this.isError = true;
       },
     });
+  }
+
+  openEpicModal(epicId: string) {
+    this.selectedEpicId = epicId;
+    this.showEpicModal = true;
   }
 }

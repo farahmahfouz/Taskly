@@ -24,4 +24,8 @@ export class EpicsService {
       },
     );
   }
+
+  getProjectEpiById(projectId: string, epicId: string) {
+    return this.http.get<Epic[]>(`${API.PROJECT_EPICS}?project_id=eq.${projectId}&id=eq.${epicId}`);
+  }
 }
