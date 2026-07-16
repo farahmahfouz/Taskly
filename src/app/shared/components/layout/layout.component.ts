@@ -5,11 +5,13 @@ import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from '../toast/toast.component';
 import { BottomNavbarComponent } from '../bottom-navbar/bottom-navbar.component';
 import { ProjectContextService } from '../../../core/services/project-context.service';
+import { ModalComponent } from "../modal/modal.component";
+import { EpicPopupComponent } from "../../../features/epics/components/epic-popup/epic-popup.component";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [SidebarComponent, NavbarComponent, RouterOutlet, ToastComponent, BottomNavbarComponent],
+  imports: [SidebarComponent, NavbarComponent, RouterOutlet, ToastComponent, BottomNavbarComponent, EpicPopupComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })

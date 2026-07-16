@@ -1,6 +1,6 @@
 .sidebar {
   width: 256px;
-  z-index: 9999;
+  z-index: 2;
   transition: width 0.3s ease;
 }
 

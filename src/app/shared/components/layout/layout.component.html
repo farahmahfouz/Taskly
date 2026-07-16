@@ -6,7 +6,7 @@
     [navItems]="navItems"
   />
   @if (isMobileOpen) {
-    <div class="fixed inset-0 bg-[#041B3C66] blur-xs z-40 lg:hidden" (click)="isMobileOpen = false"></div>
+    <div class="fixed inset-0 bg-[#041B3C66] blur-xs z-1 lg:hidden" (click)="isMobileOpen = false"></div>
   }
 
   <div>
@@ -16,6 +16,9 @@
       <app-toast />
       <router-outlet></router-outlet>
     </main>
+
+<!-- <app-epic-popup/> -->
+
     @if (isMobile) {
       <app-bottom-navbar [navItems]="navItems" />
     }
