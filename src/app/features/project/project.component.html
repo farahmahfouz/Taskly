@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-6 min-h-[726.5px]">
   @if (projects.length > 0 && !isError) {
-    <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between pt-6 md:pt-0">
       <div>
-        <h1 class="text-3xl font-semibold text-neutral-dark">Projects</h1>
-        <p class="text-dark">Manage and curate your projects</p>
+        <h1 class="text-2xl md:text-3xl weight-bold md:weight-semibold text-neutral-dark">Projects</h1>
+        <p class="text-dark weight-regular leading-6">Manage and curate your projects</p>
       </div>
       @if (isLoading) {
         <div class="hidden md:flex justify-end">

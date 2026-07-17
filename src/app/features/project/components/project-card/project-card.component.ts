@@ -6,11 +6,12 @@ import { EditIconComponent } from '../../../../shared/icons/edit-icon.component'
 import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 import { TooltipDirective } from '../../../../shared/directives/tooltip.directive';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { DateIconComponent } from "../../../../shared/icons";
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [DatePipe, EditIconComponent, ClickOutsideDirective, TooltipDirective],
+  imports: [DatePipe, EditIconComponent, ClickOutsideDirective, TooltipDirective, DateIconComponent],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
