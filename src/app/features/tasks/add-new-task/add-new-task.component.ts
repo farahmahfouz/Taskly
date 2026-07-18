@@ -23,6 +23,7 @@ export class AddNewTaskComponent {
   members: Member[] = [];
   epics: Epic[] = [];
   projectId = '';
+  isLoading = false;
   errorMessage = '';
   status = TASK_STATUS;
 
@@ -89,6 +90,8 @@ export class AddNewTaskComponent {
       return;
     }
 
+    this.isLoading = true;
+
     const body: CreateTaskRequest = {
       project_id: this.projectId,
       title: this.taskForm.value.title!,
@@ -102,6 +105,9 @@ export class AddNewTaskComponent {
     this.tasksService.createTask(body).subscribe({
       next: res => {
         console.log(res)
+        this.isLoading = false;
+      }, error: err => {
+        this.isLoading = false
       }
     })
   }
