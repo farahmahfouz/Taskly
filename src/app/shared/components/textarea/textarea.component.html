@@ -14,7 +14,7 @@
       [value]="value"
       [disabled]="disabled"
       [rows]="rows"
-      maxlength="maxLength"
+      [attr.maxlength]="maxLength"
       (input)="updateValue($event)"
       (blur)="onTouched()"
     ></textarea>

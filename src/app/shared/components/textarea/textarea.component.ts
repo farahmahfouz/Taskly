@@ -28,7 +28,7 @@ export class TextareaComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   @Input() optional = false;
   @Input() rows = 4;
-  @Input() maxLength = 500;
+  @Input() maxLength?: number;
 
   value = '';
   disabled = false;

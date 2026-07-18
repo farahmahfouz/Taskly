@@ -20,63 +20,71 @@
       </p>
     </div>
     <form
+      (ngSubmit)="onSubmit()"
+      [formGroup]="taskForm"
       class="flex flex-col gap-8 rounded-lg bg-background md:bg-white md:border border-[#C3C6D61A] md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:p-8 md:py-10"
     >
-      <app-input label="title" [required]="true" placeholder="e.g., Finalize structural schematics" />
+      <app-input
+        label="title"
+        [required]="true"
+        placeholder="e.g., Finalize structural schematics"
+        formControlName="title"
+        [errorMessage]="getError('title')"
+      />
 
       <div class="flex justify-between gap-8">
         <div class="w-full">
-          <label class="control-label">Assignee</label>
+          <label class="control-label">Status<span class="text-error ml-1">*</span></label>
 
-          <select class="input" formControlName="assignee">
-            <option value="" disabled selected>Select a member</option>
-            @for (member of members; track member.member_id) {
-              <option [value]="member.user_id">
-                {{ member.metadata.name }}
+          <select class="input" formControlName="status">
+            @for (stat of status; track stat.value) {
+              <option [value]="stat.value">
+                {{ stat.label }}
               </option>
             }
           </select>
         </div>
         <div class="w-full">
-          <label class="control-label">Status</label>
+          <label class="control-label">Assignee</label>
 
-          <select class="input" formControlName="assignee">
-            <option value="" disabled selected>Status</option>
-            @for (stat of status; track stat.value) {
-              <option [value]="stat">
-                {{ stat.label }}
+          <select class="input" formControlName="assignee_id">
+            <option value="" disabled selected>Select a member</option>
+            @for (member of members; track member.member_id) {
+              <option [value]="member.user_id">
+                {{ member.metadata.name }}
               </option>
             }
           </select>
         </div>
       </div>
 
-       <div class="w-full">
-          <label class="control-label">Epic</label>
+      <div class="w-full">
+        <label class="control-label">Epic</label>
 
-          <select class="input" formControlName="assignee">
-            <option value="" disabled selected>Select a member</option>
-            @for (member of members; track member.member_id) {
-              <option [value]="member.user_id">
-                {{ member.metadata.name }}
-              </option>
-            }
-          </select>
-        </div>
+        <select class="input" formControlName="epic_id">
+          <option value="">No Epic</option>
 
-        <div class="w-full">
-          <label class="control-label">deadline</label>
-          <input type="date" class="input" formControlName="deadline" />
-        </div>
+          @for (epic of epics; track epic.id) {
+            <option [value]="epic.id">
+              {{ epic.epic_id }}
+              {{ epic.title.length > 100 ? (epic.title | slice: 0 : 100) + '...' : epic.title }}
+            </option>
+          }
+        </select>
+      </div>
 
-        <app-textarea
-          formControlName="description"
-          label="DESCRIPTION"
-          [rows]="4"
-          placeholder="Provide detailed context for this task..."
-          [optional]="true"
-        />
-        
+      <div class="w-full">
+        <label class="control-label">Due Date</label>
+        <input type="date" class="input" formControlName="due_date" />
+      </div>
+
+      <app-textarea
+        formControlName="description"
+        label="DESCRIPTION"
+        [rows]="4"
+        placeholder="Provide detailed context for this task..."
+      />
+
       <div class="flex flex-col md:flex-row md:justify-end md:items-center gap-4 my-2">
         <a
           type="button"

@@ -18,6 +18,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { Member } from '../../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-epic-popup',
@@ -43,6 +44,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     private epicsService: EpicsService,
     private membersService: MembersService,
     private toaster: ToastService,
+    private router: Router,
   ) {}
 
   epicForm = this.fb.group({
@@ -141,7 +143,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
               name: '',
               email: '',
               department: '',
-            }
+            },
           };
         },
         error: () => {
@@ -150,4 +152,13 @@ export class EpicPopupComponent implements OnChanges, OnInit {
         },
       });
   }
+
+  goToTasks() {
+    this.router.navigate(['/project', this.projectId, 'tasks', 'new'], {
+      queryParams: {
+        epicId: this.epic?.id,
+      },
+    });
+  }
+  
 }

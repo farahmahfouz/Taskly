@@ -17,7 +17,7 @@ export class EpicsService {
     return this.http.post<CreateEpicRequest>(`${API.EPICS}`, data);
   }
 
-  getAllProjectEpics(projectId: string, limit: number, offset: number) {
+  getAllProjectEpics(projectId: string, limit = 100, offset = 0) {
     return this.http.get<Epic[]>(
       `${API.PROJECT_EPICS}?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`,
       {
