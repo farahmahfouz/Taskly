@@ -1,0 +1,94 @@
+<div class="md:min-h-screen pt-2 w-full max-w-232 mx-auto">
+  <div class="flex flex-col gap-8">
+    <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
+      <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
+      <span class="text-neutral-light">›</span>
+      <a routerLink="/project" class="text-neutral-light"> projectName </a>
+      <span class="text-neutral-light">›</span>
+      <a routerLink="../" class="text-neutral-light">tasks</a>
+      <span class="text-neutral-light">›</span>
+      <p class="text-primary">new task</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h1
+        class="text-2xl md:text-4xl weight-semibold md:weight-bold text-[#041B3C] leading-8 md:leading-10 tracking-[-0.6px] md:tracking-[-0.9px]"
+      >
+        Create New Epic
+      </h1>
+      <p class="text-dark weight-regular text-xs leading-xs">
+        Initialize a new work item within the Architectural Workspace ecosystem.
+      </p>
+    </div>
+    <form
+      class="flex flex-col gap-8 rounded-lg bg-background md:bg-white md:border border-[#C3C6D61A] md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:p-8 md:py-10"
+    >
+      <app-input label="title" [required]="true" placeholder="e.g., Finalize structural schematics" />
+
+      <div class="flex justify-between gap-8">
+        <div class="w-full">
+          <label class="control-label">Assignee</label>
+
+          <select class="input" formControlName="assignee">
+            <option value="" disabled selected>Select a member</option>
+            @for (member of members; track member.member_id) {
+              <option [value]="member.user_id">
+                {{ member.metadata.name }}
+              </option>
+            }
+          </select>
+        </div>
+        <div class="w-full">
+          <label class="control-label">Status</label>
+
+          <select class="input" formControlName="assignee">
+            <option value="" disabled selected>Status</option>
+            @for (stat of status; track stat.value) {
+              <option [value]="stat">
+                {{ stat.label }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+
+       <div class="w-full">
+          <label class="control-label">Epic</label>
+
+          <select class="input" formControlName="assignee">
+            <option value="" disabled selected>Select a member</option>
+            @for (member of members; track member.member_id) {
+              <option [value]="member.user_id">
+                {{ member.metadata.name }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="w-full">
+          <label class="control-label">deadline</label>
+          <input type="date" class="input" formControlName="deadline" />
+        </div>
+
+        <app-textarea
+          formControlName="description"
+          label="DESCRIPTION"
+          [rows]="4"
+          placeholder="Provide detailed context for this task..."
+          [optional]="true"
+        />
+        
+      <div class="flex flex-col md:flex-row md:justify-end md:items-center gap-4 my-2">
+        <a
+          type="button"
+          class="btn btn-secondary md:btn-ghost w-full md:w-auto order-2 md:order-1 text-center"
+          routerLink="../"
+          >Back</a
+        >
+
+        <button type="submit" class="btn btn-primary gradient-primary w-full md:w-auto order-1 md:order-2">
+          {{ 'Create Epic' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
