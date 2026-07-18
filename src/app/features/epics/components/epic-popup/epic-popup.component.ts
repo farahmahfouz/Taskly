@@ -88,6 +88,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
   updateAssignee() {
     const previousValue = this.epicForm.get('assignee')?.value ?? '';
     const member = this.members.find(m => m.user_id === previousValue);
+    const createdBy = this.epic?.created_by;
 
     this.epicsService
       .updateEpic(this.epic!.id, {
@@ -98,6 +99,12 @@ export class EpicPopupComponent implements OnChanges, OnInit {
           this.epic = {
             ...this.epic,
             ...updated[0],
+            created_by: createdBy ?? {
+              sub: '',
+              name: '',
+              email: '',
+              department: '',
+            },
             assignee: member
               ? {
                   sub: member.user_id,
@@ -115,16 +122,27 @@ export class EpicPopupComponent implements OnChanges, OnInit {
         },
       });
   }
-  
+
   updateField(field: 'title' | 'description' | 'deadline') {
     const previousValue = this.epicForm.get(field)?.value ?? '';
+    const createdBy = this.epic?.created_by;
+
     this.epicsService
       .updateEpic(this.epic!.id, {
         [field]: this.epicForm.value[field] || null,
       })
       .subscribe({
         next: updated => {
-          this.epic = { ...this.epic, ...updated[0] };
+          this.epic = {
+            ...this.epic,
+            ...updated[0],
+            created_by: createdBy ?? {
+              sub: '',
+              name: '',
+              email: '',
+              department: '',
+            }
+          };
         },
         error: () => {
           this.epicForm.patchValue({ [field]: previousValue });

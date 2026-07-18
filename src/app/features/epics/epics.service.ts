@@ -55,12 +55,12 @@ export class EpicsService {
   }
 
   updateEpicInStore(updatedEpic: Epic) {
-    const current = this.epicsSubject.value;
-  
-    this.epicsSubject.next(
-      current.map(epic =>
-        epic.id === updatedEpic.id ? updatedEpic : epic
-      )
-    );
-  }
+  const current = this.epicsSubject.value;
+
+  this.epicsSubject.next(
+    current.map(epic =>
+      epic.id === updatedEpic.id ? updatedEpic : epic
+    )
+  );
+}
 }
