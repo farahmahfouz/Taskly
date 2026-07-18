@@ -14,7 +14,7 @@ export interface Epic {
   deadline: string;
   created_at: string;
   created_by: EpicUser;
-  assignee: EpicUser;
+  assignee: EpicUser | null;
 }
 
 export interface EpicUser {

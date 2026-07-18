@@ -52,6 +52,10 @@ export class EpicsComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
+    
+    this.epicsService.epics$.subscribe(epics => {
+      this.epics = epics;
+    });
     if (this.projectId) {
       this.getProjectEpics();
     }
@@ -96,7 +100,8 @@ export class EpicsComponent implements OnInit {
         const newEpics = res.body ?? [];
 
         this.epics = mobileScreenLoader ? [...this.epics, ...newEpics] : newEpics;
-
+        this.epicsService.setEpics(this.epics);
+        
         const contentRange = res.headers.get('Content-Range');
 
         this.totalCount = Number(contentRange?.split('/')[1] ?? 0);

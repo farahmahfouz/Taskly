@@ -1,5 +1,5 @@
 <app-modal [isOpen]="isOpen" (close)="close.emit()">
-  <div class="flex flex-col gap-4">
+  <form [formGroup]="epicForm" class="flex flex-col gap-2">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,16 +21,23 @@
       </span>
     </div>
 
-    <div class="border border-surface-highest rounded-xl px-4 py-4">
-      <span class="text-base weight-bold text-neutral-dark leading-xs">{{ epic?.title }}</span>
-    </div>
+    <input
+      class="text-base weight-bold text-neutral-dark leading-xs border border-surface-highest rounded-xl px-4 py-4 focus:outline-none"
+      formControlName="title"
+      (blur)="updateTitle()"
+    />
 
     <div class="border-b border-[#C3C6D626]"></div>
 
     <div class="border border-surface-highest rounded-xl p-4 min-h-24">
-      <span class="text-neutral-dark weight-regular leading-md">
-        {{ epic?.description || 'No description provided' }}
-      </span>
+      <textarea
+        class="w-full resize-none bg-transparent text-neutral-dark weight-regular leading-md focus:outline-none"
+        rows="4"
+        placeholder="No description provided"
+        formControlName="description"
+        (blur)="updateDescription()"
+      >
+      </textarea>
     </div>
 
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -38,7 +45,7 @@
         <div class="section-title">CREATED BY</div>
         <div class="flex items-center gap-2">
           <div class="w-7 h-7 rounded-xl bg-primary text-white text-[10px] font-bold flex items-center justify-center">
-            {{ getInitials(epic?.created_by?.name || '') }}
+            {{ getInitials(epic?.created_by?.name || '-') }}
           </div>
           <span class="text-[12px] md:text-xs leading-xs text-neutral-dark weight-medium">{{
             epic?.created_by?.name
@@ -48,27 +55,49 @@
 
       <div>
         <div class="section-title">ASSIGNEE</div>
-        <div class="flex items-center justify-between border border-surface-highest rounded-lg px-2.5 py-1.5 bg-white">
-          <div class="flex items-center gap-2">
-            <div
-              class="w-6 h-6 rounded-full bg-[#CDDDFF] text-[#51617E] text-[10px] weight-medium md:weight-bold flex items-center justify-center"
-            >
-              {{ getInitials(epic?.assignee?.name || '') }}
-            </div>
-            <span class="text-[12px] md:text-xs text-neutral-dark weight weight-medium leading-xs">{{
-              epic?.assignee?.name || 'Unassigned'
-            }}</span>
+
+        @if (!isEditingAssignee) {
+          <div
+            class="flex items-center gap-2 border border-surface-highest rounded-lg px-2.5 py-2 cursor-pointer"
+            (click)="isEditingAssignee = true"
+          >
+            @if (epic?.assignee?.name) {
+              <div class="w-6 h-6 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[10px]">
+                {{ getInitials(epic!.assignee!.name) }}
+              </div>
+            }
+
+            <span>
+              {{ epic?.assignee?.name || 'Unassigned' }}
+            </span>
           </div>
-        </div>
+        } @else {
+          <select
+            formControlName="assignee"
+            class="w-full border border-surface-highest rounded-lg p-2 focus:outline-none"
+            (change)="updateAssignee(); isEditingAssignee = false"
+          >
+            <option value="">Unassigned</option>
+
+            @for (member of members; track member.member_id) {
+              <option [value]="member.user_id">
+                {{ member.metadata.name }}
+              </option>
+            }
+          </select>
+        }
       </div>
       <div>
         <div class="section-title">DEADLINE</div>
         <div class="flex items-center justify-between border border-surface-highest rounded-lg px-2.5 py-1.5 bg-white">
           <div class="flex items-center gap-2">
             <svg icon-date class="size-3.5 text-neutral-light"></svg>
-            <span class="text-[12px] md:text-xs weight-medium text-neutral-dark leading-xs">{{
-              epic?.deadline | date: 'longDate'
-            }}</span>
+            <input
+              type="date"
+              formControlName="deadline"
+              (change)="updateDeadline()"
+              class="text-[12px] md:text-xs weight-medium text-neutral-dark leading-xs focus:outline-none"
+            />
           </div>
         </div>
       </div>
@@ -110,5 +139,5 @@
         <button class="btn btn-primary">+ Add Task</button>
       </div>
     </div>
-  </div>
+  </form>
 </app-modal>

@@ -21,20 +21,21 @@
       <div
         class="flex h-7 w-7 items-center justify-center rounded-full bg-primary md:bg-success text-2xs font-bold text-white md:h-10 md:w-10 md:rounded-xl"
       >
-        {{ epic.assignee.name ? getInitials(epic.assignee.name) : '--' }}
+        {{ epic.assignee?.name ? getInitials(epic.assignee!.name) : '-' }}
+
       </div>
 
       <!-- Desktop -->
       <div class="hidden md:block">
         <p class="text-[12px] text-dark weight-medium">Assignee</p>
         <p class="weight-medium text-neutral-dark text-xs">
-          {{ epic.assignee.name }}
+          {{ epic.assignee?.name ?? '-' }}
         </p>
       </div>
       <!-- Mobile -->
       <div class="block md:hidden">
         <p class="text-[12px] weight-medium text-neutral-dark">
-          {{ epic.assignee.name }}
+          {{ epic.assignee?.name ?? '-' }}
         </p>
         <p class="text-[10px] text-[#737685] weight-regular">Assignee</p>
       </div>
