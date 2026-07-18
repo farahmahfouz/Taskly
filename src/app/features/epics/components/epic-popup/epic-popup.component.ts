@@ -67,7 +67,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     this.membersService.getProjectMembers(this.projectId).subscribe({
       next: members => {
         this.members = members;
-      }
+      },
     });
   }
 
@@ -115,53 +115,19 @@ export class EpicPopupComponent implements OnChanges, OnInit {
         },
       });
   }
-
-  updateTitle() {
-    const previousValue = this.epicForm.get('title')?.value ?? '';
+  
+  updateField(field: 'title' | 'description' | 'deadline') {
+    const previousValue = this.epicForm.get(field)?.value ?? '';
     this.epicsService
       .updateEpic(this.epic!.id, {
-        title: this.epicForm.value.title,
+        [field]: this.epicForm.value[field] || null,
       })
       .subscribe({
         next: updated => {
           this.epic = { ...this.epic, ...updated[0] };
         },
         error: () => {
-          this.epicForm.patchValue({ title: previousValue });
-          this.toaster.showError('Failed to update epic. Please try again.');
-        },
-      });
-  }
-
-  updateDescription() {
-    const previousValue = this.epicForm.get('description')?.value ?? '';
-    this.epicsService
-      .updateEpic(this.epic!.id, {
-        description: this.epicForm.value.description || null,
-      })
-      .subscribe({
-        next: updated => {
-          this.epic = { ...this.epic, ...updated[0] };
-        },
-        error: () => {
-          this.epicForm.patchValue({ description: previousValue });
-          this.toaster.showError('Failed to update epic. Please try again.');
-        },
-      });
-  }
-
-  updateDeadline() {
-    const previousValue = this.epicForm.get('deadline')?.value ?? '';
-    this.epicsService
-      .updateEpic(this.epic!.id, {
-        deadline: this.epicForm.value.deadline || null,
-      })
-      .subscribe({
-        next: updated => {
-          this.epic = { ...this.epic, ...updated[0] };
-        },
-        error: () => {
-          this.epicForm.patchValue({ deadline: previousValue });
+          this.epicForm.patchValue({ [field]: previousValue });
           this.toaster.showError('Failed to update epic. Please try again.');
         },
       });

@@ -24,7 +24,7 @@
     <input
       class="text-base weight-bold text-neutral-dark leading-xs border border-surface-highest rounded-xl px-4 py-4 focus:outline-none"
       formControlName="title"
-      (blur)="updateTitle()"
+      (blur)="updateField('title')"
     />
 
     <div class="border-b border-[#C3C6D626]"></div>
@@ -35,7 +35,7 @@
         rows="4"
         placeholder="No description provided"
         formControlName="description"
-        (blur)="updateDescription()"
+        (blur)="updateField('description')"
       >
       </textarea>
     </div>
@@ -95,7 +95,7 @@
             <input
               type="date"
               formControlName="deadline"
-              (change)="updateDeadline()"
+              (change)="updateField('deadline')"
               class="text-[12px] md:text-xs weight-medium text-neutral-dark leading-xs focus:outline-none"
             />
           </div>
