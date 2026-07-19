@@ -1,5 +1,5 @@
 <div class="min-h-dvh pb-40 md:pb-0 pt-2 w-full max-w-232 mx-auto ">
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-6 md:gap-8">
     <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
       <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
       <span class="text-neutral-light">›</span>
@@ -32,7 +32,7 @@
         [errorMessage]="getError('title')"
       />
 
-      <div class="flex justify-between gap-8">
+      <div class="flex flex-col md:flex-row md:justify-between gap-6 md:gap-8">
         <div class="w-full">
           <label class="control-label">Status<span class="text-error ml-1">*</span></label>
 
