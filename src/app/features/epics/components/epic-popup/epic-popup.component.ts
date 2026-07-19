@@ -21,6 +21,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TasksService } from '../../../tasks/tasks.service';
+import { Task } from '../../../tasks/task.constants';
 
 @Component({
   selector: 'app-epic-popup',
@@ -40,6 +42,9 @@ export class EpicPopupComponent implements OnChanges, OnInit {
   getInitials = getInitials;
   members: Member[] = [];
   isEditingAssignee = false;
+  tasks: Task[] = [];
+  isLoading = false;
+  errorMsg = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +53,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     private toaster: ToastService,
     private router: Router,
     private destroyRef: DestroyRef,
+    private tasksService: TasksService,
   ) {}
 
   epicForm = this.fb.group({
@@ -69,14 +75,8 @@ export class EpicPopupComponent implements OnChanges, OnInit {
   });
 
   ngOnInit(): void {
-    this.membersService
-      .getProjectMembers(this.projectId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: members => {
-          this.members = members;
-        },
-      });
+    this.loadMembers();
+    // this.loadTasks();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -93,6 +93,8 @@ export class EpicPopupComponent implements OnChanges, OnInit {
             deadline: this.epic.deadline,
           });
         });
+
+      this.loadTasks();
     }
   }
 
@@ -168,5 +170,34 @@ export class EpicPopupComponent implements OnChanges, OnInit {
         epicId: this.epic?.id,
       },
     });
+  }
+
+  loadTasks() {
+    this.isLoading = true;
+    this.errorMsg = false;
+    this.tasksService
+      .getAllTasks(this.epicId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.tasks = res;
+          this.isLoading = false;
+        },
+        error: err => {
+          this.isLoading = false;
+          this.errorMsg = false;
+        },
+      });
+  }
+
+  private loadMembers() {
+    this.membersService
+      .getProjectMembers(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: members => {
+          this.members = members;
+        },
+      });
   }
 }

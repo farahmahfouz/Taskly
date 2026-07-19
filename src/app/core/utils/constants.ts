@@ -4,7 +4,8 @@ export const API = {
   MEMBERS: '/rest/v1/get_project_members',
   EPICS: '/rest/v1/epics',
   PROJECT_EPICS: '/rest/v1/project_epics',
-  TASKS: '/rest/v1/tasks'
+  TASKS: '/rest/v1/tasks',
+  PROJECT_TASKS: '/rest/v1/project_tasks',
 };
 
 export const STORAGE_KEYS = {

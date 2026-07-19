@@ -1,3 +1,5 @@
+import { Epic } from "../epics/epic.model";
+
 export const TASK_STATUS = [
   { value: 'TO_DO', label: 'To Do' },
   { value: 'IN_PROGRESS', label: 'In Progress' },
@@ -27,4 +29,27 @@ export interface CreateTaskRequest {
   assignee_id?: string;
   due_date?: string;
   status: TaskStatus;
+}
+
+export interface Task {
+  id: string;
+  task_id: string;
+  title: string;
+  description: string;
+  status: TaskStatus;
+  due_date: string;
+  created_at: string;
+  project_id: string;
+  epic_id: string;
+
+  assignee: User;
+  created_by: User;
+  epic: Epic;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  department: string;
 }
