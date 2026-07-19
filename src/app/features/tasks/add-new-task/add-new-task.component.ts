@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { Member } from '../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,6 +11,8 @@ import { SlicePipe } from '@angular/common';
 import { getControlError } from '../../../core/utils/form-error.util';
 import { CreateTaskRequest, TASK_STATUS, TaskStatus } from '../task.constants';
 import { TasksService } from '../tasks.service';
+import { ToastService } from '../../../core/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-new-task',
@@ -32,7 +34,9 @@ export class AddNewTaskComponent {
     private route: ActivatedRoute,
     private membersService: MembersService,
     private epicsService: EpicsService,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private toaster: ToastService,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
@@ -61,27 +65,33 @@ export class AddNewTaskComponent {
   }
 
   private loadMembers(): void {
-    this.membersService.getProjectMembers(this.projectId).subscribe({
-      next: members => {
-        this.members = members;
-      },
-    });
+    this.membersService
+      .getProjectMembers(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: members => {
+          this.members = members;
+        },
+      });
   }
 
   private loadEpics(): void {
-    this.epicsService.getAllProjectEpics(this.projectId).subscribe({
-      next: res => {
-        this.epics = res.body ?? [];
+    this.epicsService
+      .getAllProjectEpics(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.epics = res.body ?? [];
 
-        const epicId = this.route.snapshot.queryParamMap.get('epicId');
+          const epicId = this.route.snapshot.queryParamMap.get('epicId');
 
-        if (epicId) {
-          this.taskForm.patchValue({
-            epic_id: epicId,
-          });
-        }
-      },
-    });
+          if (epicId) {
+            this.taskForm.patchValue({
+              epic_id: epicId,
+            });
+          }
+        },
+      });
   }
 
   onSubmit() {
@@ -102,13 +112,17 @@ export class AddNewTaskComponent {
       status: this.taskForm.value.status as TaskStatus,
     };
 
-    this.tasksService.createTask(body).subscribe({
-      next: res => {
-        console.log(res)
-        this.isLoading = false;
-      }, error: err => {
-        this.isLoading = false
-      }
-    })
+    this.tasksService
+      .createTask(body)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.isLoading = false;
+          this.toaster.showSuccess('Tasks created sucessfully.');
+        },
+        error: err => {
+          this.isLoading = false;
+        },
+      });
   }
 }

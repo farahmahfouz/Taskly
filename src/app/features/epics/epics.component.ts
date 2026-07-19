@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { EpicCardComponent } from './components/epic-card/epic-card.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -12,6 +12,7 @@ import { SkeltonEpicsComponent } from './components/skelton-epics/skelton-epics.
 import { HttpResponse } from '@angular/common/http';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 import { EpicPopupComponent } from './components/epic-popup/epic-popup.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-epics',
@@ -48,12 +49,13 @@ export class EpicsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private epicsService: EpicsService,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
-    
-    this.epicsService.epics$.subscribe(epics => {
+
+    this.epicsService.epics$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(epics => {
       this.epics = epics;
     });
     if (this.projectId) {
@@ -95,27 +97,30 @@ export class EpicsComponent implements OnInit {
       this.isLoading = true;
     }
 
-    this.epicsService.getAllProjectEpics(this.projectId, this.limit, this.offset).subscribe({
-      next: (res: HttpResponse<Epic[]>) => {
-        const newEpics = res.body ?? [];
+    this.epicsService
+      .getAllProjectEpics(this.projectId, this.limit, this.offset)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res: HttpResponse<Epic[]>) => {
+          const newEpics = res.body ?? [];
 
-        this.epics = mobileScreenLoader ? [...this.epics, ...newEpics] : newEpics;
-        this.epicsService.setEpics(this.epics);
-        
-        const contentRange = res.headers.get('Content-Range');
+          this.epics = mobileScreenLoader ? [...this.epics, ...newEpics] : newEpics;
+          this.epicsService.setEpics(this.epics);
 
-        this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
+          const contentRange = res.headers.get('Content-Range');
 
-        this.totalPages = Math.ceil(this.totalCount / this.limit);
+          this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
 
-        this.isLoading = false;
-        this.isError = false;
-      },
-      error: err => {
-        this.isLoading = false;
-        this.isError = true;
-      },
-    });
+          this.totalPages = Math.ceil(this.totalCount / this.limit);
+
+          this.isLoading = false;
+          this.isError = false;
+        },
+        error: err => {
+          this.isLoading = false;
+          this.isError = true;
+        },
+      });
   }
 
   openEpicModal(epicId: string) {

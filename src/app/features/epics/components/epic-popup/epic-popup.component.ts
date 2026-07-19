@@ -6,6 +6,7 @@ import {
   SimpleChanges,
   OnChanges,
   OnInit,
+  DestroyRef,
 } from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { DateIconComponent } from '../../../../shared/icons';
@@ -19,6 +20,7 @@ import { Member } from '../../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-epic-popup',
@@ -45,6 +47,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     private membersService: MembersService,
     private toaster: ToastService,
     private router: Router,
+    private destroyRef: DestroyRef,
   ) {}
 
   epicForm = this.fb.group({
@@ -66,24 +69,30 @@ export class EpicPopupComponent implements OnChanges, OnInit {
   });
 
   ngOnInit(): void {
-    this.membersService.getProjectMembers(this.projectId).subscribe({
-      next: members => {
-        this.members = members;
-      },
-    });
+    this.membersService
+      .getProjectMembers(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: members => {
+          this.members = members;
+        },
+      });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['epicId'] && this.epicId) {
-      this.epicsService.getProjectEpiById(this.projectId, this.epicId).subscribe(res => {
-        this.epic = res[0];
-        this.epicForm.patchValue({
-          title: this.epic.title,
-          description: this.epic.description,
-          assignee: this.epic.assignee?.sub ?? '',
-          deadline: this.epic.deadline,
+      this.epicsService
+        .getProjectEpiById(this.projectId, this.epicId)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(res => {
+          this.epic = res[0];
+          this.epicForm.patchValue({
+            title: this.epic.title,
+            description: this.epic.description,
+            assignee: this.epic.assignee?.sub ?? '',
+            deadline: this.epic.deadline,
+          });
         });
-      });
     }
   }
 
@@ -160,5 +169,4 @@ export class EpicPopupComponent implements OnChanges, OnInit {
       },
     });
   }
-  
 }

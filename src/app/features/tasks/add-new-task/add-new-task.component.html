@@ -1,4 +1,4 @@
-<div class="md:min-h-screen pt-2 w-full max-w-232 mx-auto">
+<div class="min-h-dvh pb-40 md:pb-0 pt-2 w-full max-w-232 mx-auto ">
   <div class="flex flex-col gap-8">
     <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
       <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
@@ -85,16 +85,15 @@
         placeholder="Provide detailed context for this task..."
       />
 
-      <div class="flex flex-col md:flex-row md:justify-end md:items-center gap-4 my-2">
-        <a
-          type="button"
-          class="btn btn-secondary md:btn-ghost w-full md:w-auto order-2 md:order-1 text-center"
-          routerLink="../"
-          >Back</a
-        >
+      <div
+        class="fixed bottom-0 left-0 right-0 z-50 bg-white p-4  shadow-[0px_-8px_24px_0px_#041B3C0F] md:static md:bg-transparent md:p-0 md:shadow-none flex flex-col md:flex-row md:justify-end md:items-center gap-4 md:my-2"
+      >
+        <a routerLink="../" class="btn btn-secondary md:btn-ghost w-full md:w-auto order-2 md:order-1 text-center">
+          Back
+        </a>
 
         <button type="submit" class="btn btn-primary gradient-primary w-full md:w-auto order-1 md:order-2">
-          {{ isLoading ? 'Loading...' : 'Create Epic' }}
+          {{ isLoading ? 'Loading...' : 'Create Task' }}
         </button>
       </div>
     </form>

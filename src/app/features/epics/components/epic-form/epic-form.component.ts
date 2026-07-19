@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
 import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +10,7 @@ import { EpicsService } from '../../epics.service';
 import { MembersService } from '../../../members/members.service';
 import { Member } from './../../../members/members.model';
 import { ToastService } from '../../../../core/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-epic-form',
@@ -38,7 +39,8 @@ export class EpicFormComponent implements OnInit {
     private epicsService: EpicsService,
     private membersService: MembersService,
     private toaster: ToastService,
-    private router: Router
+    private router: Router,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit(): void {
@@ -46,14 +48,14 @@ export class EpicFormComponent implements OnInit {
     this.projectName = project?.name ?? '';
 
     this.projectId = this.route.snapshot.paramMap.get('id')!;
-    this.membersService.getProjectMembers(this.projectId).subscribe({
-      next: members => {
-        this.members = members;
-      },
-      error: err => {
-        console.log(err);
-      },
-    });
+    this.membersService
+      .getProjectMembers(this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: members => {
+          this.members = members;
+        },
+      });
   }
 
   epicForm = this.fb.group({
@@ -86,16 +88,19 @@ export class EpicFormComponent implements OnInit {
       deadline: this.epicForm.value.deadline || '',
     };
 
-    this.epicsService.createNewEpic(body).subscribe({
-      next: res => {
-        this.isLoading = false;
-        this.toaster.showSuccess('Epic created Successfully');
-        this.router.navigate(['/project', this.projectId, 'epics']);
-      },
-      error: err => {
-        this.isLoading = false;
-         this.toaster.showError('Failed to create epic.')
-      },
-    });
+    this.epicsService
+      .createNewEpic(body)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.isLoading = false;
+          this.toaster.showSuccess('Epic created Successfully');
+          this.router.navigate(['/project', this.projectId, 'epics']);
+        },
+        error: err => {
+          this.isLoading = false;
+          this.toaster.showError('Failed to create epic.');
+        },
+      });
   }
 }
