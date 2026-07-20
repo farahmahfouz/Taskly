@@ -1,17 +1,17 @@
 import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService, CurrentUser } from '../../../features/auth/auth.service';
 import { MenuIconComponent } from '../../icons/Menu-icon.component';
-import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { ToastService } from '../../../core/services/toast.service';
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
+import { InitialsPipe } from '../../pipes/initials.pipe';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenuIconComponent, ClickOutsideDirective, DropdownMenuComponent],
+  imports: [MenuIconComponent, ClickOutsideDirective, DropdownMenuComponent, InitialsPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -38,17 +38,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
+      console.log(user)
       this.user = user;
-      if (user?.name) {
-        this.userInitial = this.getInitials(user.name);
-      }
     });
-  }
-
-  getInitials(name: string): string {
-    const words = name.trim().split(' ');
-    if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
-    return (words[0][0] + words[1][0]).toUpperCase();
   }
 
   openMenu() {

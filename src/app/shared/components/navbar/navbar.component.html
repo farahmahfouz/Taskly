@@ -21,7 +21,7 @@
         (appClickOutside)="openDropdownMenu = false"
         appClickOutside
       >
-        {{ userInitial }}
+        {{ user?.name ?? '' | initials }}
       </div>
 
       @if (openDropdownMenu) {

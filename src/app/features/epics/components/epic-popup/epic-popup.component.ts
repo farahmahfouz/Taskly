@@ -13,7 +13,6 @@ import { DateIconComponent } from '../../../../shared/icons';
 import { EpicsService } from '../../epics.service';
 import { Epic } from '../../epic.model';
 import { DatePipe } from '@angular/common';
-import { getInitials } from '../../../../core/utils/getInitials';
 import { MembersService } from '../../../members/members.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { Member } from '../../../members/members.model';
@@ -23,11 +22,12 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TasksService } from '../../../tasks/tasks.service';
 import { Task } from '../../../tasks/task.constants';
+import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 
 @Component({
   selector: 'app-epic-popup',
   standalone: true,
-  imports: [ModalComponent, DateIconComponent, DatePipe, ReactiveFormsModule],
+  imports: [ModalComponent, DateIconComponent, DatePipe, ReactiveFormsModule, InitialsPipe],
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',
 })
@@ -39,7 +39,7 @@ export class EpicPopupComponent implements OnChanges, OnInit {
   @Output() close = new EventEmitter<void>();
 
   epic?: Epic;
-  getInitials = getInitials;
+  // getInitials = getInitials;
   members: Member[] = [];
   isEditingAssignee = false;
   tasks: Task[] = [];
