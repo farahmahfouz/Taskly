@@ -1,7 +1,7 @@
 @if (isLoading) {
   <app-skelton-epics />
 } @else if (isError) {
-  <app-project-error (retry)="getProjectEpics()" />
+  <app-error-page (retry)="getProjectEpics()" />
 } @else if (epics.length === 0) {
   <app-empty-epics />
 } @else {

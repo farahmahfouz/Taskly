@@ -6,11 +6,11 @@ import { ProjectService } from './project.service';
 import { Project } from './project.model';
 import { SkeltonComponent } from './components/skelton/skelton.component';
 import { EmptyProjectsComponent } from './components/empty-projects/empty-projects.component';
-import { ProjectErrorComponent } from './components/project-error/project-error.component';
 import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 import { ProjectContextService } from '../../core/services/project-context.service';
+import { ErrorPageComponent } from "../../shared/components/error-page/error-page.component";
 
 @Component({
   selector: 'app-project',
@@ -21,9 +21,9 @@ import { ProjectContextService } from '../../core/services/project-context.servi
     RouterLink,
     SkeltonComponent,
     EmptyProjectsComponent,
-    ProjectErrorComponent,
     InfinteScrollDirective,
-  ],
+    ErrorPageComponent
+],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })

@@ -5,14 +5,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EpicsService } from './epics.service';
 import { Epic } from './epic.model';
 import { SearchIconComponent } from '../../shared/icons';
-import { ProjectErrorComponent } from '../project/components/project-error/project-error.component';
 import { EmptyEpicsComponent } from './components/empty-epics/empty-epics.component';
-import { SkeltonComponent } from '../project/components/skelton/skelton.component';
 import { SkeltonEpicsComponent } from './components/skelton-epics/skelton-epics.component';
 import { HttpResponse } from '@angular/common/http';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 import { EpicPopupComponent } from './components/epic-popup/epic-popup.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ErrorPageComponent } from "../../shared/components/error-page/error-page.component";
 
 @Component({
   selector: 'app-epics',
@@ -21,13 +20,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     PaginationComponent,
     EpicCardComponent,
     SearchIconComponent,
-    ProjectErrorComponent,
     EmptyEpicsComponent,
     SkeltonEpicsComponent,
     RouterLink,
     InfinteScrollDirective,
     EpicPopupComponent,
-  ],
+    ErrorPageComponent
+],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
