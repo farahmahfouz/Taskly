@@ -7,6 +7,8 @@ import {
   OnChanges,
   OnInit,
   DestroyRef,
+  input,
+  effect,
 } from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { DateIconComponent } from '../../../../shared/icons';
@@ -31,15 +33,14 @@ import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',
 })
-export class EpicPopupComponent implements OnChanges, OnInit {
+export class EpicPopupComponent implements OnInit {
   @Input() isOpen = false;
-  @Input() projectId!: string;
-  @Input() epicId!: string;
+  projectId = input.required<string>();
+  epicId = input<string>();
 
   @Output() close = new EventEmitter<void>();
 
   epic?: Epic;
-  // getInitials = getInitials;
   members: Member[] = [];
   isEditingAssignee = false;
   tasks: Task[] = [];
@@ -54,7 +55,16 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     private router: Router,
     private destroyRef: DestroyRef,
     private tasksService: TasksService,
-  ) {}
+  ) {
+    effect(() => {
+      const id = this.epicId();
+      const projectId = this.projectId();
+      if (id && projectId) {
+        this.loadEpic(projectId, id);
+        this.loadTasks(id);
+      }
+    });
+  }
 
   epicForm = this.fb.group({
     title: [
@@ -76,26 +86,6 @@ export class EpicPopupComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.loadMembers();
-    // this.loadTasks();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['epicId'] && this.epicId) {
-      this.epicsService
-        .getProjectEpiById(this.projectId, this.epicId)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(res => {
-          this.epic = res[0];
-          this.epicForm.patchValue({
-            title: this.epic.title,
-            description: this.epic.description,
-            assignee: this.epic.assignee?.sub ?? '',
-            deadline: this.epic.deadline,
-          });
-        });
-
-      this.loadTasks();
-    }
   }
 
   updateAssignee() {
@@ -172,11 +162,11 @@ export class EpicPopupComponent implements OnChanges, OnInit {
     });
   }
 
-  loadTasks() {
+  loadTasks(epicId: string) {
     this.isLoading = true;
     this.errorMsg = false;
     this.tasksService
-      .getAllTasks(this.epicId)
+      .getAllTasks(epicId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
@@ -192,12 +182,27 @@ export class EpicPopupComponent implements OnChanges, OnInit {
 
   private loadMembers() {
     this.membersService
-      .getProjectMembers(this.projectId)
+      .getProjectMembers(this.projectId())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: members => {
           this.members = members;
         },
+      });
+  }
+
+  private loadEpic(projectId: string, epicId: string) {
+    this.epicsService
+      .getProjectEpiById(projectId, epicId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        this.epic = res[0];
+        this.epicForm.patchValue({
+          title: this.epic.title,
+          description: this.epic.description,
+          assignee: this.epic.assignee?.sub ?? '',
+          deadline: this.epic.deadline,
+        });
       });
   }
 }

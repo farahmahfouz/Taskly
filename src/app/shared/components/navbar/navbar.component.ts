@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
-      console.log(user)
       this.user = user;
     });
   }

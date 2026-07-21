@@ -142,7 +142,7 @@
           class="flex-1 border-dashed border-2 border-[#C3C6D64D] rounded-sm bg-surface-low flex flex-col items-center justify-center py-8 gap-3"
         >
           <p class="text-error text-xs md:text-sm weight-medium">Failed to load tasks</p>
-          <button class="btn btn-primary" (click)="loadTasks()">Retry</button>
+          <button class="btn btn-primary" (click)="loadTasks(epicId()!)">Retry</button>
         </div>
 
       } @else if (tasks) {
