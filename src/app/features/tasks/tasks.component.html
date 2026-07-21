@@ -1,1 +1,57 @@
-<p>tasks works!</p>
+<div class="">
+  <div class="flex justify-between items-center pb-6">
+    <div class="flex flex-col gap-6">
+      <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
+        <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
+        <span class="text-neutral-light">›</span>
+        <a routerLink="/project" class="text-neutral-light">Project Name</a>
+        <span class="text-neutral-light">›</span>
+        <a routerLink="../" class="text-primary">tasks</a>
+      </div>
+
+      <div>
+        <h1
+          class="text-2xl pb-1 md:text-3xl weight-semibold md:weight-bold text-neutral-dark leading-8 md:leading-9 tracking-[-0.6px] md:tracking-normal hidden md:block"
+        >
+          Active Workboard
+        </h1>
+        <p class="text-dark weight-regular leading-5 text-xs">
+          Curating Project Alpha's production pipeline and milestones.
+        </p>
+      </div>
+    </div>
+    <div class="self-end flex gap-8 w-full md:w-auto">
+      <div class="relative w-full md:w-75.75">
+        <svg icon-search class="absolute left-4 top-1/2 size-2.5 text-dark -translate-y-1/2"></svg>
+
+        <input
+          type="text"
+          placeholder="Search epics..."
+          class="w-full md:rounded-2xs rounded-sm bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <select
+          formControlName="assignee"
+          class="w-full border text-neutral-dark py-3 px-4.25 border-[#C3C6D633] shadow-[0px 1px 2px 0px #0000000D] rounded-lg p-2 focus:outline-none text-xs bg-white"
+        >
+          <option value="">Board View</option>
+
+          <option [value]="">VALUE</option>
+        </select>
+      </div>
+      <div class="bg-surface-highest rounded-xs p-2 self-center h-7">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 12V10H11V12H7ZM3 7V5H15V7H3ZM0 2V0H18V2H0Z" fill="#041B3C" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-6 overflow-x-auto pb-4">
+    <!-- @for (status of statuses; track $index) { -->
+      <app-list-tasks  />
+    <!-- } -->
+  </div>
+</div>
