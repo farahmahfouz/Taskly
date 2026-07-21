@@ -30,3 +30,6 @@ export { SearchIconComponent } from './search-icon.component';
 export { SparkleIconComponent } from './sparkle-icon.component';
 export { FlowIconComponent } from "./flow-icon.component";
 export { TrendIconComponent } from './trend-icon.component';
+export { EpicColumnsIconComponent } from './epic-columns-icon.component';
+export { CloseIconComponent } from './close-icon.component';
+export { TaskListIconComponent } from './task-list-icon.component';

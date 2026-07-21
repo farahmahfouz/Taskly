@@ -1,0 +1,13 @@
+<div
+class="flex-1 border-dashed border-2 border-[#C3C6D64D] rounded-sm bg-surface-low flex flex-col items-center justify-center py-8 gap-4"
+>
+<div class="w-12 h-12 rounded-xl bg-surface-highest flex items-center justify-center">
+  <svg icon-task-list class="w-4.5 h-4 text-[#041B3C] opacity-30"></svg>
+</div>
+<p
+  class="block text-neutral-mid md:text-neutral-dark text-xs md:text-sm-xs weight-regular md:weight-medium leading-6 max-w-50 md:max-w-full text-center"
+>
+  No tasks have been added to this epic yet
+</p>
+<button class="btn btn-primary" (click)="goToTasks.emit()">+ Add Task</button>
+</div>

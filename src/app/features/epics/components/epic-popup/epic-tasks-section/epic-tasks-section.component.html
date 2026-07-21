@@ -1,0 +1,21 @@
+<div class="border border-[#C3C6D626] rounded-sm flex flex-col">
+  <div class="flex justify-between items-center p-4 pe-11">
+    <div class="flex flex-col gap-1.5">
+      <p class="text-neutral-dark weight-medium leading-6">{{ task().title }}</p>
+      <div class="flex gap-0.5 items-center">
+        <span class="w-5 h-5 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[8px] weight-bold">
+          {{ task().assignee.name | initials }}
+        </span>
+        <p class="weight-regular text-[12px] text-[#041B3C99] leading-2xs">
+          {{ task().assignee.name || 'Unassigned' }}
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col justify-center">
+      <p class="text-[#041B3C66] weight-bold text-[10px] uppercase leading-3.75 text-end">Due Date</p>
+      <p class="text-[#041B3CB2] weight-medium text-[12px] leading-4">
+        {{ task().due_date | date: 'dd MMM y' }}
+      </p>
+    </div>
+  </div>
+</div>

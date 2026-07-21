@@ -11,7 +11,12 @@ import {
   effect,
 } from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
-import { DateIconComponent } from '../../../../shared/icons';
+import {
+  CloseIconComponent,
+  DateIconComponent,
+  EpicColumnsIconComponent,
+  TaskListIconComponent,
+} from '../../../../shared/icons';
 import { EpicsService } from '../../epics.service';
 import { Epic } from '../../epic.model';
 import { DatePipe } from '@angular/common';
@@ -25,11 +30,27 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TasksService } from '../../../tasks/tasks.service';
 import { Task } from '../../../tasks/task.constants';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
+import { EpicTasksSectionComponent } from "./epic-tasks-section/epic-tasks-section.component";
+import { EpicTasksSkeletonComponent } from "./epic-tasks-skeleton/epic-tasks-skeleton.component";
+import { EpicTasksEmptyComponent } from "./epic-tasks-empty/epic-tasks-empty.component";
+import { EpicTasksErrorComponent } from "./epic-tasks-error/epic-tasks-error.component";
 
 @Component({
   selector: 'app-epic-popup',
   standalone: true,
-  imports: [ModalComponent, DateIconComponent, DatePipe, ReactiveFormsModule, InitialsPipe],
+  imports: [
+    ModalComponent,
+    CloseIconComponent,
+    DateIconComponent,
+    EpicColumnsIconComponent,
+    DatePipe,
+    ReactiveFormsModule,
+    InitialsPipe,
+    EpicTasksSectionComponent,
+    EpicTasksSkeletonComponent,
+    EpicTasksEmptyComponent,
+    EpicTasksErrorComponent
+],
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',
 })
@@ -170,12 +191,13 @@ export class EpicPopupComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
+          this.errorMsg = false;
           this.tasks = res;
           this.isLoading = false;
         },
         error: err => {
           this.isLoading = false;
-          this.errorMsg = false;
+          this.errorMsg = true;
         },
       });
   }
