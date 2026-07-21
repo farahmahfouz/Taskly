@@ -47,7 +47,7 @@
 
         @if (!isEditingAssignee) {
           <div
-            class="flex items-center gap-2 border border-surface-highest rounded-lg px-2.5 py-2 cursor-pointer"
+            class="flex items-center gap-2 border border-surface-highest rounded-lg p-2 cursor-pointer"
             (click)="isEditingAssignee = true"
           >
             @if (epic?.assignee?.name) {
@@ -56,14 +56,14 @@
               </div>
             }
 
-            <span class="text-[12px]">
+            <span class="text-xs">
               {{ epic?.assignee?.name || 'Unassigned' }}
             </span>
           </div>
         } @else {
           <select
             formControlName="assignee"
-            class="w-full border border-surface-highest rounded-lg p-2 focus:outline-none text-[12px]"
+            class="w-full border border-surface-highest rounded-lg p-2 focus:outline-none text-xs"
             (change)="updateAssignee(); isEditingAssignee = false"
           >
             <option value="">Unassigned</option>
@@ -78,7 +78,7 @@
       </div>
       <div>
         <div class="section-title">DEADLINE</div>
-        <div class="flex items-center justify-between border border-surface-highest rounded-lg px-2.5 py-1.5 bg-white">
+        <div class="flex items-center justify-between border border-surface-highest rounded-lg p-2 ">
           <div class="flex items-center gap-2">
             <svg icon-date class="size-3.5 text-neutral-light"></svg>
             <input
