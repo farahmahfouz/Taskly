@@ -113,9 +113,11 @@
       } @else if (errorMsg) {
         <app-epic-tasks-error (retry)="loadTasks(epicId()!)" />
       } @else if (tasks.length > 0) {
-        @for (task of tasks; track task.id) {
-          <app-epic-tasks-section [task]="task" />
-        }
+        <div class="border border-[#C3C6D626] rounded-sm flex flex-col">
+          @for (task of tasks; track task.id) {
+            <app-epic-tasks-section [task]="task" [last]="$last" />
+          }
+        </div>
       } @else {
         <app-epic-tasks-empty (goToTasks)="goToTasks()" />
       }

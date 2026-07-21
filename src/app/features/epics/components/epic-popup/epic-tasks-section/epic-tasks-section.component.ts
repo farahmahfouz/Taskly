@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../../shared/pipes/initials.pipe';
 import { Task } from '../../../../tasks/task.constants';
@@ -12,4 +12,5 @@ import { Task } from '../../../../tasks/task.constants';
 })
 export class EpicTasksSectionComponent {
   task = input.required<Task>();
+  @Input() last = false;
 }
