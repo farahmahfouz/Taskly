@@ -145,7 +145,7 @@
           <button class="btn btn-primary" (click)="loadTasks(epicId()!)">Retry</button>
         </div>
 
-      } @else if (tasks) {
+      } @else if (tasks.length > 0) {
         <div class="border border-[#C3C6D626] rounded-sm flex flex-col">
           @for (task of tasks; track $index) {
             <div
