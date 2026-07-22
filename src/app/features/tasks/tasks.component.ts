@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { SearchIconComponent } from '../../shared/icons';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksListViewComponent } from "./tasks-list-view/tasks-list-view.component";
 import { TasksBoardViewComponent } from "./tasks-board-view/tasks-board-view.component";
+import { ProjectContextService } from '../../core/services/project-context.service';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent],
+  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent, RouterLink],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -15,8 +16,10 @@ export class TasksComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private projectContext: ProjectContextService,
   ) {}
   currentView = 'board';
+  projectId = '';
   statuses = [
     {
       value: 'TO_DO',
@@ -107,6 +110,11 @@ export class TasksComponent {
 
       this.currentView = view;
     });
+
+    const projectId = this.projectContext.activeProjectId();
+
+    if (!projectId) return;
+    this.projectId = projectId;
   }
 
   changeView(event: Event) {

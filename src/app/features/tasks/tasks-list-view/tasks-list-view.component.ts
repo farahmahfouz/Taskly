@@ -10,7 +10,7 @@ import { EditIconComponent } from '../../../shared/icons/edit-icon.component';
 @Component({
   selector: 'app-tasks-list-view',
   standalone: true,
-  imports: [CommonModule, EditIconComponent, InitialsPipe, DatePipe, RouterLink],
+  imports: [CommonModule, EditIconComponent, InitialsPipe, DatePipe],
   templateUrl: './tasks-list-view.component.html',
   styleUrl: './tasks-list-view.component.css',
 })
