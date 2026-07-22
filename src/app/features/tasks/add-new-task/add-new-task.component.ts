@@ -2,7 +2,7 @@ import { Component, DestroyRef } from '@angular/core';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { Member } from '../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MembersService } from '../../members/members.service';
 import { TextareaComponent } from '../../../shared/components/textarea/textarea.component';
 import { EpicsService } from '../../epics/epics.service';
@@ -17,7 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-add-new-task',
   standalone: true,
-  imports: [InputComponent, TextareaComponent, ReactiveFormsModule, SlicePipe],
+  imports: [InputComponent, TextareaComponent, ReactiveFormsModule, SlicePipe, RouterLink],
   templateUrl: './add-new-task.component.html',
   styleUrl: './add-new-task.component.css',
 })
