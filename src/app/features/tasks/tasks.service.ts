@@ -13,7 +13,13 @@ export class TasksService {
     return this.http.post(`${API.TASKS}`, task);
   }
 
-  getAllTasks(epicId: string){
-    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?epic_id=eq.${epicId}`)
+  getAllTasks(epicId: string) {
+    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?epic_id=eq.${epicId}`);
+  }
+
+  getTasksByStatus(projectId: string, status: string) {
+    return this.http.get<Task[]>(
+      `${API.PROJECT_TASKS}?project_id=eq.${projectId}&status=eq.${status}`,
+    );
   }
 }

@@ -1,4 +1,4 @@
-<div class="">
+<div class="w-full max-w-300">
   <div class="flex justify-between items-center pb-6">
     <div class="flex flex-col gap-6">
       <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
@@ -33,12 +33,12 @@
 
       <div>
         <select
-          formControlName="assignee"
+          [value]="currentView"
+          (change)="changeView($event)"
           class="w-full border text-neutral-dark py-3 px-4.25 border-[#C3C6D633] shadow-[0px 1px 2px 0px #0000000D] rounded-lg p-2 focus:outline-none text-xs bg-white"
         >
-          <option value="">Board View</option>
-
-          <option [value]="">VALUE</option>
+          <option value="board">Board View</option>
+          <option value="table">Table View</option>
         </select>
       </div>
       <div class="bg-surface-highest rounded-xs p-2 self-center h-7">
@@ -49,9 +49,17 @@
     </div>
   </div>
 
-  <div class="flex gap-6 overflow-x-auto pb-4">
-    <!-- @for (status of statuses; track $index) { -->
-      <app-list-tasks  />
-    <!-- } -->
+  <div class="overflow-x-auto pb-4 min-w-0">
+    <div class="flex gap-6 w-max">
+      @if (currentView === 'board') {
+        @for (status of statuses; track status.value) {
+          <app-list-tasks [status]="status"></app-list-tasks>
+        }
+      }
+
+      @if (currentView === 'table') {
+        <p>Table View Coming Soon</p>
+      }
+    </div>
   </div>
 </div>
