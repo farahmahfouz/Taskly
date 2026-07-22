@@ -22,4 +22,9 @@ export class TasksService {
       `${API.PROJECT_TASKS}?project_id=eq.${projectId}&status=eq.${status}`,
     );
   }
+  getTasksByProject(projectId: string) {
+    return this.http.get<Task[]>(
+      `${API.PROJECT_TASKS}?project_id=eq.${projectId}`,
+    );
+  }
 }

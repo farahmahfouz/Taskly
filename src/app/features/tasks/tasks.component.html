@@ -35,7 +35,7 @@
         <select
           [value]="currentView"
           (change)="changeView($event)"
-          class="w-full border text-neutral-dark py-3 px-4.25 border-[#C3C6D633] shadow-[0px 1px 2px 0px #0000000D] rounded-lg p-2 focus:outline-none text-xs bg-white"
+          class="w-full border text-neutral-dark py-3 px-4.25 border-[#C3C6D633] shadow-[0px_1px_2px_0px_#0000000D] rounded-lg p-2 focus:outline-none text-xs bg-white"
         >
           <option value="board">Board View</option>
           <option value="table">Table View</option>
@@ -49,16 +49,24 @@
     </div>
   </div>
 
-  <div class="overflow-x-auto pb-4 min-w-0">
-    <div class="flex gap-6 w-max">
+  <div class="overflow-x-auto pb-4">
+    <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
       @if (currentView === 'board') {
         @for (status of statuses; track status.value) {
-          <app-list-tasks [status]="status"></app-list-tasks>
+          <app-tasks-board-view [status]="status" />
         }
       }
 
       @if (currentView === 'table') {
-        <p>Table View Coming Soon</p>
+        <app-tasks-list-view class="w-full" />
+        <div>
+          <a
+            routerLink="/project/add"
+            class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
+          >
+            +
+          </a>
+        </div>
       }
     </div>
   </div>

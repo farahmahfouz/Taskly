@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ListTasksComponent } from './list-tasks/list-tasks.component';
 import { SearchIconComponent } from '../../shared/icons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TasksListViewComponent } from "./tasks-list-view/tasks-list-view.component";
+import { TasksBoardViewComponent } from "./tasks-board-view/tasks-board-view.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [ListTasksComponent, SearchIconComponent],
+  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })

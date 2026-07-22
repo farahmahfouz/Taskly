@@ -1,4 +1,4 @@
-import { Component, effect, input, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { DateIconComponent, WarningIconComponent } from '../../../shared/icons';
 import { TasksService } from '../tasks.service';
 import { ProjectContextService } from '../../../core/services/project-context.service';
@@ -8,13 +8,13 @@ import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-list-tasks',
+  selector: 'app-tasks-board-view',
   standalone: true,
   imports: [DateIconComponent, DatePipe, InitialsPipe, WarningIconComponent, RouterLink],
-  templateUrl: './list-tasks.component.html',
-  styleUrl: './list-tasks.component.css',
+  templateUrl: './tasks-board-view.component.html',
+  styleUrl: './tasks-board-view.component.css',
 })
-export class ListTasksComponent implements OnInit {
+export class TasksBoardViewComponent implements OnInit {
   status = input.required<any>();
 
   tasks: Task[] = [];
@@ -38,6 +38,4 @@ export class ListTasksComponent implements OnInit {
       error: err => console.log(err),
     });
   }
-
-
 }

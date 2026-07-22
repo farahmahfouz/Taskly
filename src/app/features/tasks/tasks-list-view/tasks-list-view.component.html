@@ -1,0 +1,64 @@
+<div class="min-w-250 w-full mx-auto rounded-sm shadow-[0px_1px_2px_0px_#0000000D] overflow-hidden">
+  <div class="grid grid-cols-[120px_1fr_140px_170px_190px_60px]" role="table">
+    <!-- Header -->
+    <div class="col-span-6 grid grid-cols-subgrid bg-transparent border border-t-0 border-[#C3C6D61A]" role="row">
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader">TASK ID</div>
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader">TITLE</div>
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader">STATUS</div>
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader">DUE DATE</div>
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader">ASSIGNEE</div>
+      <div class="px-6 py-4 text-2xs font-bold tracking-wider text-dark" role="columnheader"></div>
+    </div>
+
+    <!-- Rows -->
+    <div
+      *ngFor="let task of tasks; let last = last"
+      class="col-span-6 grid grid-cols-subgrid text-sm text-neutral-dark items-center bg-white"
+      [class.border-b]="!last"
+      [class.border-gray-100]="!last"
+      role="row"
+    >
+      <div class="px-5 py-4 text-primary font-regular text-[12px] leading-2xs whitespace-nowrap" role="cell">
+        {{ task.task_id }}
+      </div>
+
+      <div class="px-5 py-4 font-meduim text-xs leading-[100%] text-neutral-dark" role="cell">{{ task.title }}</div>
+
+      <div role="cell">
+        <span
+          class="inline-block px-2 py-1 rounded-2xs text-2xs font-bold tracking-wide"
+          [ngClass]="statusStyles[task.status]"
+        >
+          {{ task.status }}
+        </span>
+      </div>
+
+      <div class="px-5 py-4 whitespace-nowrap text-dark weight-regular text-xs" role="cell">
+        {{ task.due_date | date: 'MMM d YYYY' }}
+      </div>
+
+      <div class="px-5 py-4" role="cell">
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-7 h-7 rounded-xl flex items-center justify-center text-2xs font-bold"
+            [ngClass]="statusStyles[task.status]"
+          >
+            {{ task.created_by.name | initials }}
+          </div>
+          <span class="text-neutral-dark weight-regular text-xs">{{ task.created_by.name }}</span>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 flex justify-center" role="cell">
+        <button class="rounded-full p-1 hover:bg-neutral-light/20">
+          <svg icon-edit class="size-3.5 text-dark rotate-90"></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between px-5 py-3.5 text-[12px] text-dark weight-medium">
+    <span>Showing {{ tasks.length }} of {{ totalTasks }} tasks</span>
+    <span class="flex gap-2"> <span>‹</span> Page {{ currentPage }} of {{ totalPages }} <span>›</span></span>
+  </div>
+</div>
