@@ -13,15 +13,17 @@
       </span>
     </div>
 
-    <button>
+    <a [routerLink]="['/project', projectId, 'tasks', 'new']" [queryParams]="{ status: status().value }">
       <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4.5 6H0V4.5H4.5V0H6V4.5H10.5V6H6V10.5H4.5V6Z" fill="#94A3B8" />
       </svg>
-    </button>
+    </a>
   </div>
 
   <!-- Add task -->
-  <a [routerLink]="['/project', projectId, 'tasks', 'new']"
+  <a
+    [routerLink]="['/project', projectId, 'tasks', 'new']"
+    [queryParams]="{ status: status().value }"
     class="border-2 border-dashed border-[#C3C6D64D] rounded-sm py-4 flex items-center justify-center gap-2 text-[12px] weight-bold text-neutral-grey leading-2xs tracking-wide uppercase"
   >
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

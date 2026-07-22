@@ -42,6 +42,12 @@ export class AddNewTaskComponent {
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
 
+    this.route.queryParamMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const statusFromQuery = params.get('status') || 'TO_DO';
+      console.log(statusFromQuery)
+      this.taskForm.patchValue({ status: statusFromQuery });
+    });
+
     this.taskForm.patchValue({
       project_id: this.projectId,
     });

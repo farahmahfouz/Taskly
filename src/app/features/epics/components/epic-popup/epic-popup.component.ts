@@ -176,7 +176,7 @@ export class EpicPopupComponent implements OnInit {
   }
 
   goToTasks() {
-    this.router.navigate(['/project', this.projectId, 'tasks', 'new'], {
+    this.router.navigate(['/project', this.projectId(), 'tasks', 'new'], {
       queryParams: {
         epicId: this.epic?.id,
       },
@@ -191,7 +191,6 @@ export class EpicPopupComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
-          console.log(res)
           this.errorMsg = false;
           this.tasks = res;
           this.isLoading = false;
