@@ -1,0 +1,40 @@
+<div class="flex flex-col gap-3">
+  @for (task of tasks; track task.id) {
+    <div class="bg-white rounded-lg p-4 shadow-[0px_1px_2px_0px_#0000000D]">
+      <div class="pb-3">
+        <div class="flex justify-between items-end">
+          <span class="text-2xs weight-bold text-[#43465480] tracking-tighter leading-2xs">
+            TASK-{{ task.task_id }}
+          </span>
+          <span class="text-2xs weight-bold px-2 py-1 rounded-md capitalize" [ngClass]="statusStyles[task.status]">
+            {{ task.status }}
+          </span>
+        </div>
+
+        <h3 class="text-neutral-dark weight-bold text-sm">
+          {{ task.title }}
+        </h3>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-7 h-7 rounded-full flex items-center justify-center text-2xs font-bold bg-surface-highest text-neutral-dark"
+          >
+            {{ task.created_by.name | initials }}
+          </div>
+          <div class="flex flex-col">
+            <span class="text-2xs weight-bold text-[#434654B2] leading-4">DUE DATE</span>
+            <span class="text-[12px] weight-medium text-neutral-dark">
+              {{ task.due_date | date: 'MMM d, y' }}
+            </span>
+          </div>
+        </div>
+
+        <button class="rounded-full p-1 hover:bg-neutral-light/20">
+          <svg icon-edit class="size-3.5 text-[#43465466]"></svg>
+        </button>
+      </div>
+    </div>
+  }
+</div>

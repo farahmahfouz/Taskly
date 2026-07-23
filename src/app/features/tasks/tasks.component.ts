@@ -5,11 +5,12 @@ import { TasksListViewComponent } from "./tasks-list-view/tasks-list-view.compon
 import { TasksBoardViewComponent } from "./tasks-board-view/tasks-board-view.component";
 import { ProjectContextService } from '../../core/services/project-context.service';
 import { TASK_STATUSES } from './task.constants';
+import { TasksMobileViewComponent } from "./tasks-mobile-view/tasks-mobile-view.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent, RouterLink],
+  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent, RouterLink, TasksMobileViewComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
