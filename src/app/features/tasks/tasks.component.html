@@ -58,7 +58,7 @@
       }
 
       @if (currentView === 'table') {
-        <app-tasks-list-view class="w-full" />
+        <app-tasks-list-view class="w-full" (openTask)="onOpenTask($event)" />
         <a
           [routerLink]="['/project', projectId, 'tasks', 'new']"
           class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
@@ -71,11 +71,14 @@
   <div class="md:hidden">
     <a
       [routerLink]="['/project', projectId, 'tasks', 'new']"
-      class="btn btn-primary  weight-semibold text-xs py-2 rounded-xs  flex items-center justify-center mb-6"
+      class="btn btn-primary weight-semibold text-xs py-2 rounded-xs flex items-center justify-center mb-6"
     >
-      +
-      Create task
+      + Create task
     </a>
     <app-tasks-mobile-view />
   </div>
 </div>
+
+@if (isTaskDetailsOpen) {
+  <app-task-popup [taskId]="selectedTaskId" [projectId]="projectId" (close)="isTaskDetailsOpen = false" />
+}

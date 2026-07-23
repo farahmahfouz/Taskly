@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { TasksService } from '../tasks.service';
 import { ProjectContextService } from '../../../core/services/project-context.service';
 import { Task } from '../task.constants';
@@ -17,6 +17,8 @@ import { EditIconComponent } from '../../../shared/icons/edit-icon.component';
 export class TasksListViewComponent implements OnInit {
   tasks: Task[] = [];
   projectId = '';
+  @Output() openTask = new EventEmitter<Task>();
+
 
   statusStyles: Record<string, string> = {
     TO_DO: 'bg-surface-highest text-neutral-dark',
@@ -46,10 +48,15 @@ export class TasksListViewComponent implements OnInit {
 
     this.tasksService.getTasksByProject(projectId).subscribe({
       next: res => {
+        console.log(res);
         this.tasks = res;
         this.totalTasks = res.length;
       },
       error: err => console.log(err),
     });
+  }
+
+  onRowClick(task: Task) {
+    this.openTask.emit(task);
   }
 }

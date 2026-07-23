@@ -35,3 +35,4 @@ export { EpicColumnsIconComponent } from './epic-columns-icon.component';
 export { CloseIconComponent } from './close-icon.component';
 export { TaskListIconComponent } from './task-list-icon.component';
 export { WarningIconComponent } from './warning-icon.component';
+export { CopyLinkIconComponent } from './copy-link-icon.component';

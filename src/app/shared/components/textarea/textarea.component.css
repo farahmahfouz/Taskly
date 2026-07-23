@@ -51,6 +51,11 @@
   }
 }
 
+.textarea.outlined {
+  background: white;
+  border: 1px solid #E8EDFF;
+}
+
 .horizontal {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

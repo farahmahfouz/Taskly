@@ -29,6 +29,7 @@ export class TextareaComponent implements ControlValueAccessor {
   @Input() optional = false;
   @Input() rows = 4;
   @Input() maxLength?: number;
+  @Input() variant: 'default' | 'outlined' = 'default';
 
   value = '';
   disabled = false;

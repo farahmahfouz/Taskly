@@ -17,6 +17,7 @@
       [attr.maxlength]="maxLength"
       (input)="updateValue($event)"
       (blur)="onTouched()"
+      [class.outlined]="variant === 'outlined'"
     ></textarea>
 
     @if (maxLength) {

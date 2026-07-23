@@ -1,5 +1,5 @@
-<app-modal [isOpen]="isOpen" (close)="close.emit()">
-  <form [formGroup]="epicForm" class="flex flex-col gap-2">
+<app-modal [isOpen]="isOpen" (close)="close.emit()" width="42rem">
+  <form [formGroup]="epicForm" class="flex flex-col gap-2 p-6 md:p-8">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <svg icon-epic-columns class="w-5 h-3.5 text-primary"></svg>

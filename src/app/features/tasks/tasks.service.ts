@@ -23,8 +23,10 @@ export class TasksService {
     );
   }
   getTasksByProject(projectId: string) {
-    return this.http.get<Task[]>(
-      `${API.PROJECT_TASKS}?project_id=eq.${projectId}`,
-    );
+    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?project_id=eq.${projectId}`);
+  }
+
+  getTask(projectId: string, taskId: string) {
+    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?project_id=eq.${projectId}&id=eq.${taskId}`);
   }
 }

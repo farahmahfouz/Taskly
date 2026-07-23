@@ -11,4 +11,6 @@ export class ModalComponent {
   @Input() isOpen = false;
 
   @Output() close = new EventEmitter<void>();
+
+  @Input() width = '42rem';
 }

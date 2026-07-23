@@ -1,16 +1,24 @@
 import { Component } from '@angular/core';
 import { SearchIconComponent } from '../../shared/icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TasksListViewComponent } from "./tasks-list-view/tasks-list-view.component";
-import { TasksBoardViewComponent } from "./tasks-board-view/tasks-board-view.component";
+import { TasksListViewComponent } from './tasks-list-view/tasks-list-view.component';
+import { TasksBoardViewComponent } from './tasks-board-view/tasks-board-view.component';
 import { ProjectContextService } from '../../core/services/project-context.service';
-import { TASK_STATUSES } from './task.constants';
-import { TasksMobileViewComponent } from "./tasks-mobile-view/tasks-mobile-view.component";
+import { Task, TASK_STATUSES } from './task.constants';
+import { TasksMobileViewComponent } from './tasks-mobile-view/tasks-mobile-view.component';
+import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [SearchIconComponent, TasksListViewComponent, TasksBoardViewComponent, RouterLink, TasksMobileViewComponent],
+  imports: [
+    SearchIconComponent,
+    TasksListViewComponent,
+    TasksBoardViewComponent,
+    RouterLink,
+    TasksMobileViewComponent,
+    TaskPopupComponent,
+  ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -23,6 +31,9 @@ export class TasksComponent {
   currentView = 'board';
   projectId = '';
   statuses = TASK_STATUSES;
+
+  selectedTaskId = '';
+  isTaskDetailsOpen = false;
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
@@ -54,5 +65,14 @@ export class TasksComponent {
       queryParams: { view },
       queryParamsHandling: 'merge',
     });
+  }
+
+  onOpenTask(task: Task) {
+    this.selectedTaskId = task.id;
+    this.isTaskDetailsOpen = true;
+  }
+
+  closeTaskPopup() {
+    this.isTaskDetailsOpen = false;
   }
 }

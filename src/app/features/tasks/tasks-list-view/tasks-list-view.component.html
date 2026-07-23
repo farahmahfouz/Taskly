@@ -17,6 +17,7 @@
         [class.border-b]="!$last"
         [class.border-gray-100]="!$last"
         role="row"
+        (click)="onRowClick(task)"
       >
         <div class="px-5 py-4 text-primary font-regular text-[12px] leading-2xs whitespace-nowrap" role="cell">
           {{ task.task_id }}
