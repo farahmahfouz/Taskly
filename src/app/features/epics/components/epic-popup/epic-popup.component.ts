@@ -34,6 +34,8 @@ import { EpicTasksSectionComponent } from "./epic-tasks-section/epic-tasks-secti
 import { EpicTasksSkeletonComponent } from "./epic-tasks-skeleton/epic-tasks-skeleton.component";
 import { EpicTasksEmptyComponent } from "./epic-tasks-empty/epic-tasks-empty.component";
 import { EpicTasksErrorComponent } from "./epic-tasks-error/epic-tasks-error.component";
+import { TaskPopupComponent } from "../../../tasks/components/task-popup/task-popup.component";
+import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
   selector: 'app-epic-popup',
@@ -49,7 +51,8 @@ import { EpicTasksErrorComponent } from "./epic-tasks-error/epic-tasks-error.com
     EpicTasksSectionComponent,
     EpicTasksSkeletonComponent,
     EpicTasksEmptyComponent,
-    EpicTasksErrorComponent
+    EpicTasksErrorComponent,
+    TaskPopupComponent
 ],
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',
@@ -76,6 +79,7 @@ export class EpicPopupComponent implements OnInit {
     private router: Router,
     private destroyRef: DestroyRef,
     private tasksService: TasksService,
+    public openPopupService: OpenPopupService
   ) {
     effect(() => {
       const id = this.epicId();

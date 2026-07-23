@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Task } from '../task.constants';
-import { TasksService } from '../tasks.service';
-import { ProjectContextService } from '../../../core/services/project-context.service';
+import { Task } from '../../task.constants';
+import { TasksService } from '../../tasks.service';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { DatePipe, NgClass } from '@angular/common';
-import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
-import { EditIconComponent } from "../../../shared/icons/edit-icon.component";
+import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
+import { EditIconComponent } from "../../../../shared/icons/edit-icon.component";
 
 @Component({
   selector: 'app-tasks-mobile-view',

@@ -1,5 +1,5 @@
-<div class="flex justify-between items-center p-4 pe-11" [class.border-b]="!last" [class.border-[#C3C6D626]]="!last">
-  <div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center p-4 pe-11" [class.border-b]="!last" [class.border-[#C3C6D626]]="!last" (click)="onRowClick(task())">
+  <div class="flex flex-col gap-1.5" >
     <p class="text-neutral-dark weight-medium leading-6">{{ task().title }}</p>
     <div class="flex gap-0.5 items-center">
       <span class="w-5 h-5 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[8px] weight-bold">

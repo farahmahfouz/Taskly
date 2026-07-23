@@ -1,11 +1,12 @@
 import { Component, input, OnInit } from '@angular/core';
-import { DateIconComponent, WarningIconComponent } from '../../../shared/icons';
-import { TasksService } from '../tasks.service';
-import { ProjectContextService } from '../../../core/services/project-context.service';
-import { Task } from '../task.constants';
+import { DateIconComponent, WarningIconComponent } from '../../../../shared/icons';
+import { TasksService } from '../../tasks.service';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { Task } from '../../task.constants';
 import { DatePipe } from '@angular/common';
-import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
+import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { RouterLink } from '@angular/router';
+import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
   selector: 'app-tasks-board-view',
@@ -23,6 +24,7 @@ export class TasksBoardViewComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
+    private openPopupService: OpenPopupService,
   ) {}
 
   ngOnInit(): void {
@@ -37,5 +39,9 @@ export class TasksBoardViewComponent implements OnInit {
       },
       error: err => console.log(err),
     });
+  }
+
+  onRowClick(task: Task) {
+    this.openPopupService.open(task.id);
   }
 }

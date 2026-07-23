@@ -58,7 +58,7 @@
       }
 
       @if (currentView === 'table') {
-        <app-tasks-list-view class="w-full" (openTask)="onOpenTask($event)" />
+        <app-tasks-list-view class="w-full"  />
         <a
           [routerLink]="['/project', projectId, 'tasks', 'new']"
           class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
@@ -79,6 +79,6 @@
   </div>
 </div>
 
-@if (isTaskDetailsOpen) {
-  <app-task-popup [taskId]="selectedTaskId" [projectId]="projectId" (close)="isTaskDetailsOpen = false" />
+@if (openPopupService.isOpen()) {
+  <app-task-popup [taskId]="openPopupService.selectedTaskId()" [projectId]="projectId" (close)="openPopupService.close()" />
 }

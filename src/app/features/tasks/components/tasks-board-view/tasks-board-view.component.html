@@ -44,6 +44,7 @@
         <div
           class="w-full rounded-sm p-4 shadow-[0px_2px_8px_0px_#00000005] flex flex-col gap-3"
           [class]="status().cardClass"
+          (click)="onRowClick(task)"
         >
           <p class="text-xs weight-medium text-neutral-dark leading-5">
             {{ task.description || 'No description provided.' }}

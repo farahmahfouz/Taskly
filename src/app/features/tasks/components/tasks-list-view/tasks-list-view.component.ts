@@ -1,11 +1,12 @@
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { TasksService } from '../tasks.service';
-import { ProjectContextService } from '../../../core/services/project-context.service';
-import { Task } from '../task.constants';
+import { TasksService } from '../../tasks.service';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { Task } from '../../task.constants';
 import { CommonModule, DatePipe } from '@angular/common';
-import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
+import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { RouterLink } from '@angular/router';
-import { EditIconComponent } from '../../../shared/icons/edit-icon.component';
+import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
+import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
   selector: 'app-tasks-list-view',
@@ -17,8 +18,6 @@ import { EditIconComponent } from '../../../shared/icons/edit-icon.component';
 export class TasksListViewComponent implements OnInit {
   tasks: Task[] = [];
   projectId = '';
-  @Output() openTask = new EventEmitter<Task>();
-
 
   statusStyles: Record<string, string> = {
     TO_DO: 'bg-surface-highest text-neutral-dark',
@@ -38,6 +37,7 @@ export class TasksListViewComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
+    private openPopupService: OpenPopupService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +57,6 @@ export class TasksListViewComponent implements OnInit {
   }
 
   onRowClick(task: Task) {
-    this.openTask.emit(task);
+    this.openPopupService.open(task.id);
   }
 }
