@@ -5,11 +5,12 @@ import { TasksService } from '../../tasks.service';
 import { Task } from '../../task.constants';
 import { DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
+import { ArrowDownIconComponent } from "../../../../shared/icons/arrow-down-icon.component";
 
 @Component({
   selector: 'app-task-popup',
   standalone: true,
-  imports: [ModalComponent, CopyLinkIconComponent, DatePipe, InitialsPipe],
+  imports: [ModalComponent, CopyLinkIconComponent, DatePipe, InitialsPipe, ArrowDownIconComponent],
   templateUrl: './task-popup.component.html',
   styleUrl: './task-popup.component.css',
 })

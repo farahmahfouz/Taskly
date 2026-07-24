@@ -17,15 +17,7 @@
                 />
               </svg>
               {{ task()?.epic?.epic_id }} (Core UI Overhaul)
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
-                  stroke="#6B7280"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
             </p>
           </div>
         </header>
@@ -64,16 +56,7 @@
             <p>
               {{ task()?.status }}
             </p>
-
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
-              stroke="#6B7280"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+            <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
           </div>
         </div>
       </div>
@@ -86,21 +69,15 @@
           class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
         >
           <div class="flex items-center gap-2">
-            <div class="flex h-7 w-7 items-center justify-center bg-surface-highest rounded-full text-2xs weight-bold text-neutral-dark">
+            <div
+              class="flex h-7 w-7 items-center justify-center bg-surface-highest rounded-full text-2xs weight-bold text-neutral-dark"
+            >
               {{ task()?.assignee?.name || '' | initials }}
             </div>
             {{ task()?.assignee?.name }}
           </div>
 
-           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
-              stroke="#6B7280"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
         </div>
       </div>
 
@@ -125,15 +102,7 @@
           class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
         >
           {{ task()?.due_date | date: 'MMM d, YYYY' }}
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
-              stroke="#6B7280"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
         </div>
 
         <div class="flex items-center justify-between">
