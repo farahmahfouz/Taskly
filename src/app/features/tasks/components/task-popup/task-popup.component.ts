@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  DestroyRef,
   effect,
   EventEmitter,
   HostListener,
@@ -17,6 +18,7 @@ import { DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { ArrowDownIconComponent } from '../../../../shared/icons/arrow-down-icon.component';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-task-popup',
@@ -43,6 +45,7 @@ export class TaskPopupComponent {
   constructor(
     private taskService: TasksService,
     public openPopupService: OpenPopupService,
+    private destroyRef: DestroyRef
   ) {
     effect(() => {
       const projectId = this.projectId();
@@ -64,7 +67,9 @@ export class TaskPopupComponent {
     this.hasError.set(false);
     this.task.set(null);
 
-    this.taskService.getTask(projectId, taskId).subscribe({
+    this.taskService.getTask(projectId, taskId)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
       next: res => {
         this.task.set(res?.[0] ?? null);
         this.isLoading.set(false);

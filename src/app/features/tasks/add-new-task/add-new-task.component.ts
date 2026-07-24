@@ -44,7 +44,6 @@ export class AddNewTaskComponent {
 
     this.route.queryParamMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const statusFromQuery = params.get('status') || 'TO_DO';
-      console.log(statusFromQuery)
       this.taskForm.patchValue({ status: statusFromQuery });
     });
 

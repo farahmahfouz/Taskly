@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { Task } from '../../task.constants';
@@ -7,6 +7,7 @@ import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { RouterLink } from '@angular/router';
 import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasks-list-view',
@@ -37,7 +38,8 @@ export class TasksListViewComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
-    private openPopupService: OpenPopupService
+    private openPopupService: OpenPopupService,
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
@@ -46,14 +48,16 @@ export class TasksListViewComponent implements OnInit {
     if (!projectId) return;
     this.projectId = projectId;
 
-    this.tasksService.getTasksByProject(projectId).subscribe({
-      next: res => {
-        console.log(res);
-        this.tasks = res;
-        this.totalTasks = res.length;
-      },
-      error: err => console.log(err),
-    });
+    this.tasksService
+      .getTasksByProject(projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.tasks = res;
+          this.totalTasks = res.length;
+        },
+        error: err => console.log(err),
+      });
   }
 
   onRowClick(task: Task) {
