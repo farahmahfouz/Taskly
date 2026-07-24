@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   effect,
   EventEmitter,
   HostListener,
@@ -11,7 +12,7 @@ import {
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { CopyLinkIconComponent } from '../../../../shared/icons';
 import { TasksService } from '../../tasks.service';
-import { Task } from '../../task.constants';
+import { Task, TASK_STATUSES } from '../../task.constants';
 import { DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { ArrowDownIconComponent } from '../../../../shared/icons/arrow-down-icon.component';
@@ -31,6 +32,13 @@ export class TaskPopupComponent {
 
   projectId = input.required<string>();
   taskId = input.required<string>();
+
+   statusConfig = computed(() => {
+    const currentStatus = this.task()?.status;
+    return (
+      TASK_STATUSES.find(s => s.value === currentStatus) ?? TASK_STATUSES[0]
+    );
+  });
 
   constructor(
     private taskService: TasksService,

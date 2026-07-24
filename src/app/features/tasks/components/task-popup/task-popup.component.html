@@ -35,11 +35,14 @@
       </div>
       <footer class="bg-surface-low py-4 px-8 flex justify-between">
         <span class="text-dark weight-medium text-xs leading-5 flex justify-center items-center gap-3">
-          <svg icon-copylink class="h-3.75 w-2"></svg>
+          <svg icon-copylink class="size-4"></svg>
           Copy Link
         </span>
 
-        <button class="bg-surface-highest py-2 px-4 rounded-xs text-neutral-dark weight-semibold text-xs leading-5" (click)="openPopupService.close()">
+        <button
+          class="bg-surface-highest py-2 px-4 rounded-xs text-neutral-dark weight-semibold text-xs leading-5"
+          (click)="openPopupService.close()"
+        >
           Close
         </button>
       </footer>
@@ -50,11 +53,11 @@
 
         <div
           id="status"
-          class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold bg-success text-neutral-dark outline-none"
+          [class]="'py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none ' + statusConfig().badgeClass"
         >
           <div value="completed" class="flex justify-between items-center">
             <p>
-              {{ task()?.status }}
+              {{ statusConfig().label }}
             </p>
             <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
           </div>
