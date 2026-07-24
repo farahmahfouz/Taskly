@@ -6,7 +6,7 @@
           <span
             class="inline-block px-2 py-0.5 leading-4 rounded-2xs text-[12px] weight-bold tracking-wide bg-surface-highest text-neutral-dark"
           >
-            TASK-124
+            {{ task()?.task_id }}
           </span>
           <div class="border border-[#E8EDFF] p-2 text-dark rounded-lg">
             <p class="weight-medium text-xs leading-5 flex gap-1.5 items-center">
@@ -16,7 +16,7 @@
                   fill="#434654"
                 />
               </svg>
-              EPIC-102 (Core UI Overhaul)
+              {{ task()?.epic?.epic_id }} (Core UI Overhaul)
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
@@ -29,19 +29,17 @@
             </p>
           </div>
         </header>
-        <p class="text-md weight-bold text-neutral-dark leading-lg">Implement glassmorphism effect on modals</p>
+        <p class="text-md weight-bold text-neutral-dark leading-lg">{{ task()?.title }}</p>
       </div>
       <hr class="border-[#E8EDFF]" />
-      <div class="p-8">
-        <app-textarea
-          variant="outlined"
-          label="description"
-          [rows]="17"
-          placeholder="Detailed task description goes here. This involves updating the modal
-container background to use semi-transparent surface colors with a 20px
-backdrop-blur to align with the Digital Curator aesthetic. Ensure contrast
-ratios remain accessible."
-        />
+      <div class="p-8 flex flex-col gap-3">
+        <label for="description">description</label>
+        <textarea
+          rows="20"
+          class="w-full bg-white border p-3 text-xs weight-regular focus:outline-none border-[#E8EDFF]"
+          [value]="task()?.description || 'No description provided for this task!'"
+        >
+        </textarea>
       </div>
       <footer class="bg-surface-low py-4 px-8 flex justify-between">
         <span class="text-dark weight-medium text-xs leading-5 flex justify-center items-center gap-3">
@@ -58,30 +56,52 @@ ratios remain accessible."
       <div class="flex flex-col gap-4">
         <label for="status"> Status </label>
 
-        <select
+        <div
           id="status"
-          formControlName="status"
           class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold bg-success text-neutral-dark outline-none"
         >
-          <option value="completed">Completed</option>
-        </select>
+          <div value="completed" class="flex justify-between items-center">
+            <p>
+              {{ task()?.status }}
+            </p>
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
+              stroke="#6B7280"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          </div>
+        </div>
       </div>
 
       <div class="flex flex-col gap-4">
         <label for="assignee"> Assignee </label>
 
-        <select
+        <div
           id="assignee"
-          formControlName="assignee"
-          class="py-2.5 px-4 w-full rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
+          class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
         >
-          <option value="">
-            <div class="flex h-7 w-7 items-center justify-center rounded-full text-2xs weight-bold text-neutral-dark">
-              AS
+          <div class="flex items-center gap-2">
+            <div class="flex h-7 w-7 items-center justify-center bg-surface-highest rounded-full text-2xs weight-bold text-neutral-dark">
+              {{ task()?.assignee?.name || '' | initials }}
             </div>
-            John Doe
-          </option>
-        </select>
+            {{ task()?.assignee?.name }}
+          </div>
+
+           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
+              stroke="#6B7280"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
       </div>
 
       <div class="flex flex-col gap-3">
@@ -101,16 +121,27 @@ ratios remain accessible."
       <div class="flex flex-col gap-3 border-t border-[#E8EDFF] pt-4">
         <label class="text-sm font-semibold text-neutral-dark"> Due Date </label>
 
-        <select
-          formControlName="dueDate"
-          class="py-2.5 px-4 w-full rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
+        <div
+          class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
         >
-          <option>Oct 15, 2025</option>
-        </select>
+          {{ task()?.due_date | date: 'MMM d, YYYY' }}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.2002 9.59961L12.0002 14.3996L16.8002 9.59961"
+              stroke="#6B7280"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
         <div class="flex items-center justify-between">
           <label> Created At </label>
 
-          <span class="text-xs leading-5 font-meduim text-neutral-dark"> 10 Oct 2025 </span>
+          <span class="text-xs leading-5 weight-medium text-neutral-dark">
+            {{ task()?.created_at | date: 'd MMM YYYY' }}
+          </span>
         </div>
       </div>
     </div>
