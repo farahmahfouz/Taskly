@@ -1,11 +1,21 @@
-import { Component, effect, EventEmitter, input, Input, Output, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  EventEmitter,
+  HostListener,
+  input,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { CopyLinkIconComponent } from '../../../../shared/icons';
 import { TasksService } from '../../tasks.service';
 import { Task } from '../../task.constants';
 import { DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
-import { ArrowDownIconComponent } from "../../../../shared/icons/arrow-down-icon.component";
+import { ArrowDownIconComponent } from '../../../../shared/icons/arrow-down-icon.component';
+import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
   selector: 'app-task-popup',
@@ -17,23 +27,29 @@ import { ArrowDownIconComponent } from "../../../../shared/icons/arrow-down-icon
 export class TaskPopupComponent {
   @Input() isOpen = true;
   @Output() close = new EventEmitter<void>();
-
   task = signal<Task | null>(null);
 
   projectId = input.required<string>();
   taskId = input.required<string>();
 
-  constructor(private taskService: TasksService) {
+  constructor(
+    private taskService: TasksService,
+    public openPopupService: OpenPopupService,
+  ) {
     effect(() => {
       const projectId = this.projectId();
       const taskId = this.taskId();
 
       this.taskService.getTask(projectId, taskId).subscribe({
         next: res => {
-          console.log(res);
-           this.task.set(res[0]);
+          this.task.set(res[0]);
         },
       });
     });
+  }
+
+  @HostListener('window:keydown.escape', ['$event'])
+  handleEscapeKey(event: Event) {
+    this.openPopupService.close();
   }
 }
