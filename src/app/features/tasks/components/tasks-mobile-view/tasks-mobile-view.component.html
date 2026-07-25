@@ -38,3 +38,8 @@
     </div>
   }
 </div>
+
+@if (!isLoading && !isError) {
+  <div class="md:hidden h-1" appInfinteScroll (scrolled)="loadMore()"></div>
+}
+

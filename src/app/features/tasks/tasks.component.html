@@ -49,36 +49,45 @@
     </div>
   </div>
 
-  <div class="hidden md:block overflow-x-auto pb-4">
-    <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
-      @if (currentView === 'board') {
-        @for (status of statuses; track status.value) {
-          <app-tasks-board-view [status]="status" />
+  @if (!isMobile) {
+    <div class="overflow-x-auto pb-4">
+      <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
+        @if (currentView === 'board') {
+          @for (status of statuses; track status.value) {
+            <app-tasks-board-view [status]="status" />
+          }
         }
-      }
 
-      @if (currentView === 'table') {
-        <app-tasks-list-view class="w-full"  />
-        <a
-          [routerLink]="['/project', projectId, 'tasks', 'new']"
-          class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
-        >
-          +
-        </a>
-      }
+        @if (currentView === 'table') {
+          <app-tasks-list-view class="w-full" />
+          <a
+            [routerLink]="['/project', projectId, 'tasks', 'new']"
+            class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
+          >
+            +
+          </a>
+        }
+      </div>
     </div>
-  </div>
-  <div class="md:hidden">
-    <a
-      [routerLink]="['/project', projectId, 'tasks', 'new']"
-      class="btn btn-primary weight-semibold text-xs py-2 rounded-xs flex items-center justify-center mb-6"
-    >
-      + Create task
-    </a>
-    <app-tasks-mobile-view />
-  </div>
+  }
+
+  @if (isMobile) {
+    <div class="pb-20">
+      <a
+        [routerLink]="['/project', projectId, 'tasks', 'new']"
+        class="btn btn-primary weight-semibold text-xs py-2 rounded-xs flex items-center justify-center mb-6"
+      >
+        + Create task
+      </a>
+      <app-tasks-mobile-view />
+    </div>
+  }
 </div>
 
 @if (openPopupService.isOpen()) {
-  <app-task-popup [taskId]="openPopupService.selectedTaskId()" [projectId]="projectId" (close)="openPopupService.close()" />
+  <app-task-popup
+    [taskId]="openPopupService.selectedTaskId()"
+    [projectId]="projectId"
+    (close)="openPopupService.close()"
+  />
 }

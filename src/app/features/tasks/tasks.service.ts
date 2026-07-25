@@ -22,8 +22,16 @@ export class TasksService {
       `${API.PROJECT_TASKS}?project_id=eq.${projectId}&status=eq.${status}`,
     );
   }
-  getTasksByProject(projectId: string) {
-    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?project_id=eq.${projectId}`);
+
+  getTasksByProject(projectId: string, limit = 100, offset = 0) {
+    return this.http.get<Task[]>(`${API.PROJECT_TASKS}?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`,
+      {
+        observe: 'response',
+        headers: {
+          Prefer: 'count=exact', // To retrieve count of all projects and set the count to headers "Content-Range"
+        },
+      },
+    );
   }
 
   getTask(projectId: string, taskId: string) {

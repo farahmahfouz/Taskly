@@ -60,7 +60,11 @@
   </div>
 
   <div class="flex items-center justify-between px-5 py-3.5 text-[12px] text-dark weight-medium bg-white">
-    <span>Showing {{ tasks.length }} of {{ totalTasks }} tasks</span>
-    <span class="flex gap-2"> <span>‹</span> Page {{ currentPage }} of {{ totalPages }} <span>›</span></span>
+    <span>Showing {{ tasks.length }} of {{ totalCount }} tasks</span>
+    <span class="flex gap-2">
+      <button (click)="previousPage()" class="cursor-pointer">‹</button> Page {{ currentPage }} of {{ totalPages }}
+      <button (click)="nextPage()" class="cursor-pointer">›</button></span
+    >
   </div>
 </div>
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { SearchIconComponent } from '../../shared/icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
@@ -28,11 +28,18 @@ export class TasksComponent {
     private route: ActivatedRoute,
     private router: Router,
     private projectContext: ProjectContextService,
-    public openPopupService: OpenPopupService
+    public openPopupService: OpenPopupService,
   ) {}
   currentView = 'board';
   projectId = '';
   statuses = TASK_STATUSES;
+
+  isMobile = window.innerWidth < 768;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
+  }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
