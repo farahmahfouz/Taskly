@@ -4,81 +4,81 @@
   <app-error-page (retry)="getProjectEpics()" />
 } @else if (epics.length === 0) {
   <app-empty-epics />
-}
-@if (isSearchLoading) {
-  <div class="flex justify-center items-center py-16">
-    <app-loader />
-  </div>
 } @else {
-  <div class="md:min-h-screen min-h-248.25 w-full mx-auto">
-    <div class="flex justify-between items-center">
-      <div class="flex flex-col gap-4">
-        <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
-          <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
-          <span class="text-neutral-light">›</span>
-          <a routerLink="/project" class="text-neutral-light">Project Name</a>
-          <span class="text-neutral-light">›</span>
-          <a routerLink="../" class="text-primary">epics</a>
-        </div>
+  @if (isSearchLoading) {
+    <div class="flex justify-center items-center py-16">
+      <app-loader />
+    </div>
+  } @else {
+    <div class="md:min-h-screen min-h-248.25 w-full mx-auto">
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col gap-4">
+          <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
+            <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
+            <span class="text-neutral-light">›</span>
+            <a routerLink="/project" class="text-neutral-light">Project Name</a>
+            <span class="text-neutral-light">›</span>
+            <a routerLink="../" class="text-primary">epics</a>
+          </div>
 
-        <h1
-          class="text-2xl md:text-4xl weight-semibold md:weight-bold text-neutral-dark leading-8 md:leading-10 tracking-[-0.6px] md:tracking-[-0.9px] hidden md:block"
-        >
-          Project Epics
-        </h1>
+          <h1
+            class="text-2xl md:text-4xl weight-semibold md:weight-bold text-neutral-dark leading-8 md:leading-10 tracking-[-0.6px] md:tracking-[-0.9px] hidden md:block"
+          >
+            Project Epics
+          </h1>
+        </div>
+        <div class="self-end flex gap-8 w-full md:w-auto">
+          <div class="relative w-full md:w-75.75">
+            <svg icon-search class="absolute left-4 top-1/2 size-2.5 text-dark -translate-y-1/2"></svg>
+
+            <input
+              type="text"
+              placeholder="Search epics..."
+              [formControl]="searchControl"
+              class="w-full md:rounded-2xs rounded-sm bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
+            />
+          </div>
+          <a
+            class="btn btn-primary gradient-primary hidden md:flex"
+            [routerLink]="['/project', projectId, 'epics', 'new']"
+            >+ New Epic</a
+          >
+        </div>
       </div>
-      <div class="self-end flex gap-8 w-full md:w-auto">
-        <div class="relative w-full md:w-75.75">
-          <svg icon-search class="absolute left-4 top-1/2 size-2.5 text-dark -translate-y-1/2"></svg>
+      <section class="py-6 md:py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        @for (epic of epics; track epic.id) {
+          <app-epic-card [epic]="epic" (open)="openEpicModal($event)" />
+        }
 
-          <input
-            type="text"
-            placeholder="Search epics..."
-            [formControl]="searchControl"
-            class="w-full md:rounded-2xs rounded-sm bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
-          />
-        </div>
+        <app-epic-popup
+          [isOpen]="showEpicModal"
+          [epicId]="selectedEpicId"
+          [projectId]="projectId"
+          (close)="showEpicModal = false"
+        ></app-epic-popup>
+      </section>
+
+      <div class="flex justify-end md:hidden mb-20">
         <a
-          class="btn btn-primary gradient-primary hidden md:flex"
           [routerLink]="['/project', projectId, 'epics', 'new']"
-          >+ New Epic</a
+          class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
         >
+          +
+        </a>
       </div>
-    </div>
-    <section class="py-6 md:py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-      @for (epic of epics; track epic.id) {
-        <app-epic-card [epic]="epic" (open)="openEpicModal($event)" />
+
+      @if (!isLoading && epics.length > 0 && !isError) {
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          [totalCount]="totalCount"
+          [pageSize]="limit"
+          (pageChange)="changePage($event)"
+        />
       }
-
-      <app-epic-popup
-        [isOpen]="showEpicModal"
-        [epicId]="selectedEpicId"
-        [projectId]="projectId"
-        (close)="showEpicModal = false"
-      ></app-epic-popup>
-    </section>
-
-    <div class="flex justify-end md:hidden mb-20">
-      <a
-        [routerLink]="['/project', projectId, 'epics', 'new']"
-        class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
-      >
-        +
-      </a>
     </div>
-
-    @if (!isLoading && epics.length > 0 && !isError) {
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [totalCount]="totalCount"
-        [pageSize]="limit"
-        (pageChange)="changePage($event)"
-      />
-    }
-  </div>
+  }
 }
-
 @if (!isLoading && !isError) {
   <div class="md:hidden h-1" appInfinteScroll (scrolled)="loadMore()"></div>
 }

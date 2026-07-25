@@ -13,8 +13,8 @@ import { EpicPopupComponent } from './components/epic-popup/epic-popup.component
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { LoaderComponent } from "../../shared/components/loader/loader.component";
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-epics',
@@ -30,8 +30,8 @@ import { LoaderComponent } from "../../shared/components/loader/loader.component
     EpicPopupComponent,
     ErrorPageComponent,
     ReactiveFormsModule,
-    LoaderComponent
-],
+    LoaderComponent,
+  ],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
@@ -39,6 +39,8 @@ export class EpicsComponent implements OnInit {
   projectId = '';
   epics: Epic[] = [];
   isError = false;
+  isSearchError = false;
+
   isLoading = false;
   isFirstLoading = false;
   isSearchLoading = false;
@@ -110,7 +112,9 @@ export class EpicsComponent implements OnInit {
       // this.isLoading = false;
     } else if (type === 'first') {
       this.isFirstLoading = true;
-    } else if (type === 'search'){
+    } else if (type === 'search') {
+      this.isSearchLoading = true;
+    } else {
       this.isSearchLoading = true;
     }
 
@@ -141,7 +145,11 @@ export class EpicsComponent implements OnInit {
           this.isFirstLoading = false;
           this.isSearchLoading = false;
 
-          this.isError = true;
+          if (type === 'search') {
+            this.isSearchError = true;
+          } else {
+            this.isError = true;
+          }
         },
       });
   }

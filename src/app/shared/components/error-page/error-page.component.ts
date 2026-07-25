@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DisconnectIconComponent } from '../../icons/disconnect-icon.component';
 
 
@@ -10,5 +10,6 @@ import { DisconnectIconComponent } from '../../icons/disconnect-icon.component';
   styleUrl: './error-page.component.css'
 })
 export class ErrorPageComponent {
+  @Input() message = 'Something went wrong';
   @Output() retry = new EventEmitter<void>();
 }
