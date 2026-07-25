@@ -1,9 +1,14 @@
-@if (isLoading) {
+@if (isFirstLoading) {
   <app-skelton-epics />
 } @else if (isError) {
   <app-error-page (retry)="getProjectEpics()" />
 } @else if (epics.length === 0) {
   <app-empty-epics />
+}
+@if (isSearchLoading) {
+  <div class="flex justify-center items-center py-16">
+    <app-loader />
+  </div>
 } @else {
   <div class="md:min-h-screen min-h-248.25 w-full mx-auto">
     <div class="flex justify-between items-center">
