@@ -17,16 +17,19 @@ export class EpicsService {
     return this.http.post<CreateEpicRequest>(`${API.EPICS}`, data);
   }
 
-  getAllProjectEpics(projectId: string, limit = 100, offset = 0) {
-    return this.http.get<Epic[]>(
-      `${API.PROJECT_EPICS}?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`,
-      {
-        observe: 'response', // To retrieve all response not just body
-        headers: {
-          Prefer: 'count=exact', // To retrieve count of all projects and set the count to headers "Content-Range"
-        },
+  getAllProjectEpics(projectId: string, limit = 100, offset = 0, searchTerm = '') {
+    let url = `${API.PROJECT_EPICS}?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`;
+
+    if (searchTerm.trim()) {
+      url += `&title=ilike.%25${encodeURIComponent(searchTerm.trim())}%25`;
+    }
+
+    return this.http.get<Epic[]>(url, {
+      observe: 'response', // To retrieve all response not just body
+      headers: {
+        Prefer: 'count=exact', // To retrieve count of all projects and set the count to headers "Content-Range"
       },
-    );
+    });
   }
 
   getProjectEpiById(projectId: string, epicId: string) {
@@ -55,12 +58,8 @@ export class EpicsService {
   }
 
   updateEpicInStore(updatedEpic: Epic) {
-  const current = this.epicsSubject.value;
+    const current = this.epicsSubject.value;
 
-  this.epicsSubject.next(
-    current.map(epic =>
-      epic.id === updatedEpic.id ? updatedEpic : epic
-    )
-  );
-}
+    this.epicsSubject.next(current.map(epic => (epic.id === updatedEpic.id ? updatedEpic : epic)));
+  }
 }

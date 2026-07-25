@@ -11,7 +11,9 @@ import { HttpResponse } from '@angular/common/http';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 import { EpicPopupComponent } from './components/epic-popup/epic-popup.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ErrorPageComponent } from "../../shared/components/error-page/error-page.component";
+import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-epics',
@@ -25,8 +27,9 @@ import { ErrorPageComponent } from "../../shared/components/error-page/error-pag
     RouterLink,
     InfinteScrollDirective,
     EpicPopupComponent,
-    ErrorPageComponent
-],
+    ErrorPageComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })
@@ -40,7 +43,7 @@ export class EpicsComponent implements OnInit {
   selectedEpicId!: string;
 
   currentPage = 1;
-  limit = 2;
+  limit = 4;
 
   totalCount = 0;
   totalPages = 0;
@@ -51,6 +54,8 @@ export class EpicsComponent implements OnInit {
     private destroyRef: DestroyRef,
   ) {}
 
+  searchControl = new FormControl('');
+
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
 
@@ -60,6 +65,13 @@ export class EpicsComponent implements OnInit {
     if (this.projectId) {
       this.getProjectEpics();
     }
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => {
+         this.currentPage = 1;
+         this.getProjectEpics();
+      });
   }
 
   get offset() {
@@ -97,7 +109,7 @@ export class EpicsComponent implements OnInit {
     }
 
     this.epicsService
-      .getAllProjectEpics(this.projectId, this.limit, this.offset)
+      .getAllProjectEpics(this.projectId, this.limit, this.offset, this.searchControl.value ?? '')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res: HttpResponse<Epic[]>) => {
