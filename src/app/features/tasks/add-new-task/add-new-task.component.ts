@@ -127,6 +127,11 @@ export class AddNewTaskComponent {
         },
         error: err => {
           this.isLoading = false;
+          if (err.status === 400) {
+            this.toaster.showError('Please create an epic before creating a task.');
+          } else {
+            this.toaster.showError('Something went wrong. Please try again.');
+          }
         },
       });
   }
