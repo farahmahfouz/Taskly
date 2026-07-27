@@ -91,6 +91,8 @@ export class AddNewTaskComponent {
 
           const epicId = this.route.snapshot.queryParamMap.get('epicId');
 
+          console.log(epicId)
+
           if (epicId) {
             this.taskForm.patchValue({
               epic_id: epicId,

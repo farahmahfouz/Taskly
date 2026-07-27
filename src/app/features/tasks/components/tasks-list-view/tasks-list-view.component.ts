@@ -8,11 +8,13 @@ import { EditIconComponent } from '../../../../shared/icons/edit-icon.component'
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpResponse } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
+import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-tasks-list-view',
   standalone: true,
-  imports: [CommonModule, EditIconComponent, InitialsPipe, DatePipe],
+  imports: [CommonModule, EditIconComponent, InitialsPipe, DatePipe, RouterLink, LoaderComponent],
   templateUrl: './tasks-list-view.component.html',
   styleUrl: './tasks-list-view.component.css',
 })
@@ -23,7 +25,7 @@ export class TasksListViewComponent implements OnInit {
   readonly statusStyles = TASK_STATUS_BADGE_STYLES;
 
   currentPage = 1;
-  limit = 2;
+  limit = 4;
 
   totalCount = 0;
   totalPages = 0;

@@ -8,6 +8,7 @@ import { TASK_STATUSES } from './task.constants';
 import { TasksMobileViewComponent } from './components/tasks-mobile-view/tasks-mobile-view.component';
 import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../core/services/open-popup.service';
+import { TooltipDirective } from "../../shared/directives/tooltip.directive";
 
 @Component({
   selector: 'app-tasks',
@@ -19,7 +20,7 @@ import { OpenPopupService } from '../../core/services/open-popup.service';
     RouterLink,
     TasksMobileViewComponent,
     TaskPopupComponent,
-  ],
+],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
