@@ -2,7 +2,7 @@ import { Component, DestroyRef } from '@angular/core';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { Member } from '../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MembersService } from '../../members/members.service';
 import { TextareaComponent } from '../../../shared/components/textarea/textarea.component';
 import { EpicsService } from '../../epics/epics.service';
@@ -37,6 +37,7 @@ export class AddNewTaskComponent {
     private tasksService: TasksService,
     private toaster: ToastService,
     private destroyRef: DestroyRef,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -124,6 +125,7 @@ export class AddNewTaskComponent {
         next: res => {
           this.isLoading = false;
           this.toaster.showSuccess('Tasks created sucessfully.');
+          this.router.navigate(['project', this.projectId, 'tasks']);
         },
         error: err => {
           this.isLoading = false;
