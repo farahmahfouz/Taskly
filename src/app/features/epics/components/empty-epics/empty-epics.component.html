@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <h2 class="mt-10 text-md weight-semibold text-neutral-dark tracking-normal leading-lg">
+  <h2 class="mt-10 text-md text-center weight-semibold text-neutral-dark tracking-normal leading-lg">
     No epics in this project yet.
   </h2>
 
@@ -38,7 +38,7 @@
     Break down your large project into manageable epics to track progress better and maintain architectural clarity.
   </p>
 
-  <button class="mt-10 btn btn-primary flex gap-1">
+  <a [routerLink]="['/project', projectId, 'epics', 'new']" class="mt-10 btn btn-primary flex gap-1">
     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M6.55 16.2L11.725 10H7.725L8.45 4.325L3.825 11H7.3L6.55 16.2ZM4 20L5 13H0L9 0H11L10 8H16L6 20H4Z"
@@ -47,7 +47,7 @@
     </svg>
 
     Create First Epic
-  </button>
+  </a>
 
   <div class="mt-20 grid w-full max-w-2xl gap-6 md:grid-cols-3">
     @for (item of features; track item.title) {

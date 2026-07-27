@@ -1,16 +1,5 @@
 import { Epic } from '../epics/epic.model';
 
-export const TASK_STATUS = [
-  { value: 'TO_DO', label: 'To Do' },
-  { value: 'IN_PROGRESS', label: 'In Progress' },
-  { value: 'BLOCKED', label: 'Blocked' },
-  { value: 'IN_REVIEW', label: 'In Review' },
-  { value: 'READY_FOR_QA', label: 'Ready for QA' },
-  { value: 'REOPENED', label: 'Reopened' },
-  { value: 'READY_FOR_PRODUCTION', label: 'Ready for Production' },
-  { value: 'DONE', label: 'Done' },
-];
-
 export type TaskStatus =
   | 'TO_DO'
   | 'IN_PROGRESS'
@@ -138,3 +127,14 @@ export interface User {
   email: string;
   department: string;
 }
+
+export const TASK_STATUS_BADGE_STYLES: Record<TaskStatus, string> = {
+  TO_DO: 'bg-surface-highest text-neutral-dark',
+  IN_PROGRESS: 'bg-primary/10 text-primary',
+  BLOCKED: 'bg-[#FFDAD6] text-error',
+  IN_REVIEW: 'bg-green-100 text-green-700',
+  READY_FOR_QA: 'bg-yellow-100 text-yellow-700',
+  REOPENED: 'bg-orange-100 text-orange-700',
+  READY_FOR_PRODUCTION: 'bg-cyan-100 text-cyan-700',
+  DONE: 'bg-green-100 text-green-700',
+};

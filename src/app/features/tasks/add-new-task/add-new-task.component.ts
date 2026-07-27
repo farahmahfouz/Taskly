@@ -9,7 +9,7 @@ import { EpicsService } from '../../epics/epics.service';
 import { Epic } from '../../epics/epic.model';
 import { SlicePipe } from '@angular/common';
 import { getControlError } from '../../../core/utils/form-error.util';
-import { CreateTaskRequest, TASK_STATUS, TaskStatus } from '../task.constants';
+import { CreateTaskRequest, TASK_STATUSES, TaskStatus } from '../task.constants';
 import { TasksService } from '../tasks.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,7 +27,7 @@ export class AddNewTaskComponent {
   projectId = '';
   isLoading = false;
   errorMessage = '';
-  status = TASK_STATUS;
+  status = TASK_STATUSES;
 
   constructor(
     private fb: FormBuilder,

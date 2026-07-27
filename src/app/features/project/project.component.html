@@ -18,7 +18,7 @@
   @if (isLoading) {
     <app-skelton />
   } @else if (isError) {
-    <app-error-page (retry)="getProjects()" />
+    <app-error-page (retry)="loadPage(false)" />
   } @else if (projects.length === 0) {
     <app-empty-projects />
   } @else {

@@ -10,7 +10,8 @@ import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.directive';
 import { ProjectContextService } from '../../core/services/project-context.service';
-import { ErrorPageComponent } from "../../shared/components/error-page/error-page.component";
+import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
+import { PaginationBase } from '../../shared/classes/pagination.base';
 
 @Component({
   selector: 'app-project',
@@ -22,66 +23,71 @@ import { ErrorPageComponent } from "../../shared/components/error-page/error-pag
     SkeltonComponent,
     EmptyProjectsComponent,
     InfinteScrollDirective,
-    ErrorPageComponent
-],
+    ErrorPageComponent,
+  ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent extends PaginationBase implements OnInit {
   projects: Project[] = [];
-  isLoading = false;
-  isError = false;
+  // isLoading = false;
+  // isError = false;
 
-  currentPage = 1;
-  limit = 2;
+  // currentPage = 1;
+  // limit = 2;
 
-  totalCount = 0;
-  totalPages = 0;
+  // totalCount = 0;
+  // totalPages = 0;
 
   constructor(
     private projectService: ProjectService,
     private destroyRef: DestroyRef,
     private projectContextService: ProjectContextService,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.projectContextService.clearProjectId();
-    this.getProjects();
+    // this.getProjects();
+    this.loadPage(false);
   }
 
-  get offset() {
-    return (this.currentPage - 1) * this.limit;
-  }
+  // get offset() {
+  //   return (this.currentPage - 1) * this.limit;
+  // }
 
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return;
+  // changePage(page: number) {
+  //   if (page < 1 || page > this.totalPages) return;
 
-    this.currentPage = page;
-    this.getProjects();
-  }
+  //   this.currentPage = page;
+  //   this.getProjects();
+  // }
 
-  nextPage() {
-    this.changePage(this.currentPage + 1);
-  }
+  // nextPage() {
+  //   this.changePage(this.currentPage + 1);
+  // }
 
-  previousPage() {
-    this.changePage(this.currentPage - 1);
-  }
+  // previousPage() {
+  //   this.changePage(this.currentPage - 1);
+  // }
 
-  loadMore() {
-    if (this.isLoading) return;
-    if (this.currentPage >= this.totalPages) return;
+  // loadMore() {
+  //   if (this.isLoading) return;
+  //   if (this.currentPage >= this.totalPages) return;
 
-    this.currentPage++;
-    this.getProjects(true);
-  }
+  //   this.currentPage++;
+  //   this.getProjects(true);
+  // }
 
-  getProjects(mobileScreenLoader = false) {
-    if (mobileScreenLoader) {
-      this.isLoading = false;
+  protected loadPage(loadMore: boolean) {
+    if (loadMore) {
+      this.isLoadingMore = true;
     } else {
       this.isLoading = true;
     }
+
+    this.isError = false;
 
     this.projectService
       .getAllProjects(this.limit, this.offset)
@@ -90,7 +96,7 @@ export class ProjectComponent implements OnInit {
         next: (res: HttpResponse<Project[]>) => {
           const newProjects = res.body ?? [];
 
-          this.projects = mobileScreenLoader ? [...this.projects, ...newProjects] : newProjects;
+          this.projects = loadMore ? [...this.projects, ...newProjects] : newProjects;
           const contentRange = res.headers.get('Content-Range');
 
           this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
@@ -98,10 +104,12 @@ export class ProjectComponent implements OnInit {
           this.totalPages = Math.ceil(this.totalCount / this.limit);
 
           this.isLoading = false;
+          this.isLoadingMore = false;
           this.isError = false;
         },
         error: err => {
           this.isLoading = false;
+          this.isLoadingMore = false;
           this.isError = true;
         },
       });

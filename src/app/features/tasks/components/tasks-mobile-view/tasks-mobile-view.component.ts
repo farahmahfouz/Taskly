@@ -8,6 +8,7 @@ import { EditIconComponent } from '../../../../shared/icons/edit-icon.component'
 import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
+import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
 
 @Component({
   selector: 'app-tasks-mobile-view',
@@ -16,20 +17,12 @@ import { InfinteScrollDirective } from '../../../../shared/directives/infinte-sc
   templateUrl: './tasks-mobile-view.component.html',
   styleUrl: './tasks-mobile-view.component.css',
 })
+
 export class TasksMobileViewComponent {
   tasks: Task[] = [];
   projectId = '';
 
-  statusStyles: Record<string, string> = {
-    TO_DO: 'bg-surface-highest text-neutral-dark',
-    IN_PROGRESS: 'bg-primary/10 text-primary',
-    BLOCKED: 'bg-[#FFDAD6] text-error',
-    IN_REVIEW: 'bg-green-100 text-green-700',
-    READY_FOR_QA: 'bg-yellow-100 text-yellow-700',
-    REOPENED: 'bg-orange-100 text-orange-700',
-    READY_FOR_PRODUCTION: 'bg-cyan-100 text-cyan-700',
-    DONE: 'bg-green-100 text-green-700',
-  };
+  readonly statusStyles = TASK_STATUS_BADGE_STYLES;
 
   currentPage = 1;
   limit = 2;

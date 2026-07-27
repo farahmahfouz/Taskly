@@ -5,6 +5,8 @@ import {
   FlowIconComponent,
   TrendIconComponent,
 } from '../../../../shared/icons/index';
+import { RouterLink } from '@angular/router';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
 
 @Component({
   selector: 'app-empty-epics',
@@ -15,11 +17,14 @@ import {
     SparkleIconComponent,
     FlowIconComponent,
     TrendIconComponent,
+    RouterLink,
   ],
   templateUrl: './empty-epics.component.html',
   styleUrl: './empty-epics.component.css',
 })
 export class EmptyEpicsComponent {
+  projectId = '';
+  constructor(private projectContext: ProjectContextService){}
   features = [
     {
       icon: 'sparkle',
@@ -37,4 +42,11 @@ export class EmptyEpicsComponent {
       description: 'Visualize percentage completion at a macro project level.',
     },
   ];
+
+  ngOnInit() {
+    const projectId = this.projectContext.activeProjectId();
+
+    if (!projectId) return;
+    this.projectId = projectId;
+  }
 }

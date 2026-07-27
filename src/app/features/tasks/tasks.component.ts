@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksBoardViewComponent } from './components/tasks-board-view/tasks-board-view.component';
 import { ProjectContextService } from '../../core/services/project-context.service';
-import { Task, TASK_STATUSES } from './task.constants';
+import { TASK_STATUSES } from './task.constants';
 import { TasksMobileViewComponent } from './components/tasks-mobile-view/tasks-mobile-view.component';
 import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../core/services/open-popup.service';

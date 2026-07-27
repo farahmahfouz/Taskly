@@ -1,7 +1,7 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
-import { Task } from '../../task.constants';
+import { Task, TASK_STATUS_BADGE_STYLES } from '../../task.constants';
 import { CommonModule, DatePipe } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
@@ -20,16 +20,8 @@ export class TasksListViewComponent implements OnInit {
   tasks: Task[] = [];
   projectId = '';
 
-  statusStyles: Record<string, string> = {
-    TO_DO: 'bg-surface-highest text-neutral-dark',
-    IN_PROGRESS: 'bg-primary/10 text-primary',
-    BLOCKED: 'bg-[#FFDAD6] text-error',
-    IN_REVIEW: 'bg-green-100 text-green-700',
-    READY_FOR_QA: 'bg-yellow-100 text-yellow-700',
-    REOPENED: 'bg-orange-100 text-orange-700',
-    READY_FOR_PRODUCTION: 'bg-cyan-100 text-cyan-700',
-    DONE: 'bg-green-100 text-green-700',
-  };
+  readonly statusStyles = TASK_STATUS_BADGE_STYLES;
+
   currentPage = 1;
   limit = 2;
 

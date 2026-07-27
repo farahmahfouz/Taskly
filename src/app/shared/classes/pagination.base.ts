@@ -1,11 +1,13 @@
 export abstract class PaginationBase {
   currentPage = 1;
-  limit = 10;
+  limit = 2;
 
   totalCount = 0;
   totalPages = 0;
 
   isLoading = false;
+  isLoadingMore = false;
+  isError = false;
 
   get offset() {
     return (this.currentPage - 1) * this.limit;
@@ -27,7 +29,7 @@ export abstract class PaginationBase {
   }
 
   loadMore() {
-    if (this.isLoading) return;
+    if (this.isLoading || this.isLoadingMore) return;
     if (this.currentPage >= this.totalPages) return;
 
     this.currentPage++;
