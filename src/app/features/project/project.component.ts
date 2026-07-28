@@ -12,6 +12,7 @@ import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.d
 import { ProjectContextService } from '../../core/services/project-context.service';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
+import { LoaderComponent } from "../../shared/components/loader/loader.component";
 
 @Component({
   selector: 'app-project',
@@ -24,20 +25,13 @@ import { PaginationBase } from '../../shared/classes/pagination.base';
     EmptyProjectsComponent,
     InfinteScrollDirective,
     ErrorPageComponent,
-  ],
+    LoaderComponent
+],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })
 export class ProjectComponent extends PaginationBase implements OnInit {
   projects: Project[] = [];
-  // isLoading = false;
-  // isError = false;
-
-  // currentPage = 1;
-  // limit = 2;
-
-  // totalCount = 0;
-  // totalPages = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -49,41 +43,14 @@ export class ProjectComponent extends PaginationBase implements OnInit {
 
   ngOnInit() {
     this.projectContextService.clearProjectId();
-    // this.getProjects();
+    this.isFirstLoading = true;
     this.loadPage(false);
   }
-
-  // get offset() {
-  //   return (this.currentPage - 1) * this.limit;
-  // }
-
-  // changePage(page: number) {
-  //   if (page < 1 || page > this.totalPages) return;
-
-  //   this.currentPage = page;
-  //   this.getProjects();
-  // }
-
-  // nextPage() {
-  //   this.changePage(this.currentPage + 1);
-  // }
-
-  // previousPage() {
-  //   this.changePage(this.currentPage - 1);
-  // }
-
-  // loadMore() {
-  //   if (this.isLoading) return;
-  //   if (this.currentPage >= this.totalPages) return;
-
-  //   this.currentPage++;
-  //   this.getProjects(true);
-  // }
 
   protected loadPage(loadMore: boolean) {
     if (loadMore) {
       this.isLoadingMore = true;
-    } else {
+    } else if (!this.isFirstLoading) {
       this.isLoading = true;
     }
 
@@ -105,11 +72,13 @@ export class ProjectComponent extends PaginationBase implements OnInit {
 
           this.isLoading = false;
           this.isLoadingMore = false;
+          this.isFirstLoading = false;
           this.isError = false;
         },
         error: err => {
           this.isLoading = false;
           this.isLoadingMore = false;
+          this.isFirstLoading = false;
           this.isError = true;
         },
       });

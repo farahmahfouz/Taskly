@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
+import { PaginationBase } from '../../../../shared/classes/pagination.base';
 
 @Component({
   selector: 'app-tasks-list-view',
@@ -18,30 +19,18 @@ import { LoaderComponent } from '../../../../shared/components/loader/loader.com
   templateUrl: './tasks-list-view.component.html',
   styleUrl: './tasks-list-view.component.css',
 })
-export class TasksListViewComponent implements OnInit {
+export class TasksListViewComponent extends PaginationBase implements OnInit {
+  readonly statusStyles = TASK_STATUS_BADGE_STYLES;
   tasks: Task[] = [];
   projectId = '';
-
-  readonly statusStyles = TASK_STATUS_BADGE_STYLES;
-
-  currentPage = 1;
-  limit = 4;
-
-  totalCount = 0;
-  totalPages = 0;
-
-  isLoading = false;
-  isError = false;
 
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
     private openPopupService: OpenPopupService,
     private destroyRef: DestroyRef,
-  ) {}
-
-  get offset() {
-    return (this.currentPage - 1) * this.limit;
+  ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -50,19 +39,17 @@ export class TasksListViewComponent implements OnInit {
     if (!projectId) return;
     this.projectId = projectId;
 
-    this.getTasks();
+    this.loadPage(false);
   }
 
-  loadMore() {
-    if (this.isLoading) return;
-    if (this.currentPage >= this.totalPages) return;
+  protected loadPage(loadMore: boolean) {
+    if (loadMore) {
+      this.isLoadingMore = true;
+    } else {
+      this.isLoading = true;
+    }
 
-    this.currentPage++;
-    this.getTasks();
-  }
-
-  private getTasks() {
-    this.isLoading = true;
+    this.isError = false;
     this.tasksService
       .getTasksByProject(this.projectId, this.limit, this.offset)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -83,21 +70,6 @@ export class TasksListViewComponent implements OnInit {
           this.isError = true;
         },
       });
-  }
-
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return;
-
-    this.currentPage = page;
-    this.getTasks();
-  }
-
-  nextPage() {
-    this.changePage(this.currentPage + 1);
-  }
-
-  previousPage() {
-    this.changePage(this.currentPage - 1);
   }
 
   onRowClick(task: Task) {
