@@ -8,7 +8,8 @@ import { TASK_STATUSES } from './task.constants';
 import { TasksMobileViewComponent } from './components/tasks-mobile-view/tasks-mobile-view.component';
 import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../core/services/open-popup.service';
-import { TooltipDirective } from "../../shared/directives/tooltip.directive";
+import { TooltipDirective } from '../../shared/directives/tooltip.directive';
+import { SelectComponent } from "../../shared/components/select/select.component";
 
 @Component({
   selector: 'app-tasks',
@@ -20,6 +21,7 @@ import { TooltipDirective } from "../../shared/directives/tooltip.directive";
     RouterLink,
     TasksMobileViewComponent,
     TaskPopupComponent,
+    SelectComponent
 ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
@@ -64,7 +66,7 @@ export class TasksComponent {
     this.projectId = projectId;
   }
 
-  changeView(event: Event) {
+  changeView(event: any) {
     const view = (event.target as HTMLSelectElement).value;
 
     this.router.navigate([], {
@@ -73,4 +75,17 @@ export class TasksComponent {
       queryParamsHandling: 'merge',
     });
   }
+
+  viewOptions = [
+    {
+      label: 'Board View',
+      value: 'board',
+      icon: 'board',
+    },
+    {
+      label: 'List View',
+      value: 'table',
+      icon: 'list',
+    },
+  ];
 }
