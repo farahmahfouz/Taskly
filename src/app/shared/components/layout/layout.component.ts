@@ -32,12 +32,20 @@ export class LayoutComponent {
   get navItems() {
     const id = this.projectContextService.activeProjectId();
 
-    return [
+    const items = [
       {
-        label: this.isMobile ? 'Projects' : 'Projects',
+        label: 'Projects',
         route: '/project',
         icon: 'projects',
       },
+    ];
+
+    if (!id) {
+      return items;
+    }
+
+    return [
+      ...items,
       {
         label: this.isMobile ? 'Tasks' : 'Project Tasks',
         route: `/project/${id}/tasks`,
