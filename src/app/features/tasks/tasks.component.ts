@@ -10,6 +10,7 @@ import { TaskPopupComponent } from './components/task-popup/task-popup.component
 import { OpenPopupService } from '../../core/services/open-popup.service';
 import { TooltipDirective } from '../../shared/directives/tooltip.directive';
 import { SelectComponent } from "../../shared/components/select/select.component";
+import { TasksPopupMobileComponent } from "./components/tasks-popup-mobile/tasks-popup-mobile.component";
 
 @Component({
   selector: 'app-tasks',
@@ -21,7 +22,8 @@ import { SelectComponent } from "../../shared/components/select/select.component
     RouterLink,
     TasksMobileViewComponent,
     TaskPopupComponent,
-    SelectComponent
+    SelectComponent,
+    TasksPopupMobileComponent
 ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
@@ -66,9 +68,7 @@ export class TasksComponent {
     this.projectId = projectId;
   }
 
-  changeView(event: any) {
-    const view = (event.target as HTMLSelectElement).value;
-
+  changeView(view: string) {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { view },

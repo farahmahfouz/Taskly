@@ -78,9 +78,9 @@
 </div>
 
 @if (openPopupService.isOpen()) {
-  <app-task-popup
-    [taskId]="openPopupService.selectedTaskId()"
-    [projectId]="projectId"
-    (close)="openPopupService.close()"
-  />
+  @if (isMobile) {
+    <app-tasks-popup-mobile />
+  } @else {
+    <app-task-popup (close)="openPopupService.close()" />
+  }
 }

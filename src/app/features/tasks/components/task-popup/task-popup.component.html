@@ -1,5 +1,5 @@
 <app-modal [isOpen]="isOpen" (close)="close.emit()" width="56rem">
-  @if (isLoading()) {
+  @if (openPopupService.isLoading()) {
     <div class="grid grid-cols-[3fr_1.6fr] min-h-100">
       <div class="bg-white border border-[#E8EDFF] p-8 flex flex-col gap-4 animate-pulse">
         <div class="h-4 w-24 bg-surface-highest rounded"></div>
@@ -13,11 +13,11 @@
         <div class="h-10 w-full bg-white rounded"></div>
       </div>
     </div>
-  } @else if (hasError()) {
+  } @else if (openPopupService.hasError()) {
     <div class="flex flex-col items-center justify-center gap-3 py-24 px-8 min-h-100">
       <p class="text-sm weight-semibold text-error">Failed to load task details</p>
     </div>
-  } @else if (!task()) {
+  } @else if (!openPopupService.task()) {
     <div class="flex flex-col items-center justify-center gap-3 py-24 px-8 min-h-100">
       <p class="text-sm weight-semibold text-neutral-dark">Task not found</p>
     </div>
@@ -29,7 +29,7 @@
             <span
               class="inline-block px-2 py-0.5 leading-4 rounded-2xs text-[12px] weight-bold tracking-wide bg-surface-highest text-neutral-dark"
             >
-              {{ task()?.task_id }}
+              {{ openPopupService.task()?.task_id }}
             </span>
             <div class="border border-[#E8EDFF] p-2 text-dark rounded-lg">
               <p class="weight-medium text-xs leading-5 flex gap-1.5 items-center">
@@ -39,12 +39,12 @@
                     fill="#434654"
                   />
                 </svg>
-                {{ task()?.epic?.epic_id }} (Core UI Overhaul)
+                {{ openPopupService.task()?.epic?.epic_id }} (Core UI Overhaul)
                 <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
               </p>
             </div>
           </header>
-          <p class="text-md weight-bold text-neutral-dark leading-lg">{{ task()?.title }}</p>
+          <p class="text-md weight-bold text-neutral-dark leading-lg">{{ openPopupService.task()?.title }}</p>
         </div>
         <hr class="border-[#E8EDFF]" />
         <div class="p-8 flex flex-col gap-3">
@@ -52,7 +52,7 @@
           <textarea
             rows="20"
             class="w-full bg-white border p-3 text-xs weight-regular focus:outline-none border-[#E8EDFF]"
-            [value]="task()?.description || 'No description provided for this task!'"
+            [value]="openPopupService.task()?.description || 'No description provided for this task!'"
           >
           </textarea>
         </div>
@@ -76,11 +76,12 @@
 
           <div
             id="status"
-            [class]="'py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none ' + statusConfig().badgeClass"
+            class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none"
+            [ngClass]="statusBadgeClass()"
           >
             <div value="completed" class="flex justify-between items-center">
               <p>
-                {{ statusConfig().label }}
+                {{ openPopupService.task()?.status }}
               </p>
               <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
             </div>
@@ -98,9 +99,9 @@
               <div
                 class="flex h-7 w-7 items-center justify-center bg-surface-highest rounded-full text-2xs weight-bold text-neutral-dark"
               >
-                {{ task()?.assignee?.name || '' | initials }}
+                {{ openPopupService.task()?.assignee?.name || '' | initials }}
               </div>
-              {{ task()?.assignee?.name }}
+              {{ openPopupService.task()?.assignee?.name }}
             </div>
 
             <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
@@ -114,10 +115,10 @@
             <div
               class="flex h-7 w-7 items-center justify-center rounded-full bg-[#DCE6FF] text-2xs weight-bold text-neutral-dark"
             >
-              AS
+              {{ openPopupService.task()?.created_by?.name || '' | initials }}
             </div>
 
-            <span class="text-xs font-medium text-neutral-dark"> Alex Sterling </span>
+            <span class="text-xs font-medium text-neutral-dark"> {{ openPopupService.task()?.created_by?.name }} </span>
           </div>
         </div>
 
@@ -127,7 +128,7 @@
           <div
             class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
           >
-            {{ task()?.due_date | date: 'MMM d, YYYY' }}
+            {{ openPopupService.task()?.due_date | date: 'MMM d, YYYY' }}
             <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
           </div>
 
@@ -135,7 +136,7 @@
             <label> Created At </label>
 
             <span class="text-xs leading-5 weight-medium text-neutral-dark">
-              {{ task()?.created_at | date: 'd MMM YYYY' }}
+              {{ openPopupService.task()?.created_at | date: 'd MMM YYYY' }}
             </span>
           </div>
         </div>

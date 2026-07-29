@@ -78,7 +78,7 @@
       </div>
       <div>
         <div class="section-title">DEADLINE</div>
-        <div class="flex items-center justify-between border border-surface-highest rounded-lg p-2 ">
+        <div class="flex items-center justify-between border border-surface-highest rounded-lg p-2">
           <div class="flex items-center gap-2">
             <svg icon-date class="size-3.5 text-neutral-light"></svg>
             <input
@@ -126,9 +126,5 @@
 </app-modal>
 
 @if (openPopupService.isOpen()) {
-  <app-task-popup
-    [taskId]="openPopupService.selectedTaskId()"
-    [projectId]="projectId()"
-    (close)="openPopupService.close()"
-  />
-  }
+  <app-task-popup (close)="openPopupService.close()" />
+}

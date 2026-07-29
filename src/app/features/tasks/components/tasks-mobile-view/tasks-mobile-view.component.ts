@@ -9,6 +9,7 @@ import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
 import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
+import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
   selector: 'app-tasks-mobile-view',
@@ -17,7 +18,6 @@ import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
   templateUrl: './tasks-mobile-view.component.html',
   styleUrl: './tasks-mobile-view.component.css',
 })
-
 export class TasksMobileViewComponent {
   tasks: Task[] = [];
   projectId = '';
@@ -37,6 +37,7 @@ export class TasksMobileViewComponent {
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
     private destroyRef: DestroyRef,
+    public openPopupService: OpenPopupService,
   ) {}
 
   get offset() {
