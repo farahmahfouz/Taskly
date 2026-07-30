@@ -1,111 +1,123 @@
-<app-modal-mobile [isOpen]="popupService.isOpen()" (close)="popupService.close()">
-  <div class="px-6 pb-6 overflow-y-auto max-h-[90vh]">
-    <div class="flex justify-center pt-3 pb-4">
-      <div class="w-12 h-1 rounded-full bg-[#C3C6D680]"></div>
-    </div>
-
-    <div class="flex py-1.5 justify-between items-center">
-      <p class="rounded-md leading-2xs tracking-wide text-2xs weight-bold text-[#4F5F7B]">
-        {{ popupService.task()?.task_id }}
-      </p>
-      <button (click)=" this.popupService.close()" class="cursor-pointer">
-        <svg icon-close class="size-5 text-dark"></svg>
-      </button>
-    </div>
-
-    <div class="mt-1.5 flex flex-col gap-8">
-      <div>
-        <h1 class="text-md-sm leading-7.5 weight-semibold text-neutral-dark">
-          {{ popupService.task()?.title }}
-        </h1>
-
-        <div class="mt-4 flex gap-2">
-          <span class="rounded-full px-3 py-1 text-2xs weight-bold uppercase" [ngClass]="statusBadgeClass()">
-            {{ popupService.task()?.status }}
-          </span>
-
-          <div
-            class="rounded-full bg-surface-highest px-3 py-1 text-2xs weight-bold uppercase text-[#374763] flex gap-1 items-center"
-          >
-            <svg width="10" height="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6 12.7L0 8.03333L1.1 7.2L6 11L10.9 7.2L12 8.03333L6 12.7ZM6 9.33333L0 4.66667L6 0L12 4.66667L6 9.33333ZM6 7.63333L9.83333 4.66667L6 1.7L2.16667 4.66667L6 7.63333Z"
-                fill="#434654"
-              />
-            </svg>
-            {{ popupService.task()?.epic?.epic_id }}
-          </div>
-        </div>
+<div
+  class="fixed inset-0 z-10 flex items-end justify-center bg-[#c5cad7a8] backdrop-blur-xs transition-opacity"
+  [class.opacity-0]="isClosing"
+  [class.opacity-100]="!isClosing"
+  (click)="onOverlayClick()"
+>
+  <div
+    (click)="$event.stopPropagation()"
+    class="max-h-full overflow-hidden bg-[#eeeff3] rounded-t-3xl shadow-[0px_25px_50px_-12px_#00000040] transition-transform duration-900 ease-out"
+    [class.translate-y-full]="isClosing"
+    [class.translate-y-0]="!isClosing"
+  >
+    <div class="px-6 pb-6 overflow-y-auto max-h-[90vh]">
+      <div class="flex justify-center pt-3 pb-4">
+        <div class="w-12 h-1 rounded-full bg-[#C3C6D680]"></div>
       </div>
 
-      <div>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5">
-            <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">Assignee</p>
+      <div class="flex py-1.5 justify-between items-center">
+        <p class="rounded-md leading-2xs tracking-wide text-2xs weight-bold text-[#4F5F7B]">
+          {{ popupService.task()?.task_id }}
+        </p>
+        <button (click)="close()" class="cursor-pointer">
+          <svg icon-close class="size-5 text-dark"></svg>
+        </button>
+      </div>
 
-            <div class="mt-2 flex items-center gap-3">
-              <div
-                class="flex h-6 w-6 items-center justify-center rounded-full bg-surface-highest text-[10px] text-dark weight-bold"
-              >
-                {{ popupService.task()?.assignee?.name || '' | initials }}
-              </div>
+      <div class="mt-1.5 flex flex-col gap-8">
+        <div>
+          <h1 class="text-md-sm leading-7.5 weight-semibold text-neutral-dark">
+            {{ popupService.task()?.title }}
+          </h1>
 
-              <span class="text-xs weight-medium text-neutral-dark leading-5">
-                {{ popupService.task()?.assignee?.name }}
-              </span>
-            </div>
-          </div>
+          <div class="mt-4 flex gap-2">
+            <span class="rounded-full px-3 py-1 text-2xs weight-bold uppercase" [ngClass]="statusBadgeClass()">
+              {{ popupService.task()?.status }}
+            </span>
 
-          <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5 flex items-end">
-            <div class="flex gap-1 items-center">
-              <svg icon-date class="text-primary size-2.5"></svg>
-              <p class="text-xs weight-medium text-neutral-dark leading-5">
-                {{ popupService.task()?.due_date | date: 'd MMM YYYY' }}
-              </p>
-            </div>
-          </div>
-
-          <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5">
-            <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">created by</p>
-
-            <div class="mt-2 flex items-center gap-3">
-              <div
-                class="flex h-6 w-6 items-center justify-center rounded-full bg-surface-highest text-[10px] text-primary weight-bold"
-              >
-                {{ popupService.task()?.created_by?.name || '' | initials }}
-              </div>
-
-              <span class="text-xs weight-medium text-neutral-dark leading-5">
-                {{ popupService.task()?.created_by?.name }}
-              </span>
-            </div>
-          </div>
-
-          <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5 flex flex-col gap-1">
-            <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">Created at</p>
-
-            <div class="flex gap-1 items-center mt-2">
-              <svg icon-clock class="text-dark size-2.5"></svg>
-              <p class="text-xs weight-medium text-neutral-dark leading-5">
-                {{ popupService.task()?.created_at | date: 'd MMM YYYY' }}
-              </p>
+            <div
+              class="rounded-full bg-surface-highest px-3 py-1 text-2xs weight-bold uppercase text-[#374763] flex gap-1 items-center"
+            >
+              <svg width="10" height="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6 12.7L0 8.03333L1.1 7.2L6 11L10.9 7.2L12 8.03333L6 12.7ZM6 9.33333L0 4.66667L6 0L12 4.66667L6 9.33333ZM6 7.63333L9.83333 4.66667L6 1.7L2.16667 4.66667L6 7.63333Z"
+                  fill="#434654"
+                />
+              </svg>
+              {{ popupService.task()?.epic?.epic_id }}
             </div>
           </div>
         </div>
-      </div>
-      <div class="flex flex-col gap-3">
-        <label for="description" class="text-xs weight-bold uppercase leading-5 text-dark">Description</label>
 
-        <div class="rounded-sm bg-white p-5 border border-[#C3C6D61A]">
-          <textarea
-            id="description"
-            rows="3"
-            class="text-xs weight-regular leading-5.5 text-dark"
-            [value]="popupService.task()?.description || 'No description provided for this task!'"
-          >
-          </textarea>
+        <div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5">
+              <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">Assignee</p>
+
+              <div class="mt-2 flex items-center gap-3">
+                <div
+                  class="flex h-6 w-6 items-center justify-center rounded-full bg-surface-highest text-[10px] text-dark weight-bold"
+                >
+                  {{ popupService.task()?.assignee?.name || '' | initials }}
+                </div>
+
+                <span class="text-xs weight-medium text-neutral-dark leading-5">
+                  {{ popupService.task()?.assignee?.name }}
+                </span>
+              </div>
+            </div>
+
+            <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5 flex items-end">
+              <div class="flex gap-1 items-center">
+                <svg icon-date class="text-primary size-2.5"></svg>
+                <p class="text-xs weight-medium text-neutral-dark leading-5">
+                  {{ popupService.task()?.due_date | date: 'd MMM YYYY' }}
+                </p>
+              </div>
+            </div>
+
+            <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5">
+              <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">created by</p>
+
+              <div class="mt-2 flex items-center gap-3">
+                <div
+                  class="flex h-6 w-6 items-center justify-center rounded-full bg-surface-highest text-[10px] text-primary weight-bold"
+                >
+                  {{ popupService.task()?.created_by?.name || '' | initials }}
+                </div>
+
+                <span class="text-xs weight-medium text-neutral-dark leading-5">
+                  {{ popupService.task()?.created_by?.name }}
+                </span>
+              </div>
+            </div>
+
+            <div class="rounded-sm bg-surface-low pt-4 px-4 pb-5 flex flex-col gap-1">
+              <p class="text-2xs weight-bold uppercase leading-2xs text-[#737685]">Created at</p>
+
+              <div class="flex gap-1 items-center mt-2">
+                <svg icon-clock class="text-dark size-2.5"></svg>
+                <p class="text-xs weight-medium text-neutral-dark leading-5">
+                  {{ popupService.task()?.created_at | date: 'd MMM YYYY' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="description" class="text-xs weight-bold uppercase leading-5 text-dark">Description</label>
+
+          <div class="rounded-sm bg-white p-5 border border-[#C3C6D61A]">
+            <textarea
+              id="description"
+              rows="3"
+              class="text-xs weight-regular leading-5.5 text-dark"
+              [value]="popupService.task()?.description || 'No description provided for this task!'"
+            >
+            </textarea>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</app-modal-mobile>
+</div>

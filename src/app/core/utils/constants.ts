@@ -2,7 +2,6 @@ export const API = {
   AUTH: '/auth/v1',
   PROJECT: '/rest/v1/projects',
   MEMBERS: '/rest/v1/get_project_members',
-  INVITE_MEMBER: '/rest/v1/rpc',
   EPICS: '/rest/v1/epics',
   PROJECT_EPICS: '/rest/v1/project_epics',
   TASKS: '/rest/v1/tasks',

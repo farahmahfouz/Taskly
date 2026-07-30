@@ -36,4 +36,3 @@ export { CloseIconComponent } from './close-icon.component';
 export { TaskListIconComponent } from './task-list-icon.component';
 export { WarningIconComponent } from './warning-icon.component';
 export { CopyLinkIconComponent } from './copy-link-icon.component';
-export { EmailIconComponent } from './email-icon.component';

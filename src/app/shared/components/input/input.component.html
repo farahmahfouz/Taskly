@@ -12,13 +12,9 @@
 
   <div class="field-wrapper">
     <div class="input-field">
-      @if (showEmailIcon) {
-        <svg icon-email class="leading-icon size-5 text-[#737685]"></svg>
-      }
       <input
         class="input"
         [type]="inputType"
-        [class.has-leading-icon]="showEmailIcon"
         [placeholder]="placeholder"
         [value]="value"
         [disabled]="disabled"
