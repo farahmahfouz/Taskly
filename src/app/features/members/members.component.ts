@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MembersService } from './members.service';
 import { Member } from './members.model';
@@ -8,7 +8,7 @@ import { SkeltonComponent } from './components/skelton/skelton.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
-import { InviteMembersComponent } from "./components/invite-members/invite-members.component";
+import { InviteMembersComponent } from './components/invite-members/invite-members.component';
 
 @Component({
   selector: 'app-members',
@@ -20,8 +20,8 @@ import { InviteMembersComponent } from "./components/invite-members/invite-membe
     UpperCasePipe,
     ErrorPageComponent,
     InitialsPipe,
-    InviteMembersComponent
-],
+    InviteMembersComponent,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
