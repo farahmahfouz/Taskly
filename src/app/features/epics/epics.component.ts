@@ -13,7 +13,7 @@ import { EpicPopupComponent } from './components/epic-popup/epic-popup.component
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
 
@@ -39,21 +39,10 @@ import { PaginationBase } from '../../shared/classes/pagination.base';
 export class EpicsComponent extends PaginationBase implements OnInit {
   projectId = '';
   epics: Epic[] = [];
-  // isError = false;
   isSearchError = false;
-
-  // isLoading = false;
-  // isFirstLoading = false;
-  isSearchLoading = false;
 
   showEpicModal = false;
   selectedEpicId!: string;
-
-  // currentPage = 1;
-  // limit = 4;
-
-  // totalCount = 0;
-  // totalPages = 0;
 
   constructor(
     private route: ActivatedRoute,

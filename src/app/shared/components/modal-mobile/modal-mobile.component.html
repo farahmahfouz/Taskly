@@ -1,0 +1,13 @@
+@if (isOpen) {
+  <div
+    class="fixed inset-0 z-10 flex items-end justify-center bg-[#c5cad7a8] backdrop-blur-xs transition-opacity"
+    (click)="close.emit()"
+  >
+    <div
+      (click)="$event.stopPropagation()"
+      class="max-h-full overflow-hidden bg-[#eeeff3] rounded-t-3xl shadow-[0px_25px_50px_-12px_#00000040] transition-transform duration-900 ease-out"
+    >
+      <ng-content />
+    </div>
+  </div>
+}

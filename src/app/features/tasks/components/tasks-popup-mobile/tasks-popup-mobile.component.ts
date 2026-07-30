@@ -8,6 +8,7 @@ import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { DatePipe, NgClass } from '@angular/common';
 import { TASK_STATUS_BADGE_STYLES } from '../../task.constants';
+import { ModalMobileComponent } from '../../../../shared/components/modal-mobile/modal-mobile.component';
 
 @Component({
   selector: 'app-tasks-popup-mobile',
@@ -19,13 +20,13 @@ import { TASK_STATUS_BADGE_STYLES } from '../../task.constants';
     InitialsPipe,
     DatePipe,
     NgClass,
+    ModalMobileComponent,
   ],
   templateUrl: './tasks-popup-mobile.component.html',
   styleUrl: './tasks-popup-mobile.component.css',
 })
 export class TasksPopupMobileComponent {
   public popupService = inject(OpenPopupService);
-  isClosing = false;
 
   readonly statusStyles = TASK_STATUS_BADGE_STYLES;
 
@@ -33,21 +34,4 @@ export class TasksPopupMobileComponent {
     const status = this.popupService.task()?.status;
     return status ? this.statusStyles[status] : this.statusStyles['TO_DO'];
   });
-
-  ngOnInit() {
-    requestAnimationFrame(() => {
-      this.isClosing = false;
-    });
-  }
-
-  close() {
-    this.isClosing = true;
-    setTimeout(() => {
-      this.popupService.close();
-    }, 900);
-  }
-
-  onOverlayClick() {
-    this.close();
-  }
 }
