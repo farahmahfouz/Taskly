@@ -19,7 +19,7 @@
         </h1>
       </div>
 
-      <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add"> Invite Members </a>
+      <a class="btn btn-primary bg-gradient-primary hidden md:flex" (click)="isOpen = true"> Invite Members </a>
     </header>
 
     <div class="bg-white rounded-lg md:border-4 border-[#F1F3FF] overflow-hidden md:w-197.25 md:mx-auto md:my-16">
@@ -79,3 +79,8 @@
     </div>
   }
 </div>
+
+<app-invite-members
+  [isOpen]="isOpen"
+  (close)="isOpen = false">
+</app-invite-members>
