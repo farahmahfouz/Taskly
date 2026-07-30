@@ -87,3 +87,19 @@
 .horizontal .input {
   margin-top: 0;
 }
+
+.input-field {
+  position: relative;
+}
+
+.leading-icon {
+  position: absolute;
+  right: 16px;
+  top: 55%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input.has-leading-icon {
+  padding-right: 50px;
+}

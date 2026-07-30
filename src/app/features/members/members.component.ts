@@ -8,6 +8,7 @@ import { SkeltonComponent } from './components/skelton/skelton.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
+import { InviteMembersComponent } from "./components/invite-members/invite-members.component";
 
 @Component({
   selector: 'app-members',
@@ -19,7 +20,8 @@ import { InitialsPipe } from '../../shared/pipes/initials.pipe';
     UpperCasePipe,
     ErrorPageComponent,
     InitialsPipe,
-  ],
+    InviteMembersComponent
+],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -34,6 +36,7 @@ export class MembersComponent implements OnInit {
   projectName = '';
   isLoading = false;
   isError = false;
+  isOpen = false;
 
   ngOnInit() {
     const project = this.route.snapshot.data['project'];
