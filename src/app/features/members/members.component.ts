@@ -33,6 +33,7 @@ export class MembersComponent implements OnInit {
   ) {}
 
   members: Member[] = [];
+  projectId = '';
   projectName = '';
   isLoading = false;
   isError = false;
@@ -46,9 +47,16 @@ export class MembersComponent implements OnInit {
       const projectId = params.get('id');
 
       if (projectId) {
+        this.projectId = projectId;
         this.getMembers(projectId);
       }
     });
+  }
+
+  onMemberInvited() {
+    if (this.projectId) {
+      this.getMembers(this.projectId);
+    }
   }
 
   getMembers(projectId: string) {

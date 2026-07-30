@@ -1,30 +1,40 @@
 @if (isMobile) {
-  <app-modal-mobile [isOpen]="isOpen" (close)="close.emit()">
-    <div class="p-8">
+  <app-modal-mobile [isOpen]="isOpen" (close)="onClose()">
+    <form class="p-8" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="flex flex-col gap-2">
         <div class="flex justify-between items-center">
-          <p class="weight-bold text-2xs text-primary leading-2xs tracking-tighter">Project Name</p>
-          <span (click)="close.emit()" class="cursor-pointer"><svg icon-close class="text-dark size-6"></svg></span>
+          <p class="weight-bold text-2xs text-primary leading-2xs tracking-tighter">{{ projectName }}</p>
+          <span (click)="onClose()" class="cursor-pointer"><svg icon-close class="text-dark size-6"></svg></span>
         </div>
         <div class="flex flex-col gap-2">
           <p class="text-neutral-dark weight-bold text-md-sm leading-8 tracking-[-0.6px]">Invite Team Member</p>
           <p class="text-[#4F5F7B] text-xs weight-regular leading-5">
-            Send an invitation to join the Architectural Studio workspace.
+            Send an invitation to join the {{ projectName }} workspace.
           </p>
         </div>
       </div>
       <div class="pb-8 pt-6">
-        <app-input label="Email Address" placeholder="Enter email address" type="email" [showEmailIcon]="true" />
+        <app-input
+          label="Email Address"
+          placeholder="Enter email address"
+          type="email"
+          [showEmailIcon]="true"
+          [required]="true"
+          [errorMessage]="getError()"
+          formControlName="email"
+        />
       </div>
       <div class="flex flex-col pt-2">
-        <button class="btn btn-primary">Send Invitation</button>
-        <button class="btn btn-ghost">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          {{ isLoading ? 'Sending...' : 'Send Invitation' }}
+        </button>
+        <button type="button" class="btn btn-ghost" (click)="onClose()" [disabled]="isLoading">Cancel</button>
       </div>
-    </div>
+    </form>
   </app-modal-mobile>
 } @else {
-  <app-modal [isOpen]="isOpen" (close)="close.emit()" width="28rem">
-    <div class="p-8">
+  <app-modal [isOpen]="isOpen" (close)="onClose()" width="28rem">
+    <form class="p-8" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="flex flex-col gap-2">
         <div class="flex justify-between items-center">
           <div class="bg-surface-low size-12 rounded-sm flex justify-center items-center">
@@ -35,22 +45,32 @@
               />
             </svg>
           </div>
-          <span (click)="close.emit()" class="cursor-pointer"><svg icon-close class="text-dark size-6"></svg></span>
+          <span (click)="onClose()" class="cursor-pointer"><svg icon-close class="text-dark size-6"></svg></span>
         </div>
         <div class="flex flex-col gap-2">
           <p class="text-neutral-dark weight-bold text-md-sm leading-8 tracking-[-0.6px]">Invite Team Member</p>
           <p class="text-[#4F5F7B] text-xs weight-regular leading-5">
-            Send an invitation to join the Architectural Studio workspace.
+            Send an invitation to join the {{ projectName }} workspace.
           </p>
         </div>
       </div>
       <div class="pb-8 pt-6">
-        <app-input label="Email Address" placeholder="Enter email address" type="email" [showEmailIcon]="true" />
+        <app-input
+          label="Email Address"
+          placeholder="Enter email address"
+          type="email"
+          [showEmailIcon]="true"
+          [required]="true"
+          [errorMessage]="getError()"
+          formControlName="email"
+        />
       </div>
       <div class="flex justify-between pt-2">
-        <button class="btn btn-ghost">Cancel</button>
-        <button class="btn btn-primary">Send Invitation</button>
+        <button type="button" class="btn btn-ghost" (click)="onClose()" [disabled]="isLoading">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          {{ isLoading ? 'Sending...' : 'Send Invitation' }}
+        </button>
       </div>
-    </div>
+    </form>
   </app-modal>
 }

@@ -10,7 +10,6 @@ import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { getControlError } from '../../../core/utils/form-error.util';
-import { STORAGE_KEYS } from '../../../core/utils/constants';
 
 @Component({
   selector: 'app-signup',
