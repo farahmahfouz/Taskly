@@ -54,20 +54,33 @@ export class AcceptInvitationComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.isLoading = true;
+          this.isLoading = false;
           this.toast.showSuccess('Invitation accepted successfully');
           this.router.navigate(['/project']);
         },
         error: err => {
           this.isLoading = false;
 
+          if (err.status === 0) {
+            this.toast.showError('Network error. Please try again.');
+            return;
+          }
+
           switch (err.status) {
             case 401:
               this.toast.showError('Unauthorized');
               break;
 
+            case 403:
+              this.toast.showError('You are not allowed to accept this invitation');
+              break;
+
             case 400:
-              this.toast.showError('Invalid or expired invitation');
+              if (err.error?.message === 'Invitation expired') {
+                this.toast.showError('Invitation has expired');
+              } else {
+                this.toast.showError('Invalid invitation');
+              }
               break;
 
             default:
