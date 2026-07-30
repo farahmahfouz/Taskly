@@ -33,7 +33,7 @@
 
       @for (member of members; track member.member_id) {
         <div
-          class="flex items-center justify-between gap-4 md:grid md:grid-cols-[2fr_1fr_60px] px-6 py-5 border-b border-neutral-light last:border-none"
+          class="flex items-center justify-between gap-4 md:grid md:grid-cols-[2fr_1fr_60px] px-6 py-5 border-b border-[#E8EDFF] last:border-none"
         >
           <div class="flex items-center gap-4">
             <div
@@ -83,7 +83,10 @@
 
 
 
-  <app-invite-members
+<app-invite-members
   [isOpen]="isOpen"
-  (close)="isOpen = false">
-</app-invite-members>
+  [projectId]="projectId"
+  [projectName]="projectName"
+  (close)="isOpen = false"
+  (invited)="onMemberInvited()"
+/>
