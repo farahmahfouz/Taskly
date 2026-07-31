@@ -43,6 +43,25 @@ export class TasksBoardViewComponent extends PaginationBase {
       this.currentPage = 1;
       this.loadPage(false);
     });
+
+    effect(() => {
+      const updatedTask = this.openPopupService.task();
+      if (!updatedTask) return;
+
+      const belongsToThisColumn = updatedTask.status === this.status().value;
+      const existsInList = this.tasks.some(t => t.id === updatedTask.id);
+
+      if (!belongsToThisColumn && existsInList) {
+        this.tasks = this.tasks.filter(t => t.id !== updatedTask.id);
+        return;
+      }
+
+      if (belongsToThisColumn) {
+        this.tasks = existsInList
+          ? this.tasks.map(t => (t.id === updatedTask.id ? { ...t, ...updatedTask } : t))
+          : [updatedTask, ...this.tasks]; 
+      }
+    });
   }
 
   protected loadPage(loadMore: boolean) {

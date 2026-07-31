@@ -43,6 +43,15 @@ export class TasksListViewComponent extends PaginationBase {
       this.currentPage = 1;
       this.loadPage(false);
     });
+
+    effect(() => {
+      const updatedTask = this.openPopupService.task();
+      if (!updatedTask) return;
+
+      this.tasks = this.tasks.map(t =>
+        t.id === updatedTask.id ? { ...t, ...updatedTask } : t,
+      );
+    });
   }
 
   protected loadPage(loadMore: boolean) {
