@@ -125,7 +125,7 @@ export interface Task {
   project_id: string;
   epic_id: string;
 
-  assignee: User;
+  assignee?: User | null;
   created_by: User;
   epic: Epic;
 }

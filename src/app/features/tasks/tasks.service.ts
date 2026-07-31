@@ -46,4 +46,10 @@ export class TasksService {
   getTask(projectId: string, taskId: string) {
     return this.http.get<Task[]>(`${API.PROJECT_TASKS}?project_id=eq.${projectId}&id=eq.${taskId}`);
   }
+
+  updateTask(taskId: string, data: any) {
+    return this.http.patch<Task[]>(`${API.TASKS}?id=eq.${taskId}`, data, {
+      headers: { Prefer: 'return=representation' },
+    });
+  }
 }

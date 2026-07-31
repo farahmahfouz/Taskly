@@ -39,21 +39,11 @@ import { PaginationBase } from '../../shared/classes/pagination.base';
 export class EpicsComponent extends PaginationBase implements OnInit {
   projectId = '';
   epics: Epic[] = [];
-  // isError = false;
   isSearchError = false;
-
-  // isLoading = false;
-  // isFirstLoading = false;
   isSearchLoading = false;
 
   showEpicModal = false;
   selectedEpicId!: string;
-
-  // currentPage = 1;
-  // limit = 4;
-
-  // totalCount = 0;
-  // totalPages = 0;
 
   constructor(
     private route: ActivatedRoute,
