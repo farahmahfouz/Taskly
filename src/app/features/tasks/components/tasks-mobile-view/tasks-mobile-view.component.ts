@@ -1,4 +1,4 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, effect, input } from '@angular/core';
 import { Task } from '../../task.constants';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
 import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
+import { PaginationBase } from '../../../../shared/classes/pagination.base';
 
 @Component({
   selector: 'app-tasks-mobile-view',
@@ -18,63 +19,49 @@ import { OpenPopupService } from '../../../../core/services/open-popup.service';
   templateUrl: './tasks-mobile-view.component.html',
   styleUrl: './tasks-mobile-view.component.css',
 })
-export class TasksMobileViewComponent {
+export class TasksMobileViewComponent extends PaginationBase {
   tasks: Task[] = [];
   projectId = '';
 
+  search = input<string>('');
+
   readonly statusStyles = TASK_STATUS_BADGE_STYLES;
-
-  currentPage = 1;
-  limit = 2;
-
-  totalCount = 0;
-  totalPages = 0;
-
-  isLoading = false;
-  isError = false;
 
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
     private destroyRef: DestroyRef,
     public openPopupService: OpenPopupService,
-  ) {}
+  ) {
+    super();
+    effect(() => {
+      const projectId = this.projectContext.activeProjectId();
 
-  get offset() {
-    return (this.currentPage - 1) * this.limit;
+      if (!projectId) return;
+      this.projectId = projectId;
+
+      this.currentPage = 1;
+      this.loadPage(false);
+    });
   }
 
-  ngOnInit(): void {
-    const projectId = this.projectContext.activeProjectId();
-
-    if (!projectId) return;
-    this.projectId = projectId;
-
-    this.getTasks();
-  }
-
-  loadMore() {
-    if (this.isLoading) return;
-    if (this.currentPage >= this.totalPages) return;
-
-    this.currentPage++;
-    this.getTasks(true);
-  }
-
-  private getTasks(mobileScreenLoader = false) {
-    if (mobileScreenLoader) {
-      this.isLoading = true;
-    } else {
+  protected loadPage(loadMore: boolean) {
+    if (loadMore) {
+      this.isLoadingMore = true;
+    } else if (!this.isFirstLoading) {
       this.isLoading = true;
     }
+
+    this.isError = false;
+
     this.tasksService
-      .getTasksByProject(this.projectId, this.limit, this.offset)
+      .getTasksByProject(this.projectId, this.limit, this.offset, this.search())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res: HttpResponse<Task[]>) => {
           const newTasks = res.body ?? [];
 
-          this.tasks = mobileScreenLoader ? [...this.tasks, ...newTasks] : newTasks;
+          this.tasks = loadMore ? [...this.tasks, ...newTasks] : newTasks;
 
           const contentRange = res.headers.get('Content-Range');
 
@@ -89,12 +76,5 @@ export class TasksMobileViewComponent {
           this.isError = true;
         },
       });
-  }
-
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return;
-
-    this.currentPage = page;
-    this.getTasks();
   }
 }

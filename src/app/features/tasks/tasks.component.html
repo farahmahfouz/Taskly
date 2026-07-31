@@ -27,6 +27,7 @@
         <input
           type="text"
           placeholder="Search tasks..."
+          [formControl]="searchControl"
           class="w-full md:rounded-2xs rounded-sm bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
         />
       </div>
@@ -52,7 +53,7 @@
         }
 
         @if (currentView === 'table') {
-          <app-tasks-list-view class="w-full" />
+          <app-tasks-list-view class="w-full" [search]="searchControl.value ?? ''"/>
           <a
             [routerLink]="['/project', projectId, 'tasks', 'new']"
             class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
@@ -72,7 +73,7 @@
       >
         + Create task
       </a>
-      <app-tasks-mobile-view />
+      <app-tasks-mobile-view [search]="searchControl.value ?? ''" />
     </div>
   }
 </div>
