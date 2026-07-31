@@ -50,7 +50,7 @@
           (click)="onRowClick(task)"
         >
           <p class="text-xs weight-medium text-neutral-dark leading-5">
-            {{ task.description || 'No description provided.' }}
+            {{ task.title }}
           </p>
 
           <div class="flex justify-between items-center">
@@ -76,6 +76,9 @@
           </div>
         </div>
       }
+    }
+    @if (!isLoading && !isError) {
+      <div class="h-1" appInfinteScroll (scrolled)="loadMore()"></div>
     }
   </div>
 </div>

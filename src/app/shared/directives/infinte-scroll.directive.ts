@@ -18,6 +18,7 @@ export class InfinteScrollDirective implements AfterViewInit, OnDestroy {
 
   constructor(private el: ElementRef) {}
   ngAfterViewInit() {
+    const root = this.el.nativeElement.closest('.custom-scrollbar');
     this.observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
@@ -25,7 +26,8 @@ export class InfinteScrollDirective implements AfterViewInit, OnDestroy {
         }
       },
       {
-        threshold: 0.3,
+        root,
+        threshold: 0.1,
       },
     );
 

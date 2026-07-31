@@ -11,11 +11,12 @@ import { InfinteScrollDirective } from '../../../../shared/directives/infinte-sc
 import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { PaginationBase } from '../../../../shared/classes/pagination.base';
+import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
 
 @Component({
   selector: 'app-tasks-mobile-view',
   standalone: true,
-  imports: [NgClass, InitialsPipe, DatePipe, EditIconComponent, InfinteScrollDirective],
+  imports: [NgClass, InitialsPipe, DatePipe, EditIconComponent, InfinteScrollDirective, LoaderComponent],
   templateUrl: './tasks-mobile-view.component.html',
   styleUrl: './tasks-mobile-view.component.css',
 })
@@ -36,6 +37,7 @@ export class TasksMobileViewComponent extends PaginationBase {
     super();
     effect(() => {
       const projectId = this.projectContext.activeProjectId();
+      this.search();
 
       if (!projectId) return;
       this.projectId = projectId;
@@ -69,10 +71,12 @@ export class TasksMobileViewComponent extends PaginationBase {
           this.totalPages = Math.ceil(this.totalCount / this.limit);
 
           this.isLoading = false;
+          this.isLoadingMore = false;
           this.isError = false;
         },
         error: () => {
           this.isLoading = false;
+          this.isLoadingMore = false;
           this.isError = true;
         },
       });

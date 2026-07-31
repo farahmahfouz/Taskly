@@ -48,12 +48,12 @@
       <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
         @if (currentView === 'board') {
           @for (status of statuses; track status.value) {
-            <app-tasks-board-view [status]="status" />
+            <app-tasks-board-view [status]="status" [search]="search ?? ''" />
           }
         }
 
         @if (currentView === 'table') {
-          <app-tasks-list-view class="w-full" [search]="searchControl.value ?? ''"/>
+          <app-tasks-list-view class="w-full" [search]="search ?? ''" />
           <a
             [routerLink]="['/project', projectId, 'tasks', 'new']"
             class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
@@ -73,7 +73,7 @@
       >
         + Create task
       </a>
-      <app-tasks-mobile-view [search]="searchControl.value ?? ''" />
+      <app-tasks-mobile-view [search]="search ?? ''" />
     </div>
   }
 </div>

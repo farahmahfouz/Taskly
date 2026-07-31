@@ -35,6 +35,7 @@ export class TasksListViewComponent extends PaginationBase {
     super();
     effect(() => {
       const projectId = this.projectContext.activeProjectId();
+      this.search();
 
       if (!projectId) return;
       this.projectId = projectId;

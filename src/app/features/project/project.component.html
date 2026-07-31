@@ -52,6 +52,10 @@
     </a>
   </div>
 
+  @if (isLoadingMore) {
+    <app-loader />
+  }
+
   @if (!isLoading && projects.length > 0 && !isError) {
     <app-pagination
       [currentPage]="currentPage"

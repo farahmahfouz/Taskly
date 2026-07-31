@@ -1,6 +1,9 @@
 <div class="flex flex-col gap-3">
   @for (task of tasks; track task.id) {
-    <div class="bg-white rounded-lg p-4 shadow-[0px_1px_2px_0px_#0000000D] cursor-pointer" (click)="openPopupService.open(task.id)">
+    <div
+      class="bg-white rounded-lg p-4 shadow-[0px_1px_2px_0px_#0000000D] cursor-pointer"
+      (click)="openPopupService.open(task.id)"
+    >
       <div class="pb-3">
         <div class="flex justify-between items-center">
           <span class="text-2xs weight-bold text-[#43465480] tracking-tighter leading-2xs">
@@ -39,7 +42,10 @@
   }
 </div>
 
+@if (isLoadingMore) {
+  <app-loader/>
+}
+
 @if (!isLoading && !isError) {
   <div class="md:hidden h-1" appInfinteScroll (scrolled)="loadMore()"></div>
 }
-

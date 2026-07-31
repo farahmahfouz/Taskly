@@ -17,10 +17,15 @@ export class TasksService {
     return this.http.get<Task[]>(`${API.PROJECT_TASKS}?epic_id=eq.${epicId}`);
   }
 
-  getTasksByStatus(projectId: string, status: string) {
-    return this.http.get<Task[]>(
-      `${API.PROJECT_TASKS}?project_id=eq.${projectId}&status=eq.${status}`,
-    );
+  getTasksByStatus(projectId: string, status: string, limit = 5, offset = 0, searchTerm = '') {
+    let url = `${API.PROJECT_TASKS}?project_id=eq.${projectId}&status=eq.${status}&limit=${limit}&offset=${offset}`;
+    if (searchTerm.trim()) {
+      url += `&title=ilike.%25${encodeURIComponent(searchTerm.trim())}%25`;
+    }
+    return this.http.get<Task[]>(url, {
+      observe: 'response',
+      headers: { Prefer: 'count=exact' },
+    });
   }
 
   getTasksByProject(projectId: string, limit = 100, offset = 0, searchTerm = '') {
