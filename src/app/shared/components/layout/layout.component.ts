@@ -38,6 +38,11 @@ export class LayoutComponent {
         route: '/project',
         icon: 'projects',
       },
+      {
+        label: this.isMobile ? 'Stats' : 'My Statistics',
+        route: '/my-statistics',
+        icon: 'stats',
+      },
     ];
 
     if (!id) {

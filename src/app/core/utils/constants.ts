@@ -6,6 +6,7 @@ export const API = {
   PROJECT_EPICS: '/rest/v1/project_epics',
   TASKS: '/rest/v1/tasks',
   PROJECT_TASKS: '/rest/v1/project_tasks',
+  STATISTICS: '/rest/v1/rpc',
 };
 
 export const STORAGE_KEYS = {

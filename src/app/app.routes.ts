@@ -6,6 +6,7 @@ import { authGuard } from './core/Guards/auth.guard';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
 import { guestGuard } from './core/Guards/guest.guard';
+import { StatisticsComponent } from './features/statistics/statistics.component';
 
 export const routes: Routes = [
   { path: '', component: SignupComponent, canActivate: [guestGuard], title: 'Sign Up' },
@@ -21,6 +22,11 @@ export const routes: Routes = [
       {
         path: 'project',
         loadChildren: () => import('./features/project/project.routes').then(m => m.projectRoutes),
+      },
+      {
+        path: 'my-statistics',
+        component: StatisticsComponent,
+        title: 'My Statistics',
       },
     ],
   },
