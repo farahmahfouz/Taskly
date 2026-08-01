@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, input } from '@angular/core';
+import { Component, DestroyRef, effect, input, signal } from '@angular/core';
 import { DateIconComponent, WarningIconComponent } from '../../../../shared/icons';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
@@ -10,12 +10,22 @@ import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PaginationBase } from '../../../../shared/classes/pagination.base';
 import { HttpResponse } from '@angular/common/http';
-import { InfinteScrollDirective } from "../../../../shared/directives/infinte-scroll.directive";
+import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
+import { ToastService } from '../../../../core/services/toast.service';
+
+const DRAG_DATA_KEY = 'application/json';
 
 @Component({
   selector: 'app-tasks-board-view',
   standalone: true,
-  imports: [DateIconComponent, DatePipe, InitialsPipe, WarningIconComponent, RouterLink, InfinteScrollDirective],
+  imports: [
+    DateIconComponent,
+    DatePipe,
+    InitialsPipe,
+    WarningIconComponent,
+    RouterLink,
+    InfinteScrollDirective,
+  ],
   templateUrl: './tasks-board-view.component.html',
   styleUrl: './tasks-board-view.component.css',
 })
@@ -31,6 +41,7 @@ export class TasksBoardViewComponent extends PaginationBase {
     private projectContext: ProjectContextService,
     private openPopupService: OpenPopupService,
     private destroyRef: DestroyRef,
+    private toast: ToastService
   ) {
     super();
     effect(() => {
@@ -59,7 +70,7 @@ export class TasksBoardViewComponent extends PaginationBase {
       if (belongsToThisColumn) {
         this.tasks = existsInList
           ? this.tasks.map(t => (t.id === updatedTask.id ? { ...t, ...updatedTask } : t))
-          : [updatedTask, ...this.tasks]; 
+          : [updatedTask, ...this.tasks];
       }
     });
   }
@@ -101,5 +112,62 @@ export class TasksBoardViewComponent extends PaginationBase {
 
   onRowClick(task: Task) {
     this.openPopupService.open(task.id);
+  }
+
+  onDragStart(event: DragEvent, task: Task) {
+    if (!event.dataTransfer) return;
+
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData(DRAG_DATA_KEY, JSON.stringify(task));
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'move';
+    }
+  }
+
+  onDragLeave(event: DragEvent) {
+    const related = event.relatedTarget as HTMLElement | null;
+    const current = event.currentTarget as HTMLElement;
+    if (related && current.contains(related)) return;
+
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+
+    const raw = event.dataTransfer?.getData(DRAG_DATA_KEY);
+    if (!raw) return;
+
+    let draggedTask: Task;
+    try {
+      draggedTask = JSON.parse(raw);
+    } catch {
+      return;
+    }
+
+    const newStatus = this.status().value;
+    const originalStatus = draggedTask.status;
+
+    if (originalStatus === newStatus) return;
+
+    const originalTask = { ...draggedTask };
+    const optimisticTask = { ...draggedTask, status: newStatus };
+
+    this.openPopupService.setTask(optimisticTask);
+
+    this.tasksService
+      .updateTask(draggedTask.id, { status: newStatus })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+        },
+        error: () => {
+          this.openPopupService.setTask(originalTask);
+          this.toast.showError('Something went wrong please try again!');
+        },
+      });
   }
 }

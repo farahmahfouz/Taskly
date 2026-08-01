@@ -24,3 +24,29 @@
 .custom-scrollbar:hover {
   scrollbar-color: #CBD5E1 transparent;
 }
+
+.board-column {
+  min-height: 200px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  border: 2px dashed transparent;
+  border-radius: 8px;
+}
+
+.board-column.drag-over {
+  background-color: rgba(59, 130, 246, 0.06);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.task-card {
+  cursor: grab;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
