@@ -1,0 +1,12 @@
+<div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 mb-8">
+    @for (item of items(); track item.url; let last = $last) {
+      @if (last) {
+        <p class="text-primary capitalize">{{ item.label | uppercase }}</p>
+      } @else {
+        <a [routerLink]="item.url" class="text-neutral-light hover:text-primary capitalize">
+          {{ item.label | uppercase }}
+        </a>
+        <span class="text-neutral-light">›</span>
+      }
+    }
+  </div>

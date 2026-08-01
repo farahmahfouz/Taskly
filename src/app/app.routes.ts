@@ -22,6 +22,9 @@ export const routes: Routes = [
       {
         path: 'project',
         loadChildren: () => import('./features/project/project.routes').then(m => m.projectRoutes),
+        data: {
+          breadcrumb: 'Projects',
+        },
       },
       {
         path: 'my-statistics',

@@ -16,6 +16,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
+import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-epics',
@@ -32,7 +33,8 @@ import { PaginationBase } from '../../shared/classes/pagination.base';
     ErrorPageComponent,
     ReactiveFormsModule,
     LoaderComponent,
-  ],
+    BreadcrumbComponent
+],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',
 })

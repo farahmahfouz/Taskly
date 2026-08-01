@@ -14,6 +14,7 @@ import { SelectComponent } from '../../shared/components/select/select.component
 import { TasksPopupMobileComponent } from './components/tasks-popup-mobile/tasks-popup-mobile.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-tasks',
@@ -28,7 +29,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     SelectComponent,
     TasksPopupMobileComponent,
     ReactiveFormsModule,
-  ],
+    BreadcrumbComponent
+],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })

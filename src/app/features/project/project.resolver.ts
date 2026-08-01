@@ -9,3 +9,8 @@ export const projectResolver: ResolveFn<Project> = (route: ActivatedRouteSnapsho
 
   return projectService.getProjectById(projectId);
 };
+
+export const projectBreadcrumb = (route: ActivatedRouteSnapshot): string => {
+  const project = route.data['project'] as Project | undefined;
+  return project?.name ?? 'Project';
+};

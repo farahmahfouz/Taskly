@@ -8,6 +8,7 @@ import { SkeltonComponent } from './components/skelton/skelton.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
+import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-members',
@@ -16,10 +17,10 @@ import { InitialsPipe } from '../../shared/pipes/initials.pipe';
     NgClass,
     EditIconComponent,
     SkeltonComponent,
-    UpperCasePipe,
     ErrorPageComponent,
     InitialsPipe,
-  ],
+    BreadcrumbComponent
+],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })

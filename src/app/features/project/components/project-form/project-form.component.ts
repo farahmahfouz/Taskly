@@ -9,7 +9,7 @@ import { TextareaComponent } from '../../../../shared/components/textarea/textar
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
 import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
-import { AsyncPipe } from '@angular/common';
+import { BreadcrumbComponent } from "../../../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-project-form',
@@ -20,8 +20,8 @@ import { AsyncPipe } from '@angular/common';
     ReactiveFormsModule,
     VerifiedIconComponent,
     ErrorIconComponent,
-    AsyncPipe,
-  ],
+    BreadcrumbComponent
+],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
 })
@@ -96,9 +96,3 @@ export class ProjectFormComponent {
     this.router.navigate(['/project']);
   }
 }
-
-export const projectFormTitleResolver: ResolveFn<string> = (
-  route: ActivatedRouteSnapshot,
-): string => {
-  return route.paramMap.has('id') ? 'Edit Project' : 'Add New Project';
-};
