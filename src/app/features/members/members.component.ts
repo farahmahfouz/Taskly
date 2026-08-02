@@ -20,10 +20,9 @@ import { InviteMembersComponent } from './components/invite-members/invite-membe
     SkeltonComponent,
     ErrorPageComponent,
     InitialsPipe,
-    BreadcrumbComponent
-],
+    BreadcrumbComponent,
     InviteMembersComponent,
-  ],
+],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
