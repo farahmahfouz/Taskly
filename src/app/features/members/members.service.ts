@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AcceptInviteRequest, InviteMemberRequest, Member } from './members.model';
 import { API } from '../../core/utils/constants';
@@ -17,7 +17,7 @@ export class MembersService {
     return this.http.post<void>(`${API.INVITE_MEMBER}/invite_member`, request);
   }
 
-  acceptInvite(request: AcceptInviteRequest) {
-    return this.http.post<void>(`${API.INVITE_MEMBER}/accept_invitation`, request);
+  acceptInvite(body: { p_token: string }, options?: { context?: HttpContext }) {
+    return this.http.post<void>(`${API.INVITE_MEMBER}/accept_invitation`, body, options);
   }
 }

@@ -22,7 +22,9 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   signUp(body: SignUpRequest) {
-    return this.http.post<SignUpResponse>(`${API.AUTH}/signup`, body).pipe(tap(res => this.rememberMe(res, false)));
+    return this.http
+      .post<SignUpResponse>(`${API.AUTH}/signup`, body)
+      .pipe(tap(res => this.rememberMe(res, false)));
   }
 
   login(body: LoginRequest, rememberMeValue: boolean) {
@@ -93,14 +95,14 @@ export class AuthService {
     );
   }
 
+  clearSession(): void {
+    this.currentUserSubject.next(null);
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
   logout() {
-    return this.http.post(`${API.AUTH}/logout`, {}).pipe(
-      tap(() => {
-        this.currentUserSubject.next(null);
-        localStorage.clear();
-        sessionStorage.clear();
-      }),
-    );
+    return this.http.post(`${API.AUTH}/logout`, {}).pipe(tap(() => this.clearSession()));
   }
 
   private rememberMe(res: LoginResponse, rememberMe: boolean) {

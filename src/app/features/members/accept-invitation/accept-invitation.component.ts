@@ -4,6 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { MembersService } from '../members.service';
+import { HttpContext } from '@angular/common/http';
+import { SKIP_GLOBAL_ERROR_TOAST } from '../../../core/interceptors/error.interceptor';
+
+type InvitationState = 'idle' | 'invalid-link' | 'expired' | 'forbidden' | 'invalid-token';
 
 @Component({
   selector: 'app-accept-invitation',
@@ -15,6 +19,7 @@ import { MembersService } from '../members.service';
 export class AcceptInvitationComponent implements OnInit {
   token = '';
   isLoading = false;
+  state: InvitationState = 'idle';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,8 +33,7 @@ export class AcceptInvitationComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       const token = params.get('token');
       if (!token) {
-        this.toast.showError('Invalid invitation link');
-        this.router.navigate(['/']);
+        this.state = 'invalid-link';
         return;
       }
       this.token = token;
@@ -46,12 +50,16 @@ export class AcceptInvitationComponent implements OnInit {
   }
 
   acceptInvitation() {
+    if (this.isLoading) return;
+
     this.isLoading = true;
+    this.state = 'idle';
 
     this.membersService
-      .acceptInvite({
-        p_token: this.token,
-      })
+      .acceptInvite(
+        { p_token: this.token },
+        { context: new HttpContext().set(SKIP_GLOBAL_ERROR_TOAST, true) },
+      )
       .subscribe({
         next: () => {
           this.isLoading = false;
@@ -66,26 +74,17 @@ export class AcceptInvitationComponent implements OnInit {
             return;
           }
 
-          switch (err.status) {
-            case 401:
-              this.toast.showError('Unauthorized');
-              break;
-
-            case 403:
-              this.toast.showError('You are not allowed to accept this invitation');
-              break;
-
-            case 400:
-              if (err.error?.message === 'Invitation expired') {
-                this.toast.showError('Invitation has expired');
-              } else {
-                this.toast.showError('Invalid invitation');
-              }
-              break;
-
-            default:
-              this.toast.showError('Something went wrong');
+          if (err.status === 403) {
+            this.state = 'forbidden';
+            return;
           }
+
+          if (err.status === 400) {
+            this.state = err.error?.message === 'Invitation expired' ? 'expired' : 'invalid-token';
+            return;
+          }
+
+          this.toast.showError('Something went wrong. Please try again.');
         },
       });
   }

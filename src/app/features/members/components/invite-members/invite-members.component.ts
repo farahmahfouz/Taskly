@@ -14,7 +14,13 @@ import { inject } from '@angular/core';
 @Component({
   selector: 'app-invite-members',
   standalone: true,
-  imports: [ModalComponent, CloseIconComponent, InputComponent, ModalMobileComponent, ReactiveFormsModule],
+  imports: [
+    ModalComponent,
+    CloseIconComponent,
+    InputComponent,
+    ModalMobileComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './invite-members.component.html',
   styleUrl: './invite-members.component.css',
 })
@@ -58,10 +64,6 @@ export class InviteMembersComponent {
     }
 
     this.isLoading = true;
-    console.log(window.location.origin)
-    console.log(this.env.apiUrl)
-    console.log(this.projectId) 
-    console.log(this.form.value.email!)
 
     this.membersService
       .inviteMember({
@@ -81,12 +83,17 @@ export class InviteMembersComponent {
         },
         error: err => {
           this.isLoading = false;
-
-          if (err.status === 401) {
-            this.toast.showError('You are not authorized to invite members.');
-          } else {
-            this.toast.showError('Something went wrong. Please try again.');
+          if (err.status === 403) {
+            this.toast.showError('You are not allowed to invite members to this project.');
+            return;
           }
+
+          if (err.status === 400) {
+            this.toast.showError(err.error?.message ?? 'Invalid request.');
+            return;
+          }
+
+          this.toast.showError('Something went wrong. Please try again.');
         },
       });
   }
