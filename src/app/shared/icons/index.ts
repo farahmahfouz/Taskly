@@ -38,3 +38,4 @@ export { TaskListIconComponent } from './task-list-icon.component';
 export { WarningIconComponent } from './warning-icon.component';
 export { CopyLinkIconComponent } from './copy-link-icon.component';
 export { StatsIconComponent } from './stats-icon.component';
+export { EmailIconComponent } from './email-icon.component';

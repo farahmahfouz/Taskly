@@ -13,7 +13,7 @@ import { EpicPopupComponent } from './components/epic-popup/epic-popup.component
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";

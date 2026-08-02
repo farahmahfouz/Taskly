@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormLayoutComponent } from '../../../shared/components/form-layout/form-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from './login';
@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   errorMessage = '';
@@ -52,7 +53,9 @@ export class LoginComponent {
       next: () => {
         this.isLoading = false;
         this.authService.getUser().subscribe(() => {
-          this.router.navigate(['/project']);
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/project';
+
+          this.router.navigateByUrl(returnUrl);
         });
       },
       error: err => {

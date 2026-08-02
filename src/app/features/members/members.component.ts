@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MembersService } from './members.service';
 import { Member } from './members.model';
@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
+import { InviteMembersComponent } from './components/invite-members/invite-members.component';
 
 @Component({
   selector: 'app-members',
@@ -21,6 +22,8 @@ import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcru
     InitialsPipe,
     BreadcrumbComponent
 ],
+    InviteMembersComponent,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -32,9 +35,11 @@ export class MembersComponent implements OnInit {
   ) {}
 
   members: Member[] = [];
+  projectId = '';
   projectName = '';
   isLoading = false;
   isError = false;
+  isOpen = false;
 
   ngOnInit() {
     const project = this.route.snapshot.data['project'];
@@ -44,9 +49,16 @@ export class MembersComponent implements OnInit {
       const projectId = params.get('id');
 
       if (projectId) {
+        this.projectId = projectId;
         this.getMembers(projectId);
       }
     });
+  }
+
+  onMemberInvited() {
+    if (this.projectId) {
+      this.getMembers(this.projectId);
+    }
   }
 
   getMembers(projectId: string) {
