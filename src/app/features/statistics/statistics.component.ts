@@ -45,15 +45,14 @@ function addDays(date: Date, days: number): Date {
   return d;
 }
 
-function getWeekStart(date: Date): Date {
+function getRangeEnd(date: Date): Date {
   const d = new Date(date);
-  d.setDate(d.getDate() - d.getDay());
   d.setHours(0, 0, 0, 0);
   return d;
 }
 
-function getWeekEnd(start: Date): Date {
-  return addDays(start, MAX_RANGE_DAYS - 1);
+function getRangeStart(end: Date): Date {
+  return addDays(end, -(MAX_RANGE_DAYS - 1));
 }
 
 function formatDateRange(start: Date, end: Date): string {
@@ -88,8 +87,8 @@ export class StatisticsComponent implements OnInit {
   readonly statusOptions = STATUS_OPTIONS;
   readonly maxRangeDays = MAX_RANGE_DAYS;
 
-  startDate = getWeekStart(new Date());
-  endDate = getWeekEnd(this.startDate);
+  endDate = getRangeEnd(new Date());
+  startDate = getRangeStart(this.endDate);
 
   selectedProjectId = '';
   selectedStatus = '';
