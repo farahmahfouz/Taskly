@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { EpicsIconComponent, ProjectsIconComponent, TasksIconComponent } from '../../icons/index';
+import { EpicsIconComponent, ProjectsIconComponent, TasksIconComponent, StatsIconComponent } from '../../icons/index';
 import { MembersIconComponent } from '../../icons/members-icon.component';
 import { DetailsIconComponent } from '../../icons/details-icon.component';
 
@@ -16,7 +16,8 @@ import { DetailsIconComponent } from '../../icons/details-icon.component';
     TasksIconComponent,
     DetailsIconComponent,
     RouterLinkActive,
-  ],
+    StatsIconComponent
+],
   templateUrl: './bottom-navbar.component.html',
   styleUrl: './bottom-navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -22,7 +22,7 @@
       <p class="text-sm weight-semibold text-neutral-dark">Task not found</p>
     </div>
   } @else {
-    <div class="grid grid-cols-[3fr_1.6fr]">
+    <form [formGroup]="taskForm" class="grid grid-cols-[3fr_1.6fr]">
       <div class="bg-white border border-[#E8EDFF]">
         <div class="py-6 px-8 flex flex-col gap-2">
           <header class="flex gap-4 items-center">
@@ -44,15 +44,21 @@
               </p>
             </div>
           </header>
-          <p class="text-md weight-bold text-neutral-dark leading-lg">{{ openPopupService.task()?.title }}</p>
+          <input
+            class="text-md weight-bold text-neutral-dark leading-lg border border-transparent rounded-lg px-2 py-1 w-full focus:outline-none focus:border-[#E8EDFF]"
+            formControlName="title"
+            (blur)="updateTitle()"
+          />
         </div>
         <hr class="border-[#E8EDFF]" />
         <div class="p-8 flex flex-col gap-3">
           <label for="description">description</label>
           <textarea
+            formControlName="description"
             rows="20"
             class="w-full bg-white border p-3 text-xs weight-regular focus:outline-none border-[#E8EDFF]"
             [value]="openPopupService.task()?.description || 'No description provided for this task!'"
+            (blur)="updateDescription()"
           >
           </textarea>
         </div>
@@ -63,7 +69,7 @@
           </span>
 
           <button
-            class="bg-surface-highest py-2 px-4 rounded-xs text-neutral-dark weight-semibold text-xs leading-5"
+            class="bg-surface-highest py-2 px-4 rounded-xs cursor-pointer text-neutral-dark weight-semibold text-xs leading-5"
             (click)="openPopupService.close()"
           >
             Close
@@ -74,37 +80,69 @@
         <div class="flex flex-col gap-4">
           <label for="status"> Status </label>
 
-          <div
-            id="status"
-            class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none"
-            [ngClass]="statusBadgeClass()"
-          >
-            <div value="completed" class="flex justify-between items-center">
-              <p>
-                {{ openPopupService.task()?.status }}
-              </p>
-              <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+          @if (!isEditingStatus) {
+            <div
+              id="status"
+              class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none cursor-pointer"
+              [ngClass]="statusBadgeClass()"
+              (click)="isEditingStatus = true"
+            >
+              <div class="flex justify-between items-center">
+                <p>
+                  {{ openPopupService.task()?.status }}
+                </p>
+                <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+              </div>
             </div>
-          </div>
+          } @else {
+            <select
+              formControlName="status"
+              class="w-full border border-surface-highest rounded-lg p-2 focus:outline-none text-xs"
+              (change)="updateStatus()"
+            >
+              @for (statusOption of statusOptions; track statusOption) {
+                <option [value]="statusOption">
+                  {{ statusOption }}
+                </option>
+              }
+            </select>
+          }
         </div>
 
         <div class="flex flex-col gap-4">
-          <label for="assignee"> Assignee </label>
+          <div>
+            <label>ASSIGNEE</label>
 
-          <div
-            id="assignee"
-            class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
-          >
-            <div class="flex items-center gap-2">
+            @if (!isEditingAssignee) {
               <div
-                class="flex h-7 w-7 items-center justify-center bg-surface-highest rounded-full text-2xs weight-bold text-neutral-dark"
+                class="flex items-center gap-2 border border-surface-highest rounded-lg p-2 cursor-pointer"
+                (click)="isEditingAssignee = true"
               >
-                {{ openPopupService.task()?.assignee?.name || '' | initials }}
-              </div>
-              {{ openPopupService.task()?.assignee?.name }}
-            </div>
+                @if (openPopupService.task()?.assignee?.name) {
+                  <div class="w-6 h-6 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[10px]">
+                    {{ openPopupService.task()?.assignee!.name | initials }}
+                  </div>
+                }
 
-            <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+                <span class="text-xs">
+                  {{ openPopupService.task()?.assignee?.name || 'Unassigned' }}
+                </span>
+              </div>
+            } @else {
+              <select
+                formControlName="assignee"
+                class="w-full border border-surface-highest rounded-lg p-2 focus:outline-none text-xs"
+                (change)="updateAssignee(); isEditingAssignee = false"
+              >
+                <option value="">Unassigned</option>
+
+                @for (member of members; track member.member_id) {
+                  <option [value]="member.user_id">
+                    {{ member.metadata.name }}
+                  </option>
+                }
+              </select>
+            }
           </div>
         </div>
 
@@ -126,12 +164,16 @@
           <label class="text-sm font-semibold text-neutral-dark"> Due Date </label>
 
           <div
-            class="py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
+            class="relative py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
           >
-            {{ openPopupService.task()?.due_date | date: 'MMM d, YYYY' }}
-            <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+            <input
+              type="date"
+              formControlName="dueDate"
+              (change)="updateDueDate()"
+              class="w-full bg-transparent outline-none border-none text-[12px] weight-bold text-neutral-dark cursor-pointer"
+            />
           </div>
-
+          
           <div class="flex items-center justify-between">
             <label> Created At </label>
 
@@ -141,6 +183,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </form>
   }
 </app-modal>

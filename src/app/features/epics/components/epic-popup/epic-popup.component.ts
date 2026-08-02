@@ -3,8 +3,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  SimpleChanges,
-  OnChanges,
   OnInit,
   DestroyRef,
   input,
@@ -15,7 +13,6 @@ import {
   CloseIconComponent,
   DateIconComponent,
   EpicColumnsIconComponent,
-  TaskListIconComponent,
 } from '../../../../shared/icons';
 import { EpicsService } from '../../epics.service';
 import { Epic } from '../../epic.model';
@@ -30,11 +27,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TasksService } from '../../../tasks/tasks.service';
 import { Task } from '../../../tasks/task.constants';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
-import { EpicTasksSectionComponent } from "./epic-tasks-section/epic-tasks-section.component";
-import { EpicTasksSkeletonComponent } from "./epic-tasks-skeleton/epic-tasks-skeleton.component";
-import { EpicTasksEmptyComponent } from "./epic-tasks-empty/epic-tasks-empty.component";
-import { EpicTasksErrorComponent } from "./epic-tasks-error/epic-tasks-error.component";
-import { TaskPopupComponent } from "../../../tasks/components/task-popup/task-popup.component";
+import { EpicTasksSectionComponent } from './epic-tasks-section/epic-tasks-section.component';
+import { EpicTasksSkeletonComponent } from './epic-tasks-skeleton/epic-tasks-skeleton.component';
+import { EpicTasksEmptyComponent } from './epic-tasks-empty/epic-tasks-empty.component';
+import { EpicTasksErrorComponent } from './epic-tasks-error/epic-tasks-error.component';
+import { TaskPopupComponent } from '../../../tasks/components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 
 @Component({
@@ -52,8 +49,8 @@ import { OpenPopupService } from '../../../../core/services/open-popup.service';
     EpicTasksSkeletonComponent,
     EpicTasksEmptyComponent,
     EpicTasksErrorComponent,
-    TaskPopupComponent
-],
+    TaskPopupComponent,
+  ],
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',
 })
@@ -79,7 +76,7 @@ export class EpicPopupComponent implements OnInit {
     private router: Router,
     private destroyRef: DestroyRef,
     private tasksService: TasksService,
-    public openPopupService: OpenPopupService
+    public openPopupService: OpenPopupService,
   ) {
     effect(() => {
       const id = this.epicId();

@@ -6,6 +6,7 @@ import { authGuard } from './core/Guards/auth.guard';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
 import { guestGuard } from './core/Guards/guest.guard';
+import { StatisticsComponent } from './features/statistics/statistics.component';
 import { AcceptInvitationComponent } from './features/members/accept-invitation/accept-invitation.component';
 
 export const routes: Routes = [
@@ -23,6 +24,14 @@ export const routes: Routes = [
       {
         path: 'project',
         loadChildren: () => import('./features/project/project.routes').then(m => m.projectRoutes),
+        data: {
+          breadcrumb: 'Projects',
+        },
+      },
+      {
+        path: 'my-statistics',
+        component: StatisticsComponent,
+        title: 'My Statistics',
       },
     ],
   },

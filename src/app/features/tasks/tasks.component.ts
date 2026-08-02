@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SearchIconComponent } from '../../shared/icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
@@ -9,8 +10,11 @@ import { TasksMobileViewComponent } from './components/tasks-mobile-view/tasks-m
 import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../core/services/open-popup.service';
 import { TooltipDirective } from '../../shared/directives/tooltip.directive';
-import { SelectComponent } from "../../shared/components/select/select.component";
-import { TasksPopupMobileComponent } from "./components/tasks-popup-mobile/tasks-popup-mobile.component";
+import { SelectComponent } from '../../shared/components/select/select.component';
+import { TasksPopupMobileComponent } from './components/tasks-popup-mobile/tasks-popup-mobile.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-tasks',
@@ -23,21 +27,27 @@ import { TasksPopupMobileComponent } from "./components/tasks-popup-mobile/tasks
     TasksMobileViewComponent,
     TaskPopupComponent,
     SelectComponent,
-    TasksPopupMobileComponent
+    TasksPopupMobileComponent,
+    ReactiveFormsModule,
+    BreadcrumbComponent
 ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
-export class TasksComponent {
+export class TasksComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectContext: ProjectContextService,
     public openPopupService: OpenPopupService,
+    private destroyRef: DestroyRef,
   ) {}
   currentView = 'board';
   projectId = '';
   statuses = TASK_STATUSES;
+
+  searchControl = new FormControl('');
+  search: string | null = '';
 
   isMobile = window.innerWidth < 768;
 
@@ -47,7 +57,13 @@ export class TasksComponent {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
+    this.searchControl.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .subscribe(value => {
+        this.search = value;
+      });
+
+    this.route.queryParamMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const view = params.get('view');
 
       if (!view) {

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, input } from '@angular/core';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { Task, TASK_STATUS_BADGE_STYLES } from '../../task.constants';
@@ -19,10 +19,12 @@ import { PaginationBase } from '../../../../shared/classes/pagination.base';
   templateUrl: './tasks-list-view.component.html',
   styleUrl: './tasks-list-view.component.css',
 })
-export class TasksListViewComponent extends PaginationBase implements OnInit {
+export class TasksListViewComponent extends PaginationBase {
   readonly statusStyles = TASK_STATUS_BADGE_STYLES;
   tasks: Task[] = [];
   projectId = '';
+
+  search = input<string>('');
 
   constructor(
     private tasksService: TasksService,
@@ -31,15 +33,25 @@ export class TasksListViewComponent extends PaginationBase implements OnInit {
     private destroyRef: DestroyRef,
   ) {
     super();
-  }
+    effect(() => {
+      const projectId = this.projectContext.activeProjectId();
+      this.search();
 
-  ngOnInit(): void {
-    const projectId = this.projectContext.activeProjectId();
+      if (!projectId) return;
+      this.projectId = projectId;
 
-    if (!projectId) return;
-    this.projectId = projectId;
+      this.currentPage = 1;
+      this.loadPage(false);
+    });
 
-    this.loadPage(false);
+    effect(() => {
+      const updatedTask = this.openPopupService.task();
+      if (!updatedTask) return;
+
+      this.tasks = this.tasks.map(t =>
+        t.id === updatedTask.id ? { ...t, ...updatedTask } : t,
+      );
+    });
   }
 
   protected loadPage(loadMore: boolean) {
@@ -51,7 +63,7 @@ export class TasksListViewComponent extends PaginationBase implements OnInit {
 
     this.isError = false;
     this.tasksService
-      .getTasksByProject(this.projectId, this.limit, this.offset)
+      .getTasksByProject(this.projectId, this.limit, this.offset, this.search())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res: HttpResponse<Task[]>) => {

@@ -1,13 +1,7 @@
 <div class="w-full max-w-300">
   <div class="flex justify-between items-center pb-6">
     <div class="flex flex-col gap-6">
-      <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 capitalize">
-        <a routerLink="/project" class="text-neutral-light">PROJECTS</a>
-        <span class="text-neutral-light">›</span>
-        <a routerLink="/project" class="text-neutral-light">Project Name</a>
-        <span class="text-neutral-light">›</span>
-        <a routerLink="../" class="text-primary">tasks</a>
-      </div>
+      <app-breadcrumb />
 
       <div>
         <h1
@@ -27,6 +21,7 @@
         <input
           type="text"
           placeholder="Search tasks..."
+          [formControl]="searchControl"
           class="w-full md:rounded-2xs rounded-sm bg-surface-highest py-3 pl-10 pr-4 text-xs focus:outline-none"
         />
       </div>
@@ -47,12 +42,12 @@
       <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
         @if (currentView === 'board') {
           @for (status of statuses; track status.value) {
-            <app-tasks-board-view [status]="status" />
+            <app-tasks-board-view [status]="status" [search]="search ?? ''" />
           }
         }
 
         @if (currentView === 'table') {
-          <app-tasks-list-view class="w-full" />
+          <app-tasks-list-view class="w-full" [search]="search ?? ''" />
           <a
             [routerLink]="['/project', projectId, 'tasks', 'new']"
             class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
@@ -72,7 +67,7 @@
       >
         + Create task
       </a>
-      <app-tasks-mobile-view />
+      <app-tasks-mobile-view [search]="search ?? ''" />
     </div>
   }
 </div>

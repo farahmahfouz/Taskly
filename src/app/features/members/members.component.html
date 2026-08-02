@@ -6,14 +6,8 @@
   } @else {
     <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
-        <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2">
-          <p class="text-neutral-grey">PROJECTS</p>
-          <span class="text-neutral-grey">›</span>
-          <p class="text-neutral-grey">{{ projectName | uppercase }}</p>
-          <span class="text-neutral-grey">›</span>
-          <p class="text-primary">MEMBERS</p>
-        </div>
-
+        <app-breadcrumb/>
+        
         <h1 class="text-3xl font-semibold text-neutral-dark text-center md:text-start pt-4 md:pt-0">
           Projects Members
         </h1>

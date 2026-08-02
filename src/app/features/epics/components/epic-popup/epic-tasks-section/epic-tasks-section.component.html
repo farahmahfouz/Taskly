@@ -3,10 +3,10 @@
     <p class="text-neutral-dark weight-medium leading-6">{{ task().title }}</p>
     <div class="flex gap-0.5 items-center">
       <span class="w-5 h-5 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[8px] weight-bold">
-        {{ task().assignee.name | initials }}
+        {{ task().assignee!.name | initials }}
       </span>
       <p class="weight-regular text-[12px] text-[#041B3C99] leading-2xs">
-        {{ task().assignee.name || 'Unassigned' }}
+        {{ task().assignee!.name || 'Unassigned' }}
       </p>
     </div>
   </div>

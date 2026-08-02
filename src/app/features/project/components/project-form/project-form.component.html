@@ -1,12 +1,5 @@
 <div class="min-h-screen">
-  <div class="hidden md:flex text-2xs weight-bold leading-2xs tracking-wide gap-2 ml-2 mb-2">
-    <p class="text-neutral-light cursor-pointer" (click)="onCancel()">PROJECTS</p>
-    <span class="text-neutral-light">›</span>
-    <p class="text-primary">{{ (pageTitle$ | async)?.toUpperCase() }}</p>
-  </div>
-  <h1 class="hidden md:block text-4xl font-semibold text-[#1a2358] mb-6 ml-2">
-    {{ pageTitle$ | async }}
-  </h1>
+  <app-breadcrumb />
 
   <div class="w-full max-w-2xl mx-auto md:bg-white rounded-lg md:border border-[#F1F3FF] shadow-[#0000000D] md:mt-10">
     <div class="flex items-start gap-3 md:p-8 pb-5 md:pb-10">

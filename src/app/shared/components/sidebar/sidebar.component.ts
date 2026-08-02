@@ -11,6 +11,7 @@ import {
   CollapseOpenIconComponent,
   EpicsIconComponent,
   ProjectsIconComponent,
+  StatsIconComponent,
   TasksIconComponent,
 } from '../../icons/index';
 import { CollapseIconComponent } from '../../icons/collapse-icon.component';
@@ -37,6 +38,7 @@ import { ToastService } from '../../../core/services/toast.service';
     LogoutIconComponent,
     CollapseOpenIconComponent,
     LogoIconComponent,
+    StatsIconComponent
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',

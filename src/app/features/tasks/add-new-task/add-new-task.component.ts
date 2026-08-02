@@ -13,11 +13,12 @@ import { CreateTaskRequest, TASK_STATUSES, TaskStatus } from '../task.constants'
 import { TasksService } from '../tasks.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BreadcrumbComponent } from "../../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-add-new-task',
   standalone: true,
-  imports: [InputComponent, TextareaComponent, ReactiveFormsModule, SlicePipe, RouterLink],
+  imports: [InputComponent, TextareaComponent, ReactiveFormsModule, SlicePipe, RouterLink, BreadcrumbComponent],
   templateUrl: './add-new-task.component.html',
   styleUrl: './add-new-task.component.css',
 })

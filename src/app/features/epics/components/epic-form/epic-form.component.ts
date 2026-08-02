@@ -11,11 +11,12 @@ import { MembersService } from '../../../members/members.service';
 import { Member } from './../../../members/members.model';
 import { ToastService } from '../../../../core/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BreadcrumbComponent } from "../../../../shared/components/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-epic-form',
   standalone: true,
-  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, RouterLink],
+  imports: [TextareaComponent, InputComponent, ReactiveFormsModule, RouterLink, BreadcrumbComponent],
   templateUrl: './epic-form.component.html',
   styleUrl: './epic-form.component.css',
 })

@@ -67,4 +67,8 @@ export class OpenPopupService {
         },
       });
   }
+
+  setTask(task: Task) {
+    this.task.set(task);
+  }
 }
