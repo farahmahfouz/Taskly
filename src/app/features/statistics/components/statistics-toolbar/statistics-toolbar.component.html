@@ -1,5 +1,5 @@
 <div class="flex items-center justify-between">
-  <div class="bg-surface-low w-full flex justify-between p-4 rounded-sm">
+  <div class="bg-surface-low w-full flex justify-between p-4 rounded-sm relative">
     <div class="flex flex-col gap-1 justify-center">
       <div class="flex items-center gap-4 text-xs weight-bold leading-5 text-neutral-dark">
         <button type="button" (click)="prevWeek.emit()" class="hover:text-primary transition-colors">&#8249;</button>
@@ -22,31 +22,15 @@
 
       @if (showDatePicker) {
         <div
-          class="absolute mt-10 z-20 bg-white rounded-2xs shadow-[0px_4px_12px_0px_#0000001A] p-4 flex flex-col gap-3"
-          (appClickOutside)="closeDatePicker.emit()"
-          appClickOutside
+          class="absolute top-full mt-2 z-20 bg-white rounded-2xs shadow-[0px_4px_12px_0px_#0000001A]"
         >
-          <div class="flex items-center gap-3">
-            <label class="flex flex-col gap-1 text-2xs weight-medium text-neutral-dark">
-              Start
-              <input
-                type="date"
-                class="px-3 py-2 rounded-2xs border border-[#C3C6D633] text-xs"
-                [value]="startDateISO"
-                (change)="onStartDateChange($event)"
-              />
-            </label>
-            <label class="flex flex-col gap-1 text-2xs weight-medium text-neutral-dark">
-              End
-              <input
-                type="date"
-                class="px-3 py-2 rounded-2xs border border-[#C3C6D633] text-xs"
-                [value]="endDateISO"
-                (change)="onEndDateChange($event)"
-              />
-            </label>
-          </div>
-          <p class="text-2xs text-neutral-light">Maximum range: {{ maxRangeDays }} days</p>
+          <app-date-range-picker
+            [startDateISO]="startDateISO"
+            [endDateISO]="endDateISO"
+            [maxRangeDays]="maxRangeDays"
+            (apply)="onRangeApply($event)"
+            (cancel)="closeDatePicker.emit()"
+          ></app-date-range-picker>
         </div>
       }
     </div>

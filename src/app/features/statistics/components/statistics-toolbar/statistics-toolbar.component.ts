@@ -1,11 +1,14 @@
+// statistics-toolbar.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProjectOption, StatusOption} from '../../statistics.model';
+import { ProjectOption, StatusOption } from '../../statistics.model';
+import { AppliedRange } from '../date-range-picker/date-range-picker.component';
+import { DateRangePickerComponent } from '../date-range-picker/date-range-picker.component';
 
 @Component({
   selector: 'app-statistics-toolbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DateRangePickerComponent],
   templateUrl: './statistics-toolbar.component.html',
 })
 export class StatisticsToolbarComponent {
@@ -24,17 +27,13 @@ export class StatisticsToolbarComponent {
   @Output() nextWeek = new EventEmitter<void>();
   @Output() toggleDatePicker = new EventEmitter<void>();
   @Output() closeDatePicker = new EventEmitter<void>();
-  @Output() startDateChange = new EventEmitter<string>();
-  @Output() endDateChange = new EventEmitter<string>();
+  @Output() rangeApply = new EventEmitter<AppliedRange>();
   @Output() projectChange = new EventEmitter<string>();
   @Output() statusChange = new EventEmitter<string>();
 
-  onStartDateChange(event: Event) {
-    this.startDateChange.emit((event.target as HTMLInputElement).value);
-  }
-
-  onEndDateChange(event: Event) {
-    this.endDateChange.emit((event.target as HTMLInputElement).value);
+  onRangeApply(range: AppliedRange) {
+    this.rangeApply.emit(range);
+    this.closeDatePicker.emit(); // Close picker after applying
   }
 
   onProjectChange(event: Event) {

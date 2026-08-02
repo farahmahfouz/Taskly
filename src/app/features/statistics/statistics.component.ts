@@ -25,6 +25,7 @@ import { SummaryCardsComponent } from './components/summary-cards/summary-cards.
 import { WeekCalendarComponent } from './components/week-calendar/week-calendar.component';
 import { StatusDonutChartComponent } from './components/status-donut-chart/status-donut-chart.component';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
+import { AppliedRange } from './components/date-range-picker/date-range-picker.component';
 
 function toISODate(date: Date): string {
   const y = date.getFullYear();
@@ -190,16 +191,11 @@ export class StatisticsComponent implements OnInit {
     this.loadStats();
   }
 
-  onStartDateChange(value: string) {
-    if (!value) return;
-    const start = parseISODate(value);
-    this.applyDateRange(start, this.endDate);
-  }
-
-  onEndDateChange(value: string) {
-    if (!value) return;
-    const end = parseISODate(value);
-    this.applyDateRange(this.startDate, end);
+  onRangeApply(range: AppliedRange) {
+    const start = parseISODate(range.start);
+    const end = parseISODate(range.end);
+    this.applyDateRange(start, end);
+    this.closeDatePicker();
   }
 
   onProjectChange(value: string) {
