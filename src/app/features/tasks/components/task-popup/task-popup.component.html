@@ -63,13 +63,13 @@
           </textarea>
         </div>
         <footer class="bg-surface-low py-4 px-8 flex justify-between">
-          <span class="text-dark weight-medium text-xs leading-5 flex justify-center items-center gap-3">
+          <button (click)="copyURL()" class="text-dark weight-medium text-xs cursor-pointer leading-5 flex justify-center items-center gap-3 transition-colors duration-150 hover:text-dark/85">
             <svg icon-copylink class="size-4"></svg>
             Copy Link
-          </span>
+          </button>
 
           <button
-            class="bg-surface-highest py-2 px-4 rounded-xs cursor-pointer text-neutral-dark weight-semibold text-xs leading-5"
+            class="bg-surface-highest py-2 px-4 rounded-xs cursor-pointer text-neutral-dark weight-semibold text-xs leading-5 transition-colors duration-150 hover:bg-surface-highest/70 active:scale-95 focus:outline-none"
             (click)="openPopupService.close()"
           >
             Close

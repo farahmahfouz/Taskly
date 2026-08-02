@@ -1,5 +1,5 @@
 <app-modal [isOpen]="isOpen" (close)="close.emit()" width="42rem">
-  <form [formGroup]="epicForm" class="flex flex-col max-h-[85vh] gap-8 p-6 md:p-8 pb-0 md:pb-0">
+  <form [formGroup]="epicForm" class="flex flex-col max-h-[85vh] gap-8 p-6 md:p-8 md:pr-4 pb-0 md:pb-0">
     <div class="flex items-center justify-between shrink-0">
       <div class="flex items-center gap-2">
         <svg icon-epic-columns class="w-5 h-3.5 text-primary"></svg>
@@ -10,7 +10,7 @@
       </span>
     </div>
 
-    <div class="flex flex-col gap-2 overflow-y-auto pb-6 md:pb-8 custom-scrollbar">
+    <div class="flex flex-col gap-8 overflow-y-auto pb-6 md:pb-8 custom-scrollbar">
       <input
         class="text-base weight-bold text-neutral-dark leading-xs border border-surface-highest rounded-xl px-4 py-4 focus:outline-none"
         formControlName="title"

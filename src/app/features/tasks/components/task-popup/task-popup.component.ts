@@ -202,4 +202,8 @@ export class TaskPopupComponent {
         },
       });
   }
+
+  copyURL() {
+    navigator.clipboard.writeText(window.location.href);
+  }
 }
