@@ -12,15 +12,14 @@ export class AppTitleStrategy extends TitleStrategy {
     const pageTitle = this.buildTitle(routerState);
     this.title.setTitle(pageTitle ? `TASKLY | ${pageTitle}` : 'TASKLY');
 
-    // هات آخر route نشط عشان نجيب منه الـ data
-    // let route = routerState.root;
-    // while (route.firstChild) {
-    //   route = route.firstChild;
-    // }
+    let route = routerState.root;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
 
-    // const description = route.data?.['description'] 
-    //   ?? 'HERA - إدارة مهامك ومشاريعك بسهولة';
+    const description = route.data?.['description'] 
+      ?? 'TASKLY - Manage your projects and tasks easily';
 
-    // this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ name: 'description', content: description });
   }
 }
