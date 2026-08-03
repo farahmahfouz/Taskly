@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { getControlError } from '../../../core/utils/form-error.util';
-import { ErrorIconComponent } from "../../../shared/icons/error-icon.component";
+import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
 
 @Component({
   selector: 'app-signup',
@@ -21,8 +21,8 @@ import { ErrorIconComponent } from "../../../shared/icons/error-icon.component";
     PasswordHintsComponent,
     RouterLink,
     InputComponent,
-    ErrorIconComponent
-],
+    ErrorIconComponent,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -93,7 +93,11 @@ export class SignupComponent implements OnInit {
 
   getError(controlName: string): string {
     if (controlName === 'confirmPassword' && this.form.hasError('notMatch')) {
-      return 'Passwords do not match';
+      const confirmControl = this.form.get('confirmPassword');
+      if ((confirmControl?.touched || confirmControl?.dirty) && this.form.hasError('notMatch')) {
+        return 'Passwords do not match';
+      }
+      return getControlError(confirmControl);
     }
     return getControlError(this.form.get(controlName));
   }
@@ -117,7 +121,7 @@ export class SignupComponent implements OnInit {
     this.errorMessage = '';
     this.authService.signUp(body).subscribe({
       next: res => {
-        console.log(res)
+        console.log(res);
         this.isLoading = false;
         this.router.navigate(['/project']);
       },
