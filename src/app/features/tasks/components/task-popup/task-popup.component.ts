@@ -24,6 +24,8 @@ import { MembersService } from '../../../members/members.service';
 import { Member } from '../../../members/members.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { EpicsService } from '../../../epics/epics.service';
+import { Epic } from '../../../epics/epic.model';
 
 @Component({
   selector: 'app-task-popup',
@@ -48,9 +50,11 @@ export class TaskPopupComponent {
   hasError = signal(false);
 
   members: Member[] = [];
+  epics: Epic[] = [];
 
   isEditingAssignee = false;
   isEditingStatus = false;
+  isEditingEpic = false;
 
   constructor(
     public openPopupService: OpenPopupService,
@@ -60,6 +64,7 @@ export class TaskPopupComponent {
     private membersService: MembersService,
     private destroyRef: DestroyRef,
     private projectContextService: ProjectContextService,
+    private epicsService: EpicsService,
   ) {
     effect(() => {
       const task = this.openPopupService.task();
@@ -69,7 +74,7 @@ export class TaskPopupComponent {
             title: task.title,
             description: task.description,
             assignee: task.assignee?.id ?? '',
-            epic: task.epic_id,
+            epic: task.epic_id ?? '',
             status: task.status,
             dueDate: task.due_date ? task.due_date.substring(0, 10) : '',
           },
@@ -82,6 +87,7 @@ export class TaskPopupComponent {
       const projectId = this.projectContextService.activeProjectId();
       if (projectId) {
         this.loadMembers();
+        this.loadEpics();
       }
     });
   }
@@ -189,6 +195,45 @@ export class TaskPopupComponent {
         this.toaster.showError('Failed to update task. Please try again.');
       },
     });
+  }
+
+  updateEpic() {
+    const task = this.openPopupService.task();
+    if (!task) return;
+
+    const previousValue = task.epic_id ?? '';
+    const newValue = this.taskForm.get('epic')?.value ?? '';
+    this.isEditingEpic = false;
+
+    if (newValue === previousValue) return;
+
+    const epic = this.epics.find(e => e.id === newValue);
+
+    this.tasksService.updateTask(task.id, { epic_id: newValue || null }).subscribe({
+      next: () => {
+        this.openPopupService.task.set({
+          ...task,
+          epic_id: newValue,
+          epic: epic!,
+        });
+      },
+      error: () => {
+        this.taskForm.patchValue({ epic: previousValue }, { emitEvent: false });
+        this.toaster.showError('Failed to update task. Please try again.');
+      },
+    });
+  }
+
+  private loadEpics() {
+    const projectId = this.projectContextService.activeProjectId()!;
+    this.epicsService
+      .getAllProjectEpics(projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: response => {
+          this.epics = response.body ?? [];
+        },
+      });
   }
 
   private loadMembers() {

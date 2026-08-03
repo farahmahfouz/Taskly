@@ -31,18 +31,37 @@
             >
               {{ openPopupService.task()?.task_id }}
             </span>
-            <div class="border border-[#E8EDFF] p-2 text-dark rounded-lg">
-              <p class="weight-medium text-xs leading-5 flex gap-1.5 items-center">
-                <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M6 12.7L0 8.03333L1.1 7.2L6 11L10.9 7.2L12 8.03333L6 12.7ZM6 9.33333L0 4.66667L6 0L12 4.66667L6 9.33333ZM6 7.63333L9.83333 4.66667L6 1.7L2.16667 4.66667L6 7.63333Z"
-                    fill="#434654"
-                  />
-                </svg>
-                {{ openPopupService.task()?.epic?.epic_id }} (Core UI Overhaul)
-                <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
-              </p>
-            </div>
+            @if (!isEditingEpic) {
+              <div
+                class="border border-[#E8EDFF] p-2 text-dark rounded-lg cursor-pointer"
+                (click)="isEditingEpic = true"
+              >
+                <p class="weight-medium text-xs leading-5 flex gap-1.5 items-center">
+                  <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6 12.7L0 8.03333L1.1 7.2L6 11L10.9 7.2L12 8.03333L6 12.7ZM6 9.33333L0 4.66667L6 0L12 4.66667L6 9.33333ZM6 7.63333L9.83333 4.66667L6 1.7L2.16667 4.66667L6 7.63333Z"
+                      fill="#434654"
+                    />
+                  </svg>
+                  {{ openPopupService.task()?.epic?.epic_id || 'No Epic' }}
+                  @if (openPopupService.task()?.epic?.title) {
+                    ({{ openPopupService.task()?.epic?.title }})
+                  }
+                  <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+                </p>
+              </div>
+            } @else {
+              <select
+                formControlName="epic"
+                class="border border-surface-highest rounded-lg p-2 focus:outline-none text-xs"
+                (change)="updateEpic()"
+              >
+                <option value="">No Epic</option>
+                @for (epic of epics; track epic.id) {
+                  <option [value]="epic.id">{{ epic.epic_id }} - {{ epic.title }}</option>
+                }
+              </select>
+            }
           </header>
           <input
             class="text-md weight-bold text-neutral-dark leading-lg border border-transparent rounded-lg px-2 py-1 w-full focus:outline-none focus:border-[#E8EDFF]"
@@ -63,7 +82,10 @@
           </textarea>
         </div>
         <footer class="bg-surface-low py-4 px-8 flex justify-between">
-          <button (click)="copyURL()" class="text-dark weight-medium text-xs cursor-pointer leading-5 flex justify-center items-center gap-3 transition-colors duration-150 hover:text-dark/85">
+          <button
+            (click)="copyURL()"
+            class="text-dark weight-medium text-xs cursor-pointer leading-5 flex justify-center items-center gap-3 transition-colors duration-150 hover:text-dark/85"
+          >
             <svg icon-copylink class="size-4"></svg>
             Copy Link
           </button>
@@ -173,7 +195,7 @@
               class="w-full bg-transparent outline-none border-none text-[12px] weight-bold text-neutral-dark cursor-pointer"
             />
           </div>
-          
+
           <div class="flex items-center justify-between">
             <label> Created At </label>
 
