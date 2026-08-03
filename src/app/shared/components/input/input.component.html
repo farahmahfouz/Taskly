@@ -27,7 +27,12 @@
       />
 
       @if (showPasswordToggle) {
-        <button type="button" class="toggle-btn" (click)="toggleVisibility()">
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="toggleVisibility()"
+          [attr.aria-label]="isVisible ? 'Hide password' : 'Show password'"
+        >
           @if (isVisible) {
             <svg icon-hide-password class="size-6 text-[#737685]"></svg>
           } @else {

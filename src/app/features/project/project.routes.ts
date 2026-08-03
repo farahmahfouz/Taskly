@@ -9,12 +9,20 @@ import { EpicFormComponent } from '../epics/components/epic-form/epic-form.compo
 import { AddNewTaskComponent } from '../tasks/add-new-task/add-new-task.component';
 
 export const projectRoutes: Routes = [
-  { path: '', component: ProjectComponent, title: 'Projects' },
+  {
+    path: '',
+    component: ProjectComponent,
+    title: 'Projects',
+    data: { description: 'Browse all your projects and track their progress in one place on HERA' }
+  },
   {
     path: 'add',
     component: ProjectFormComponent,
     title: 'Add New Project',
-    data: { breadcrumb: 'Add New Project' },
+    data: {
+      breadcrumb: 'Add New Project',
+      description: 'Create a new project and start organizing tasks with your team'
+    },
   },
   {
     path: ':id',
@@ -25,24 +33,41 @@ export const projectRoutes: Routes = [
       {
         path: 'edit',
         component: ProjectFormComponent,
-        data: { breadcrumb: 'Edit Project' },
+        data: {
+          breadcrumb: 'Edit Project',
+          description: 'Edit project details and update its information'
+        },
       },
       {
         path: 'members',
         component: MembersComponent,
         title: 'Members',
-        data: { breadcrumb: 'Members' },
+        data: {
+          breadcrumb: 'Members',
+          description: 'Manage project team members and their permissions'
+        },
       },
       {
         path: 'epics',
         data: { breadcrumb: 'Epics' },
         children: [
-          { path: '', component: EpicsComponent, title: 'Epics', data: { breadcrumb: null } },
+          {
+            path: '',
+            component: EpicsComponent,
+            title: 'Epics',
+            data: {
+              breadcrumb: null,
+              description: 'View all epics belonging to this project'
+            }
+          },
           {
             path: 'new',
             component: EpicFormComponent,
             title: 'Create New Epic',
-            data: { breadcrumb: 'New Epic' },
+            data: {
+              breadcrumb: 'New Epic',
+              description: 'Create a new epic to organize project tasks'
+            },
           },
         ],
       },
@@ -50,12 +75,23 @@ export const projectRoutes: Routes = [
         path: 'tasks',
         data: { breadcrumb: 'Tasks' },
         children: [
-          { path: '', component: TasksComponent, title: 'Tasks', data: { breadcrumb: null } }, 
+          {
+            path: '',
+            component: TasksComponent,
+            title: 'Tasks',
+            data: {
+              breadcrumb: null,
+              description: 'Track all tasks for this project in one place'
+            }
+          },
           {
             path: 'new',
             component: AddNewTaskComponent,
             title: 'New Task',
-            data: { breadcrumb: 'New Task' },
+            data: {
+              breadcrumb: 'New Task',
+              description: 'Add a new task to the project'
+            },
           },
         ],
       },
