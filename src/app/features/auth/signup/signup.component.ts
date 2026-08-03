@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { getControlError } from '../../../core/utils/form-error.util';
+import { ErrorIconComponent } from "../../../shared/icons/error-icon.component";
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ import { getControlError } from '../../../core/utils/form-error.util';
     PasswordHintsComponent,
     RouterLink,
     InputComponent,
-  ],
+    ErrorIconComponent
+],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -30,6 +32,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
   ) {}
   isLoading = false;
+  errorMessage = '';
 
   ngOnInit(): void {
     const hash = window.location.hash.substring(1);
@@ -110,14 +113,17 @@ export class SignupComponent implements OnInit {
       },
     };
 
+    this.isLoading = true;
+    this.errorMessage = '';
     this.authService.signUp(body).subscribe({
       next: res => {
+        console.log(res)
         this.isLoading = false;
         this.router.navigate(['/project']);
       },
       error: err => {
         this.isLoading = false;
-        console.log(err.error.message);
+        this.errorMessage = err?.error?.msg ?? 'Something went wrong, Please try again later!';
       },
     });
   }
