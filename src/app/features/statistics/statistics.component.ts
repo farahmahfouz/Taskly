@@ -93,7 +93,7 @@ export class StatisticsComponent implements OnInit {
   selectedProjectId = '';
   selectedStatus = '';
 
-  projectOptions: ProjectOption[] = [];
+  projectOptions: any = [];
   rangeError: string | null = null;
   showDatePicker = false;
   isLoading = false;
@@ -119,8 +119,8 @@ export class StatisticsComponent implements OnInit {
       label: 'OVERDUE TASKS',
       value: 0,
       iconBg: 'bg-[#FFDAD633]',
-      iconColor: 'text-[#BA1A1A]',
-      valueColor: 'text-[#BA1A1A]',
+      iconColor: 'text-red-700',
+      valueColor: 'text-red-700',
       icon: 'warning',
     },
   ];
@@ -143,7 +143,7 @@ export class StatisticsComponent implements OnInit {
       .getProjectOptions()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(options => {
-        this.projectOptions = options;
+        this.projectOptions = options;  
       });
 
     this.refreshDayCards();

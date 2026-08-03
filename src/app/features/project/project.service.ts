@@ -25,14 +25,12 @@ export class ProjectService {
   }
 
   getProjectOptions() {
-    return this.getAllProjects(100, 0).pipe(
-      map(res =>
-        (res.body ?? [])
-          .filter((p): p is Project & { id: string } => !!p.id)
-          .map(p => ({ id: p.id, name: p.name } satisfies ProjectOption)),
-      ),
-    );
-  }
+  return this.getAllProjects(100, 0).pipe(
+    map(res => {
+      return res.body || [];
+    })
+  );
+}
 
   getProjectById(id: string) {
     return this.http

@@ -30,8 +30,7 @@ export const routes: Routes = [
       },
       {
         path: 'my-statistics',
-        component: StatisticsComponent,
-        title: 'My Statistics',
+        loadComponent: () => import('./features/statistics/statistics.component').then(c => c.StatisticsComponent)
       },
     ],
   },

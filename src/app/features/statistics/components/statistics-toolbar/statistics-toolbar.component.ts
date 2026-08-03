@@ -1,4 +1,3 @@
-// statistics-toolbar.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProjectOption, StatusOption } from '../../statistics.model';
@@ -33,7 +32,7 @@ export class StatisticsToolbarComponent {
 
   onRangeApply(range: AppliedRange) {
     this.rangeApply.emit(range);
-    this.closeDatePicker.emit(); // Close picker after applying
+    this.closeDatePicker.emit();
   }
 
   onProjectChange(event: Event) {
