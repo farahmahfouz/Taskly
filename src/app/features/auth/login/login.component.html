@@ -29,7 +29,11 @@
 
       <div class="flex justify-between">
         <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 cursor-pointer accent-gray-800" formControlName="rememberMe" />
+          <input
+            type="checkbox"
+            class="w-4 h-4 cursor-pointer appearance-none rounded border border-[#C3C6D6] bg-surface-low checked:bg-surface-highest checked:border-[#C3C6D6] relative checked:after:content-['✔'] checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-white checked:after:text-xs"
+            formControlName="rememberMe"
+          />
           <span class="text-xs weight-medium leading-xs text-dark">Remember Me</span>
         </label>
 
