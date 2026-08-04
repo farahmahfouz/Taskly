@@ -64,6 +64,7 @@ export class ProjectComponent extends PaginationBase implements OnInit {
           const newProjects = res.body ?? [];
 
           this.projects = loadMore ? [...this.projects, ...newProjects] : newProjects;
+          // this.projects = [];
           const contentRange = res.headers.get('Content-Range');
 
           this.totalCount = Number(contentRange?.split('/')[1] ?? 0);
