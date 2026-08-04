@@ -1,16 +1,10 @@
 <aside
-  class="sidebar fixed top-0 left-0 min-h-screen bg-surface-low flex-col gap-2 p-4 items-center justify-between text-xs text-neutral-dark weight-medium leading-xs flex"
+  class="sidebar fixed top-0 z-10 left-0 min-h-dvh bg-surface-low flex-col gap-2 p-4 items-center justify-between text-xs text-neutral-dark weight-medium leading-xs flex"
   [class.collapsed]="collapsed"
   [class.mobile-open]="mobileOpen"
 >
   <div>
-    <div
-      class="h-17 w-full gap-2 flex items-center justify-start pl-1"
-      [class.lg:justify-center]="collapsed"
-      [class.lg:justify-start]="!collapsed"
-      [class.lg:px-2]="!collapsed"
-      [class.lg:gap-2]="!collapsed"
-    >
+    <div class="h-17 w-full gap-2 flex items-center pl-1">
       <svg icon-logo class="text-primary size-5"></svg>
 
       @if (isMobile || !collapsed) {
@@ -68,7 +62,7 @@
     >
       @if (isMobile || !collapsed) {
         <svg icon-collapse class="size-5"></svg>
-        <span class="hidden lg:block">Collapse</span>
+        <span class="hidden md:block">Collapse</span>
       } @else {
         <svg icon-collapse-open class="size-5"></svg>
       }
@@ -76,7 +70,7 @@
     <div
       class="flex gap-2 p-2 text-error cursor-pointer justify-start lg:justify-center"
       [class.lg:justify-start]="!collapsed"
-      (click)="logout($event)"
+      (click)="logout()"
     >
       <svg icon-logout class="w-4.5 h-4.5 text-error"></svg>
       @if (isMobile || !collapsed) {

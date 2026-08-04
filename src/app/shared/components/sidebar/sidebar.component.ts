@@ -76,8 +76,7 @@ export class SidebarComponent {
     this.mobileOpenChange.emit(false);
   }
 
-  logout(event: MouseEvent) {
-    event.stopPropagation();
+  logout() {
     this.authService.logout().subscribe({
       next: () => {
         this.router.navigate(['/login']);
