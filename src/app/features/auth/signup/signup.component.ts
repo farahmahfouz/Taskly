@@ -121,7 +121,6 @@ export class SignupComponent implements OnInit {
     this.errorMessage = '';
     this.authService.signUp(body).subscribe({
       next: res => {
-        console.log(res);
         this.isLoading = false;
         this.router.navigate(['/project']);
       },

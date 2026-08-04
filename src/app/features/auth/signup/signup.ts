@@ -26,3 +26,5 @@ export interface SignUpResponse {
   expires_in: number;
   token_type: string;
 }
+
+

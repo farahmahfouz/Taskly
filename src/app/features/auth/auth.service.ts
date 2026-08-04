@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GetUserResponse, SignUpRequest, SignUpResponse } from '../../features/auth/signup/signup';
 import { LoginRequest, LoginResponse } from '../../features/auth/login/login';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, tap } from 'rxjs';
 import { API, STORAGE_KEYS } from '../../core/utils/constants';
 
 export interface CurrentUser {
@@ -22,15 +22,17 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   signUp(body: SignUpRequest) {
-    return this.http
-      .post<SignUpResponse>(`${API.AUTH}/signup`, body)
-      .pipe(tap(res => this.rememberMe(res, false)));
+    return this.http.post<SignUpResponse>(`${API.AUTH}/signup`, body).pipe(
+      tap(res => this.saveTokens(res, sessionStorage)),
+      switchMap(() => this.getUser()),
+    );
   }
 
   login(body: LoginRequest, rememberMeValue: boolean) {
-    return this.http
-      .post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body)
-      .pipe(tap(res => this.rememberMe(res, rememberMeValue)));
+    return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
+      tap(res => this.rememberMe(res, rememberMeValue)),
+      switchMap(() => this.getUser()),
+    );
   }
 
   getUser() {
@@ -62,8 +64,7 @@ export class AuthService {
           const storage = localStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY)
             ? localStorage
             : sessionStorage;
-          storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
-          storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
+          this.saveTokens(res, storage);
         }),
       );
   }
@@ -105,10 +106,15 @@ export class AuthService {
     return this.http.post(`${API.AUTH}/logout`, {}).pipe(tap(() => this.clearSession()));
   }
 
-  private rememberMe(res: LoginResponse, rememberMe: boolean) {
-    const storage = rememberMe ? localStorage : sessionStorage;
+  private saveTokens(res: LoginResponse, storage: Storage) {
     storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
     storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
+  }
+
+  private rememberMe(res: LoginResponse, rememberMe: boolean) {
+    const storage = rememberMe ? localStorage : sessionStorage;
+
+    this.saveTokens(res, storage);
 
     if (rememberMe) {
       const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;

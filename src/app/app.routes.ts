@@ -5,14 +5,12 @@ import { LayoutComponent } from './shared/components/layout/layout.component';
 import { authGuard } from './core/Guards/auth.guard';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password.component';
-import { guestGuard } from './core/Guards/guest.guard';
 import { AcceptInvitationComponent } from './features/members/accept-invitation/accept-invitation.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: SignupComponent,
-    canActivate: [guestGuard],
     title: 'Sign Up',
     data: { description: 'Create your TASKLY account and start managing your projects and tasks' }
   },
@@ -20,7 +18,6 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [guestGuard],
     title: 'Login',
     data: { description: 'Log in to your TASKLY account to manage your projects and tasks' }
   },
