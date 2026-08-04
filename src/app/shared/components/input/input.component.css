@@ -36,6 +36,9 @@
   color: var(--color-neutral-mid);
   text-transform: uppercase;
   transition: color 0.15s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .has-error .control-label {
@@ -106,11 +109,45 @@
 @media (min-width: 48rem) {
   .leading-icon {
     left: auto;
-    right: 16px; 
+    right: 16px;
   }
 
   .input.has-leading-icon {
-    padding-left: 0.875rem; 
+    padding-left: 0.875rem;
     padding-right: 50px;
+  }
+}
+
+.login-form .leading-icon {
+  left: auto;
+  right: 16px;
+}
+.login-form .input.has-leading-icon {
+  padding-left: 0.875rem;
+  padding-right: 50px;
+}
+
+@media (min-width: 48rem) {
+  .login-form .leading-icon {
+    display: none;
+  }
+  .login-form .input.has-leading-icon {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+}
+.label-text--mobile {
+  display: inline;
+}
+.label-text--desktop {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .label-text--mobile {
+    display: none;
+  }
+  .label-text--desktop {
+    display: inline;
   }
 }

@@ -4,20 +4,25 @@
   your workspace"
   titleClass="text-center"
   descriptionClass="text-center max-w-60 mx-auto md:max-w-none"
-  hightClass="pt-[104px] md:pt-[147px] md:pb-[147px] min-h-[90vh] md:min-h-auto"
+  hightClass="pt-[104px] md:py-[clamp(1.5rem,14.36dvh,9.1875rem)] min-h-[90vh] md:min-h-auto"
   contentClass="p-6 md:p-12 max-w-120"
 >
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="flex flex-col gap-6">
-      <app-input
-        label="Email"
-        placeholder="yourname@company.com"
-        type="email"
-        formControlName="email"
-        [errorMessage]="getError('email')"
-      />
+      <div class="login-form">
+        <app-input
+          [showEmailIcon]="true"
+          label="Email"
+          mobileLabel="Email Address"
+          placeholder="yourname@company.com"
+          type="email"
+          formControlName="email"
+          [errorMessage]="getError('email')"
+        />
+      </div>
 
       <app-input
+        [forgot]="true"
         label="Password"
         placeholder="Password"
         [showPasswordToggle]="true"
@@ -37,7 +42,9 @@
           <span class="text-xs weight-medium leading-xs text-dark">Remember Me</span>
         </label>
 
-        <a class="text-primary text-xs weight-medium leading-xs" routerLink="/forgot-password">Forgot Password?</a>
+        <a class="text-primary text-xs weight-medium leading-xs hidden md:block" routerLink="/forgot-password"
+          >Forgot Password?</a
+        >
       </div>
       <button class="btn btn-primary">
         @if (isLoading) {

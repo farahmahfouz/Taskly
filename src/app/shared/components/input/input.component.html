@@ -1,12 +1,20 @@
 <div [class.has-error]="!!errorMessage" [class.horizontal]="horizontal">
   <label class="control-label">
-    {{ label }}
+    <span class="label-text label-text--mobile">{{ mobileLabel || label }}</span>
+    <span class="label-text label-text--desktop">{{ label }}</span>
+    
     @if (required) {
       <span class="text-error ml-1">*</span>
     }
 
     @if (optional) {
       <span class="text-[#737685]">(Optional)</span>
+    }
+
+    @if (forgot) {
+      <a class="text-primary text-2xs weight-bold leading-xs block md:hidden capitalize" routerLink="/forgot-password"
+        >Forgot?</a
+      >
     }
   </label>
 
@@ -15,6 +23,7 @@
       @if (showEmailIcon) {
         <svg icon-email class="leading-icon size-5 text-[#737685]"></svg>
       }
+
       <input
         class="input"
         [type]="inputType"

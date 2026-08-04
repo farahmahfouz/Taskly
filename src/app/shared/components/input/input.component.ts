@@ -40,6 +40,8 @@ export class InputComponent implements ControlValueAccessor {
   @Input() hint = '';
   @Input() required = false;
   @Input() showEmailIcon = false;
+  @Input() forgot = false;
+  @Input() mobileLabel = '';
 
   value = '';
 
