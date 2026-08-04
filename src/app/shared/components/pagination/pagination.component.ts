@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { EditIconComponent } from '../../icons/edit-icon.component';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [],
+  imports: [EditIconComponent],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,8 +17,22 @@ export class PaginationComponent {
 
   @Output() pageChange = new EventEmitter<number>();
 
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  get firstPages(): number[] {
+    const pages: number[] = [];
+
+    if (this.totalPages <= 1) {
+      return [];
+    }
+    const maxStart = Math.max(1, this.totalPages - 2); // last number i should start with
+    let start = this.currentPage === 1 ? 1 : this.currentPage - 1;
+    start = Math.min(start, maxStart); // tp start from last number
+
+    const end = Math.min(start + 1, this.totalPages - 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   previousPage() {

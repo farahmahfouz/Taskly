@@ -4,11 +4,19 @@
   <div class="pagination">
     <button (click)="previousPage()" [disabled]="currentPage === 1">‹</button>
 
-    @for (page of pages; track page) {
+    @for (page of firstPages; track page) {
       <button (click)="goToPage(page)" [class.active]="page === currentPage">
         {{ page }}
       </button>
     }
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="flex justify-center items-center">
+      <svg icon-edit class="text-dark/70 size-3 rotate-90"></svg>
+    </button>
+
+    <button (click)="goToPage(totalPages)" [class.active]="totalPages === currentPage">
+      {{ totalPages }}
+    </button>
 
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">›</button>
   </div>
