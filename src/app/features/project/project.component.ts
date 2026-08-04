@@ -13,7 +13,6 @@ import { ProjectContextService } from '../../core/services/project-context.servi
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
 import { LoaderComponent } from "../../shared/components/loader/loader.component";
-import { PlusCircleIconComponent } from "../../shared/icons/plus-circle-icon.component";
 
 @Component({
   selector: 'app-project',
@@ -26,8 +25,7 @@ import { PlusCircleIconComponent } from "../../shared/icons/plus-circle-icon.com
     EmptyProjectsComponent,
     InfinteScrollDirective,
     ErrorPageComponent,
-    LoaderComponent,
-    PlusCircleIconComponent
+    LoaderComponent
 ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
