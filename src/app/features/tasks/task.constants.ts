@@ -18,7 +18,6 @@ export interface TaskStatusConfig {
   cardClass: string;
   dateClass: string;
   icon: 'date' | 'warning';
-  showAddTask: boolean,
 }
 
 export const TASK_STATUSES: TaskStatusConfig[] = [
@@ -30,7 +29,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-[#94A3B8]',
     icon: 'date',
-    showAddTask: true,
   },
   {
     value: 'IN_PROGRESS',
@@ -40,7 +38,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border-l-3 border-primary',
     dateClass: 'text-primary',
     icon: 'date',
-    showAddTask: true,
   },
   {
     value: 'BLOCKED',
@@ -50,7 +47,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-[#FFDAD633] border border-[#BA1A1A1A]',
     dateClass: 'text-error',
     icon: 'warning',
-    showAddTask: true,
   },
   {
     value: 'IN_REVIEW',
@@ -60,7 +56,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-[#94A3B8]',
     icon: 'date',
-    showAddTask: false,
   },
   {
     value: 'READY_FOR_QA',
@@ -70,7 +65,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-[#94A3B8]',
     icon: 'date',
-    showAddTask: false
   },
   {
     value: 'REOPENED',
@@ -80,7 +74,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-[#94A3B8]',
     icon: 'date',
-    showAddTask: false,
   },
   {
     value: 'READY_FOR_PRODUCTION',
@@ -90,7 +83,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-[#94A3B8]',
     icon: 'date',
-    showAddTask: false,
   },
   {
     value: 'DONE',
@@ -100,7 +92,6 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
     cardClass: 'bg-white border border-[#C3C6D61A]',
     dateClass: 'text-green-600',
     icon: 'date',
-    showAddTask: false,
   },
 ];
 
