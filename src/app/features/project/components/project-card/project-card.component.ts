@@ -2,16 +2,17 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Project } from '../../project.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
 import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 import { TooltipDirective } from '../../../../shared/directives/tooltip.directive';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { DateIconComponent } from "../../../../shared/icons";
+import { PinIconComponent } from "../../../../shared/icons/pin-icon.component";
+import { EditIconComponent } from "../../../../shared/icons/edit-icon.component";
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [DatePipe, EditIconComponent, ClickOutsideDirective, TooltipDirective, DateIconComponent],
+  imports: [DatePipe, ClickOutsideDirective, TooltipDirective, DateIconComponent, PinIconComponent, EditIconComponent],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
