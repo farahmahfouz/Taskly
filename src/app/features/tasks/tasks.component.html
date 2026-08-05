@@ -29,17 +29,19 @@
       <div class="hidden md:flex">
         <app-select [options]="viewOptions" [(value)]="currentView" (valueChange)="changeView($event)"></app-select>
       </div>
-      <div class="bg-surface-highest rounded-xs p-2 self-center h-7 md:flex hidden">
-        <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 12V10H11V12H7ZM3 7V5H15V7H3ZM0 2V0H18V2H0Z" fill="#041B3C" />
-        </svg>
-      </div>
+      @if (currentView === 'board') {
+        <div class="bg-surface-highest rounded-xs p-2 self-center h-7 md:flex hidden">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 12V10H11V12H7ZM3 7V5H15V7H3ZM0 2V0H18V2H0Z" fill="#041B3C" />
+          </svg>
+        </div>
+      }
     </div>
   </div>
 
   @if (!isMobile) {
     <div class="overflow-x-auto pb-4">
-      <div class="flex gap-6" [class.w-max]="currentView === 'board'" [class.w-full]="currentView === 'table'">
+      <div class="flex gap-6" [class.w-full]="currentView === 'table'">
         @if (currentView === 'board') {
           @for (status of statuses; track status.value) {
             <app-tasks-board-view [status]="status" [search]="search ?? ''" />
@@ -60,15 +62,23 @@
   }
 
   @if (isMobile) {
-    <div class="pb-20">
-      <a
-        [routerLink]="['/project', projectId, 'tasks', 'new']"
-        class="btn btn-primary weight-semibold text-xs py-2 rounded-xs flex items-center justify-center mb-6"
-      >
-        + Create task
-      </a>
-      <app-tasks-mobile-view [search]="search ?? ''" />
-    </div>
+    @if (currentView === 'table') {
+      <div class="pb-20">
+        <a
+          [routerLink]="['/project', projectId, 'tasks', 'new']"
+          class="btn btn-primary weight-semibold text-xs py-2 rounded-xs flex items-center justify-center mb-6"
+        >
+          + Create task
+        </a>
+        <app-tasks-mobile-view [search]="search ?? ''" />
+      </div>
+    } @else {
+      <div class="overflow-x-scroll flex gap-4">
+        @for (status of statuses; track status.value) {
+          <app-tasks-board-view [status]="status" [search]="search ?? ''" />
+        }
+      </div>
+    }
   }
 </div>
 

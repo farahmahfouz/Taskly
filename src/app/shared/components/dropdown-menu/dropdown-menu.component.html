@@ -1,10 +1,15 @@
 <div class="absolute right-0 bg-white shadow-lg rounded-lg z-50" [class]="top + ' ' + width">
   @for (item of items; track item.label) {
     <button
-      class="w-full flex items-center gap-2 px-4 py-2 text-left cursor-pointer hover:bg-neutral-light/20"
+      class="w-full flex items-center gap-2 px-4 py-2 weight-semibold text-xs text-left cursor-pointer hover:bg-neutral-light/20"
       [class.text-error]="item.danger"
       (click)="item.action()"
     >
+      @switch (item.icon) {
+        @case ('logout') {
+          <svg icon-logout class="size-4"></svg>
+        }
+      }
       {{ item.label }}
     </button>
   }

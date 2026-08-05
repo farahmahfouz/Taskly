@@ -6,14 +6,17 @@
   } @else {
     <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
-        <app-breadcrumb/>
-        
+        <app-breadcrumb />
+
         <h1 class="text-3xl font-semibold text-neutral-dark text-center md:text-start pt-4 md:pt-0">
           Projects Members
         </h1>
       </div>
 
-      <a class="btn btn-primary bg-gradient-primary hidden md:flex" (click)="isOpen = true"> Invite Members </a>
+      <button class="btn btn-primary bg-gradient-primary hidden md:flex items-center gap-1" (click)="isOpen = true">
+        <svg icon-invite-members class="text-white size-4"></svg>
+        Invite Members
+      </button>
     </header>
 
     <div class="bg-white rounded-lg md:border-4 border-[#F1F3FF] overflow-hidden md:w-197.25 md:mx-auto md:my-16">
@@ -41,7 +44,7 @@
                 {{ member.metadata.name }}
               </span>
 
-              <span class="text-[12px] text-dark weight-regular leading-3">
+              <span class="text-3xs text-dark weight-regular leading-3">
                 {{ member.email }}
               </span>
             </div>

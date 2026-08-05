@@ -10,6 +10,7 @@ import { ErrorPageComponent } from '../../shared/components/error-page/error-pag
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
 import { InviteMembersComponent } from './components/invite-members/invite-members.component';
+import { InviteMembersIconComponent } from "../../shared/icons/invite-memners-icon.component";
 
 @Component({
   selector: 'app-members',
@@ -22,6 +23,7 @@ import { InviteMembersComponent } from './components/invite-members/invite-membe
     InitialsPipe,
     BreadcrumbComponent,
     InviteMembersComponent,
+    InviteMembersIconComponent
 ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',

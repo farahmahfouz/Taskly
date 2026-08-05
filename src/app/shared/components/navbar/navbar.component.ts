@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
       label: 'Logout',
       danger: true,
       action: () => this.logout(),
+      icon: 'logout'
     },
   ];
 
