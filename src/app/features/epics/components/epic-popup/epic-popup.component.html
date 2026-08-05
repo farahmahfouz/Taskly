@@ -39,7 +39,7 @@
             >
               {{ epic?.created_by!.name | initials }}
             </div>
-            <span class="text-[12px] md:text-xs leading-xs text-neutral-dark weight-medium">{{
+            <span class="text-3xs md:text-xs leading-xs text-neutral-dark weight-medium">{{
               epic?.created_by?.name
             }}</span>
           </div>
@@ -88,7 +88,7 @@
                 type="date"
                 formControlName="deadline"
                 (change)="updateField('deadline')"
-                class="text-[12px] md:text-xs weight-medium text-neutral-dark leading-xs focus:outline-none"
+                class="text-3xs md:text-xs weight-medium text-neutral-dark leading-xs focus:outline-none"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@
           <div class="section-title">CREATED AT</div>
           <div class="flex items-center gap-2">
             <svg icon-date class="size-3.5 text-neutral-light"></svg>
-            <span class="text-[12px] md:text-xs weight-medium text-neutral-dark leading-xs">{{
+            <span class="text-3xs md:text-xs weight-medium text-neutral-dark leading-xs">{{
               epic?.created_at | date: 'longDate'
             }}</span>
           </div>

@@ -168,6 +168,7 @@ export class EpicPopupComponent implements OnInit {
               department: '',
             },
           };
+          this.epicsService.updateEpicInStore(this.epic);
         },
         error: () => {
           this.epicForm.patchValue({ [field]: previousValue });
