@@ -1,6 +1,6 @@
 import { Component, DestroyRef } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../project.service';
 import { CreateProjectPayload } from '../../project.model';
 import { ToastService } from '../../../../core/services/toast.service';
@@ -10,6 +10,7 @@ import { InputComponent } from '../../../../shared/components/input/input.compon
 import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
 import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
 import { BreadcrumbComponent } from "../../../../shared/components/breadcrumb/breadcrumb.component";
+import { IdeaIconComponent } from '../../../../shared/icons/idea-icon.component';
 
 @Component({
   selector: 'app-project-form',
@@ -20,7 +21,8 @@ import { BreadcrumbComponent } from "../../../../shared/components/breadcrumb/br
     ReactiveFormsModule,
     VerifiedIconComponent,
     ErrorIconComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    IdeaIconComponent
 ],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
