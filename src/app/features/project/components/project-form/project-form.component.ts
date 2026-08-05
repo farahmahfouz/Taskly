@@ -9,8 +9,9 @@ import { TextareaComponent } from '../../../../shared/components/textarea/textar
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
 import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
-import { BreadcrumbComponent } from "../../../../shared/components/breadcrumb/breadcrumb.component";
+import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
 import { IdeaIconComponent } from '../../../../shared/icons/idea-icon.component';
+import { getControlError } from '../../../../core/utils/form-error.util';
 
 @Component({
   selector: 'app-project-form',
@@ -22,8 +23,8 @@ import { IdeaIconComponent } from '../../../../shared/icons/idea-icon.component'
     VerifiedIconComponent,
     ErrorIconComponent,
     BreadcrumbComponent,
-    IdeaIconComponent
-],
+    IdeaIconComponent,
+  ],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
 })
@@ -47,6 +48,10 @@ export class ProjectFormComponent {
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     description: ['', [Validators.maxLength(500)]],
   });
+
+  getError(controlName: string): string {
+    return getControlError(this.projectForm.get(controlName));
+  }
 
   ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get('id');

@@ -65,6 +65,7 @@
 .server-error {
   display: block;
   font-size: 12px;
+  font-weight: 500;
   color: var(--color-error);
 }
 

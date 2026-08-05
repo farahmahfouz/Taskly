@@ -21,7 +21,10 @@
     ></textarea>
 
     @if (maxLength) {
-      <p class="text-right text-2xs text-gray-400 mt-1.5 hidden md:block">{{ value.length }} / {{ maxLength }} characters</p>
+      <p class="text-right text-2xs weight-medium text-neutral-mid mt-1.5 hidden md:block">{{ value.length }} / {{ maxLength }} characters</p>
+    }
+    @if (maxLength) {
+      <p class="text-right text-2xs weight-medium text-neutral-mid mt-1.5 block md:hidden">{{ value.length }} / {{ maxLength }}</p>
     }
   </div>
 </div>

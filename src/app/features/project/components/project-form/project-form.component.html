@@ -1,7 +1,13 @@
-<div class="min-h-screen">
+<div class="min-h-dvh">
   <app-breadcrumb />
 
-  <div class="w-full max-w-2xl mx-auto md:bg-white rounded-lg md:border border-[#F1F3FF] shadow-[#0000000D] md:mt-10">
+  <p class="weight-semibold text-neutral-dark text-[36px] leading-7.5 tracking-[-0.9px] hidden md:block">
+    {{ mode === 'edit' ? 'Edit Project' : 'Add New Project' }}
+  </p>
+
+  <div
+    class="w-full pt-4 md:pt-0 max-w-2xl mx-auto md:bg-white rounded-lg md:border border-[#F1F3FF] shadow-[#0000000D] md:mt-10"
+  >
     <div class="flex items-start gap-3 md:p-8 pb-5 md:pb-10">
       <div class="w-11.5 h-11 rounded-sm bg-surface-low md:flex items-center justify-center shrink-0 hidden">
         <svg icon-verified class="text-primary size-5.5" />
@@ -19,27 +25,13 @@
     <div class="border-t border-[#F1F3FF]"></div>
 
     <form class="md:p-6 flex flex-col gap-8" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-      <div>
-        <app-input label="project title" placeholder="******" formControlName="name" [required]="true" />
-
-        @if (projectForm.get('name')?.touched && projectForm.get('name')?.errors) {
-          <div class="flex items-center gap-1 mt-1">
-            <svg icon-error class="text-error size-3.5" />
-
-            @if (projectForm.get('name')?.hasError('required')) {
-              <p class="text-error text-2xs">Project title is required.</p>
-            }
-
-            @if (projectForm.get('name')?.hasError('minlength')) {
-              <p class="text-error text-2xs">Project title must be at least 3 characters.</p>
-            }
-
-            @if (projectForm.get('name')?.hasError('maxlength')) {
-              <p class="text-error text-2xs">Project title cannot exceed 100 characters.</p>
-            }
-          </div>
-        }
-      </div>
+      <app-input
+        label="project title"
+        placeholder="******"
+        formControlName="name"
+        [required]="true"
+        [errorMessage]="getError('name')"
+      />
 
       <div>
         <app-textarea
@@ -53,7 +45,7 @@
         @if (projectForm.get('description')?.touched && projectForm.get('description')?.hasError('maxlength')) {
           <div class="flex items-center gap-1 mt-1">
             <svg icon-error class="text-error size-3.5" />
-            <p class="text-error text-2xs">Description cannot exceed 500 characters.</p>
+            <p class="text-error weight-medium text-2xs">Description cannot exceed 500 characters.</p>
           </div>
         }
       </div>
