@@ -1,27 +1,112 @@
-# Taskly
+# Taskly — Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Taskly is a project management system allows teams to organize their work through Epics, Tasks, and Projects, invite and manage team members, and track progress through built-in statistics.
 
-## Development server
+## ✨ Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Authentication**
+  - Sign up
+  - Login
+  - Forgot password
+  - Reset password
+- **Epics** — group related tasks under larger initiatives
+- **Tasks** — create, assign, and track individual work items
+- **Projects** — organize epics and tasks under projects
+- **Members** — invite and manage team members
+- **Statistics** — visualize project and team progress
 
-## Code scaffolding
+## 🛠️ Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Framework:** Angular 17
+- **Styling:** Tailwind CSS v4 (via `@tailwindcss/postcss`)
+- **Language:** TypeScript
+- **Reactive programming:** RxJS
+- **Linting/Formatting:** ESLint + Prettier
 
-## Build
+## 📁 Project Structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+app/
+├── core/
+│   ├── Guards/
+│   ├── interceptors/
+│   ├── services/
+│   └── utils/
+├── features/
+│   ├── auth/
+│   ├── epics/
+│   │   ├── components/
+│   │   ├── epic.model.ts
+│   │   ├── epics.component.ts
+│   │   ├── epics.component.html
+│   │   ├── epics.component.css
+│   │   └── epics.service.ts
+│   ├── members/
+│   ├── project/
+│   ├── statistics/
+│   └── tasks/
+└── shared/
+    ├── classes/
+    ├── components/
+    ├── directives/
+    ├── icons/
+    └── pipes/
+```
 
-## Running unit tests
+- **core/** — app-wide singletons: guards, interceptors, services, and utility helpers.
+- **features/** — one folder for every single page(auth, epics, members, project, statistics, tasks), each following the same internal pattern: `component` + `service` + `model`.
+- **shared/** — reusable building blocks (UI components, directives, pipes, icons, base classes) used across components.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🚀 Getting Started
 
-## Running end-to-end tests
+### Prerequisites
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Node.js
+- pnpm (`npm install -g pnpm`)
+- Angular CLI (`pnpm add -g @angular/cli`)
 
-## Further help
+### Installation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+git clone <https://github.com/farahmahfouz/Taskly.git>
+cd taskly
+pnpm install
+```
+
+### Development server
+
+```bash
+cd taskly
+pnpm dev
+```
+
+Navigate to `http://localhost:3000/` 
+
+### Build
+
+```bash
+pnpm build
+```
+
+### Watch mode (development build)
+
+```bash
+pnpm watch
+```
+
+### Linting
+
+```bash
+pnpm lint
+```
+
+### Formatting
+
+```bash
+pnpm format        # auto-format
+pnpm format:check  # check formatting only
+```
+
+## 📄 License
+
+All rights reserved to Farah Mahfouz.
