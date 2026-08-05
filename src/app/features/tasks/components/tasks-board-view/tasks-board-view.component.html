@@ -1,85 +1,86 @@
-<div class="flex flex-col flex-none w-72 gap-6">
-  <!-- Header -->
-  <div class="flex justify-between items-center">
-    <div class="flex items-center gap-2">
-      <div class="w-2 h-2 rounded-full" [class]="status().dotColor"></div>
+  <div class="flex flex-col flex-none w-72 gap-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full" [class]="status().dotColor"></div>
 
-      <p class="text-2xs weight-bold tracking-wide uppercase text-[#64748B]">
-        {{ status().label }}
-      </p>
+        <p class="text-2xs weight-bold tracking-wide uppercase text-[#64748B]">
+          {{ status().label }}
+        </p>
 
-      <span class="rounded-2xs px-1.5 py-0.5 text-2xs weight-bold" [class]="status().badgeClass">
-        {{ tasks.length }}
-      </span>
+        <span class="rounded-2xs px-1.5 py-0.5 text-2xs weight-bold" [class]="status().badgeClass">
+          {{ tasks.length }}
+        </span>
+      </div>
+      <a [routerLink]="['/project', projectId, 'tasks', 'new']" [queryParams]="{ status: status().value }">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6H0V4.5H4.5V0H6V4.5H10.5V6H6V10.5H4.5V6Z" fill="#94A3B8" />
+        </svg>
+      </a>
     </div>
-    <a [routerLink]="['/project', projectId, 'tasks', 'new']" [queryParams]="{ status: status().value }">
-      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4.5 6H0V4.5H4.5V0H6V4.5H10.5V6H6V10.5H4.5V6Z" fill="#94A3B8" />
+
+    <a
+      [routerLink]="['/project', projectId, 'tasks', 'new']"
+      [queryParams]="{ status: status().value }"
+      class="border-2 border-dashed border-[#C3C6D64D] rounded-sm py-4 flex items-center justify-center gap-2 text-3xs weight-bold text-neutral-grey leading-2xs tracking-wide uppercase"
+    >
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.75 11.25H8.25V8.25H11.25V6.75H8.25V3.75H6.75V6.75H3.75V8.25H6.75V11.25ZM7.5 15C6.4625 15 5.4875 14.8031 4.575 14.4094C3.6625 14.0156 2.86875 13.4812 2.19375 12.8062C1.51875 12.1312 0.984375 11.3375 0.590625 10.425C0.196875 9.5125 0 8.5375 0 7.5C0 6.4625 0.196875 5.4875 0.590625 4.575C0.984375 3.6625 1.51875 2.86875 2.19375 2.19375C2.86875 1.51875 3.6625 0.984375 4.575 0.590625C5.4875 0.196875 6.4625 0 7.5 0C8.5375 0 9.5125 0.196875 10.425 0.590625C11.3375 0.984375 12.1312 1.51875 12.8062 2.19375C13.4812 2.86875 14.0156 3.6625 14.4094 4.575C14.8031 5.4875 15 6.4625 15 7.5C15 8.5375 14.8031 9.5125 14.4094 10.425C14.0156 11.3375 13.4812 12.1312 12.8062 12.8062C12.1312 13.4812 11.3375 14.0156 10.425 14.4094C9.5125 14.8031 8.5375 15 7.5 15Z"
+          fill="#434654"
+          fill-opacity="0.6"
+        />
       </svg>
+
+      Add New Task
     </a>
-  </div>
 
-  <a
-    [routerLink]="['/project', projectId, 'tasks', 'new']"
-    [queryParams]="{ status: status().value }"
-    class="border-2 border-dashed border-[#C3C6D64D] rounded-sm py-4 flex items-center justify-center gap-2 text-3xs weight-bold text-neutral-grey leading-2xs tracking-wide uppercase"
-  >
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M6.75 11.25H8.25V8.25H11.25V6.75H8.25V3.75H6.75V6.75H3.75V8.25H6.75V11.25ZM7.5 15C6.4625 15 5.4875 14.8031 4.575 14.4094C3.6625 14.0156 2.86875 13.4812 2.19375 12.8062C1.51875 12.1312 0.984375 11.3375 0.590625 10.425C0.196875 9.5125 0 8.5375 0 7.5C0 6.4625 0.196875 5.4875 0.590625 4.575C0.984375 3.6625 1.51875 2.86875 2.19375 2.19375C2.86875 1.51875 3.6625 0.984375 4.575 0.590625C5.4875 0.196875 6.4625 0 7.5 0C8.5375 0 9.5125 0.196875 10.425 0.590625C11.3375 0.984375 12.1312 1.51875 12.8062 2.19375C13.4812 2.86875 14.0156 3.6625 14.4094 4.575C14.8031 5.4875 15 6.4625 15 7.5C15 8.5375 14.8031 9.5125 14.4094 10.425C14.0156 11.3375 13.4812 12.1312 12.8062 12.8062C12.1312 13.4812 11.3375 14.0156 10.425 14.4094C9.5125 14.8031 8.5375 15 7.5 15Z"
-        fill="#434654"
-        fill-opacity="0.6"
-      />
-    </svg>
+    <div
+      class="flex flex-col gap-3 cursor-pointer overflow-y-scroll max-h-87.5 custom-scrollbar board-column"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      @if (tasks.length) {
+        @for (task of tasks; track task.id) {
+          <div
+            class="task-card w-full rounded-sm p-4 shadow-[0px_2px_8px_0px_#00000005] flex flex-col gap-3"
+            [class]="status().cardClass"
+            draggable="true"
+            (dragstart)="onDragStart($event, task)"
+            (click)="onRowClick(task)"
+          >
+            <p class="text-xs weight-medium text-neutral-dark leading-5">
+              {{ task.title }}
+            </p>
 
-    Add New Task
-  </a>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1 text-2xs weight-bold" [class]="status().dateClass">
+                @if (status().icon === 'warning') {
+                  <svg icon-warning class="size-3"></svg>
 
-  <div
-    class="flex flex-col gap-3 cursor-pointer overflow-y-scroll max-h-87.5 custom-scrollbar board-column"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-    (drop)="onDrop($event)"
-  >
-    @if (tasks.length) {
-      @for (task of tasks; track task.id) {
-        <div
-          class="task-card w-full rounded-sm p-4 shadow-[0px_2px_8px_0px_#00000005] flex flex-col gap-3"
-          [class]="status().cardClass"
-          draggable="true"
-          (dragstart)="onDragStart($event, task)"
-          (click)="onRowClick(task)"
-        >
-          <p class="text-xs weight-medium text-neutral-dark leading-5">
-            {{ task.title }}
-          </p>
+                  <span>DELAYED</span>
+                } @else {
+                  <svg icon-date class="size-3"></svg>
 
-          <div class="flex justify-between items-center">
-            <div class="flex items-center gap-1 text-2xs weight-bold" [class]="status().dateClass">
-              @if (status().icon === 'warning') {
-                <svg icon-warning class="size-3"></svg>
+                  <span>
+                    {{ task.due_date | date: 'MMM d' }}
+                  </span>
+                }
+              </div>
 
-                <span>DELAYED</span>
-              } @else {
-                <svg icon-date class="size-3"></svg>
-
-                <span>
-                  {{ task.due_date | date: 'MMM d' }}
-                </span>
-              }
-            </div>
-
-            <div
-              class="w-6 h-6 rounded-full bg-[#CDDDFF] border border-white flex items-center justify-center text-[10px] weight-bold"
-            >
-              {{ task.created_by.name | initials }}
+              <div
+                class="w-6 h-6 rounded-full bg-[#CDDDFF] border border-white flex items-center justify-center text-[10px] weight-bold"
+              >
+                {{ task.created_by.name | initials }}
+              </div>
             </div>
           </div>
-        </div>
+        }
       }
-    }
-    @if (!isLoading && !isError) {
-      <div class="h-1" appInfinteScroll (scrolled)="loadMore()"></div>
-    }
+      @if (!isLoading && !isError) {
+        <div class="h-1" appInfinteScroll (scrolled)="loadMore()"></div>
+      }
+    </div>
   </div>
-</div>
+
