@@ -83,10 +83,10 @@ export class EpicFormComponent implements OnInit {
 
     const body: CreateEpicRequest = {
       title: this.epicForm.value.title!,
-      description: this.epicForm.value.description || '',
-      assignee_id: this.epicForm.value.assignee || '',
+      description: this.epicForm.value.description || null,
+      assignee_id: this.epicForm.value.assignee || null,
       project_id: this.projectId,
-      deadline: this.epicForm.value.deadline || '',
+      deadline: this.epicForm.value.deadline || null,
     };
 
     this.epicsService

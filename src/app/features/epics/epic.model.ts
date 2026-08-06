@@ -1,9 +1,9 @@
 export interface CreateEpicRequest {
   title: string;
-  description?: string;
-  assignee_id?: string;
+  description?: string | null;
+  assignee_id?: string | null;
   project_id: string;
-  deadline?: string;
+  deadline?: string | null;
 }
 
 export interface Epic {
