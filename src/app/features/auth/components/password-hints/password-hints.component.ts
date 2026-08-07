@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 export interface PasswordHint {
   label: string;
@@ -7,7 +8,7 @@ export interface PasswordHint {
 @Component({
   selector: 'app-password-hints',
   standalone: true,
-  imports: [],
+  imports: [IconComponent],
   templateUrl: './password-hints.component.html',
   styleUrl: './password-hints.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

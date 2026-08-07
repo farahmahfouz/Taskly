@@ -1,17 +1,17 @@
 import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService, CurrentUser } from '../../../features/auth/auth.service';
-import { MenuIconComponent } from '../../icons/Menu-icon.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { ToastService } from '../../../core/services/toast.service';
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
 import { InitialsPipe } from '../../pipes/initials.pipe';
+import { IconComponent } from '../../icons/icon.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenuIconComponent, ClickOutsideDirective, DropdownMenuComponent, InitialsPipe],
+  imports: [IconComponent, ClickOutsideDirective, DropdownMenuComponent, InitialsPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

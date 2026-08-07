@@ -4,7 +4,6 @@ import { EpicCardComponent } from './components/epic-card/epic-card.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EpicsService } from './epics.service';
 import { Epic } from './epic.model';
-import { SearchIconComponent } from '../../shared/icons';
 import { EmptyEpicsComponent } from './components/empty-epics/empty-epics.component';
 import { SkeltonEpicsComponent } from './components/skelton-epics/skelton-epics.component';
 import { HttpResponse } from '@angular/common/http';
@@ -17,6 +16,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
+import { IconComponent } from '../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-epics',
@@ -24,7 +24,6 @@ import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcru
   imports: [
     PaginationComponent,
     EpicCardComponent,
-    SearchIconComponent,
     EmptyEpicsComponent,
     SkeltonEpicsComponent,
     RouterLink,
@@ -33,7 +32,8 @@ import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcru
     ErrorPageComponent,
     ReactiveFormsModule,
     LoaderComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    IconComponent
 ],
   templateUrl: './epics.component.html',
   styleUrl: './epics.component.css',

@@ -4,22 +4,15 @@
   >
     <div class="grid grid-cols-2 gap-2">
       <div class="w-16 h-16 rounded-sm bg-[#0052CC33] flex items-center justify-center">
-        <svg icon-rocket class="text-primary size-5.5"></svg>
+        <svg icon="rocket" class="text-primary size-5.5"></svg>
       </div>
 
       <div class="w-16 h-16 rounded-sm bg-[#0052CC33] opacity-70 flex items-center justify-center">
-        <svg icon-architecture class="size-5.5 text-neutral-grey"></svg>
+        <svg class="size-5.75 text-neutral-grey opacity-[0.4]" icon="microphoneIcon"></svg>
       </div>
 
       <div class="w-16 h-16 rounded-sm bg-[#0052CC33] opacity-70 flex items-center justify-center">
-        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g opacity="0.4">
-            <path
-              d="M0 10V0H10V10H0ZM0 22.5V12.5H10V22.5H0ZM12.5 10V0H22.5V10H12.5ZM12.5 22.5V12.5H22.5V22.5H12.5ZM2.5 7.5H7.5V2.5H2.5V7.5ZM15 7.5H20V2.5H15V7.5ZM15 20H20V15H15V20ZM2.5 20H7.5V15H2.5V20Z"
-              fill="#737685"
-            />
-          </g>
-        </svg>
+        <svg icon="dashboard" class="text-neutral-grey-light size-5.75"></svg>
       </div>
 
       <div
@@ -39,12 +32,7 @@
   </p>
 
   <a [routerLink]="['/project', projectId, 'epics', 'new']" class="mt-10 btn btn-primary flex gap-1">
-    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M6.55 16.2L11.725 10H7.725L8.45 4.325L3.825 11H7.3L6.55 16.2ZM4 20L5 13H0L9 0H11L10 8H16L6 20H4Z"
-        fill="white"
-      />
-    </svg>
+    <svg class="h-5 w-4" icon="lightEpic"></svg>
 
     Create First Epic
   </a>
@@ -70,7 +58,7 @@
           {{ item.title }}
         </h3>
 
-        <p class="mt-1 text-[12px] leading-6 text-dark">
+        <p class="mt-1 text-3xs leading-6 text-dark">
           {{ item.description }}
         </p>
       </div>

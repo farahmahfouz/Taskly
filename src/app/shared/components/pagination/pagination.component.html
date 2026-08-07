@@ -11,7 +11,7 @@
     }
 
     <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="flex justify-center items-center">
-      <svg icon-edit class="text-dark/70 size-3 rotate-90"></svg>
+      <svg icon="ellipise" class="text-dark/70 size-3 rotate-90"></svg>
     </button>
 
     <button (click)="goToPage(totalPages)" [class.active]="totalPages === currentPage">

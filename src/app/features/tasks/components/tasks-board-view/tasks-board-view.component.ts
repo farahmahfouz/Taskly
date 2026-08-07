@@ -1,5 +1,4 @@
 import { Component, DestroyRef, effect, input, signal } from '@angular/core';
-import { DateIconComponent, WarningIconComponent } from '../../../../shared/icons';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { Task } from '../../task.constants';
@@ -12,6 +11,7 @@ import { PaginationBase } from '../../../../shared/classes/pagination.base';
 import { HttpResponse } from '@angular/common/http';
 import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
 import { ToastService } from '../../../../core/services/toast.service';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 const DRAG_DATA_KEY = 'application/json';
 
@@ -19,12 +19,11 @@ const DRAG_DATA_KEY = 'application/json';
   selector: 'app-tasks-board-view',
   standalone: true,
   imports: [
-    DateIconComponent,
     DatePipe,
     InitialsPipe,
-    WarningIconComponent,
     RouterLink,
     InfinteScrollDirective,
+    IconComponent
   ],
   templateUrl: './tasks-board-view.component.html',
   styleUrl: './tasks-board-view.component.css',

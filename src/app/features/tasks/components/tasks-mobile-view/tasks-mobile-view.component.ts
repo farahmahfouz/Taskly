@@ -4,7 +4,6 @@ import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { DatePipe, NgClass } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
-import { EditIconComponent } from '../../../../shared/icons/edit-icon.component';
 import { HttpResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InfinteScrollDirective } from '../../../../shared/directives/infinte-scroll.directive';
@@ -12,11 +11,12 @@ import { TASK_STATUS_BADGE_STYLES } from './../../task.constants';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { PaginationBase } from '../../../../shared/classes/pagination.base';
 import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-tasks-mobile-view',
   standalone: true,
-  imports: [NgClass, InitialsPipe, DatePipe, EditIconComponent, InfinteScrollDirective, LoaderComponent],
+  imports: [NgClass, InitialsPipe, DatePipe, InfinteScrollDirective, LoaderComponent, IconComponent],
   templateUrl: './tasks-mobile-view.component.html',
   styleUrl: './tasks-mobile-view.component.css',
 })

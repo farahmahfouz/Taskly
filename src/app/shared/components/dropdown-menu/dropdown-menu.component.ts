@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { LogoutIconComponent } from "../../icons/logout-icon.component";
+import { IconComponent } from '../../icons/icon.component';
 
 export interface DropdownItem {
   label: string;
@@ -11,7 +11,7 @@ export interface DropdownItem {
 @Component({
   selector: 'app-dropdown-menu',
   standalone: true,
-  imports: [LogoutIconComponent],
+  imports: [IconComponent],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

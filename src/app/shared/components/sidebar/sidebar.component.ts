@@ -7,39 +7,16 @@ import {
   Output,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import {
-  CollapseOpenIconComponent,
-  EpicsIconComponent,
-  ProjectsIconComponent,
-  StatsIconComponent,
-  TasksIconComponent,
-} from '../../icons/index';
-import { CollapseIconComponent } from '../../icons/collapse-icon.component';
-import { LogoutIconComponent } from '../../icons/logout-icon.component';
 import { AuthService } from '../../../features/auth/auth.service';
 import { HostListener } from '@angular/core';
-import { MembersIconComponent } from '../../icons/members-icon.component';
-import { DetailsIconComponent } from '../../icons/details-icon.component';
-import { LogoIconComponent } from '../../icons/logo-icon.component';
 import { ToastService } from '../../../core/services/toast.service';
+import { IconComponent } from '../../icons/icon.component';
+import { StatsIconComponent } from '../../icons';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    RouterLink,
-    ProjectsIconComponent,
-    EpicsIconComponent,
-    MembersIconComponent,
-    TasksIconComponent,
-    DetailsIconComponent,
-    RouterLinkActive,
-    CollapseIconComponent,
-    LogoutIconComponent,
-    CollapseOpenIconComponent,
-    LogoIconComponent,
-    StatsIconComponent
-  ],
+  imports: [RouterLink, RouterLinkActive, IconComponent, StatsIconComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

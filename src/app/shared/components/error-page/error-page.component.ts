@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DisconnectIconComponent } from '../../icons/disconnect-icon.component';
+import { IconComponent } from '../../icons/icon.component';
 
 
 @Component({
   selector: 'app-error-page',
   standalone: true,
-  imports: [DisconnectIconComponent],
+  imports: [IconComponent],
   templateUrl: './error-page.component.html',
   styleUrl: './error-page.component.css'
 })

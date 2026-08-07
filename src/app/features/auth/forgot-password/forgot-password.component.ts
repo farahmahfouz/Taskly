@@ -5,13 +5,13 @@ import {
   IconForgotPasswordComponent,
   ArrowBackIconComponent,
   ClockIconComponent,
-  CheckCircleIconComponent,
 } from '../../../shared/icons';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Subscription, timer } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { getControlError } from '../../../core/utils/form-error.util';
+import { IconComponent } from '../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,9 +22,9 @@ import { getControlError } from '../../../core/utils/form-error.util';
     IconForgotPasswordComponent,
     ArrowBackIconComponent,
     ClockIconComponent,
-    CheckCircleIconComponent,
     ReactiveFormsModule,
     RouterLink,
+    IconComponent
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',

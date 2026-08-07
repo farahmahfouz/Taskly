@@ -2,7 +2,6 @@ import { Component, DestroyRef, EventEmitter, HostListener, Input, Output } from
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
-import { CloseIconComponent } from '../../../../shared/icons';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { ModalMobileComponent } from '../../../../shared/components/modal-mobile/modal-mobile.component';
 import { MembersService } from '../../members.service';
@@ -10,13 +9,14 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { ENVIRONMENT } from '../../../../core/utils/enviroment';
 import { getControlError } from '../../../../core/utils/form-error.util';
 import { inject } from '@angular/core';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-invite-members',
   standalone: true,
   imports: [
     ModalComponent,
-    CloseIconComponent,
+    IconComponent,
     InputComponent,
     ModalMobileComponent,
     ReactiveFormsModule,

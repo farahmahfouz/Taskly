@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LogoIconComponent } from '../../icons/logo-icon.component';
+import { IconComponent } from '../../icons/icon.component';
 
 @Component({
   selector: 'app-logo',
   standalone: true,
-  imports: [LogoIconComponent],
+  imports: [IconComponent],
   templateUrl: './logo.component.html',
   styleUrl: './logo.component.css',
 })

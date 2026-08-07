@@ -7,13 +7,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { HidePasswordIconComponent, ShowPasswordIconComponent, EmailIconComponent } from '../../icons';
-import { ErrorIconComponent } from '../../icons/error-icon.component';
+import { IconComponent } from '../../icons/icon.component';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [ShowPasswordIconComponent, HidePasswordIconComponent, ErrorIconComponent, EmailIconComponent],
+  imports: [IconComponent],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   providers: [

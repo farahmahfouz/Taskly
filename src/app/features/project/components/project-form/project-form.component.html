@@ -10,7 +10,7 @@
   >
     <div class="flex items-start gap-3 md:p-8 pb-5 md:pb-10">
       <div class="w-11.5 h-11 rounded-sm bg-surface-low md:flex items-center justify-center shrink-0 hidden">
-        <svg icon-verified class="text-primary size-5.5" />
+        <svg icon="projectFormIcon" class="text-primary size-5.5" />
       </div>
       <div>
         <p class="text-md-sm font-semibold text-neutral-dark">
@@ -44,7 +44,7 @@
         />
         @if (projectForm.get('description')?.touched && projectForm.get('description')?.hasError('maxlength')) {
           <div class="flex items-center gap-1 mt-1">
-            <svg icon-error class="text-error size-3.5" />
+            <svg icon="required" class="text-error size-3.5" />
             <p class="text-error weight-medium text-2xs">Description cannot exceed 500 characters.</p>
           </div>
         }
@@ -79,7 +79,7 @@
     </form>
 
     <div class="bg-surface-low px-7 py-6 flex items-start gap-2 text-xs">
-      <svg class="text-[#4F5F7B] size-3 hidden md:block" icon-idea />
+      <svg class="text-[#4F5F7B] size-3 hidden md:block" icon="proTip" />
 
       <p class="text-3xs weight-regular">
         <span class="font-bold text-[#4F5F7B]">Pro Tip:</span> You can invite project members and assign epics

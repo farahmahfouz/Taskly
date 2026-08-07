@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { LogoIconComponent } from '../../../shared/icons/logo-icon.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { MembersService } from '../members.service';
 import { HttpContext } from '@angular/common/http';
 import { SKIP_GLOBAL_ERROR_TOAST } from '../../../core/interceptors/error.interceptor';
+import { IconComponent } from '../../../shared/icons/icon.component';
 
 type InvitationState = 'idle' | 'invalid-link' | 'expired' | 'forbidden' | 'invalid-token';
 
 @Component({
   selector: 'app-accept-invitation',
   standalone: true,
-  imports: [LogoIconComponent],
+  imports: [IconComponent],
   templateUrl: './accept-invitation.component.html',
   styleUrl: './accept-invitation.component.css',
 })

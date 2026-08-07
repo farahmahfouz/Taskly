@@ -1,9 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import {
-  CloseIconComponent,
-  DateIconComponent,
-  ClockIconComponent,
-} from '../../../../shared/icons';
+import { ClockIconComponent } from '../../../../shared/icons';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
 import { DatePipe, NgClass } from '@angular/common';
@@ -13,15 +9,7 @@ import { ModalMobileComponent } from '../../../../shared/components/modal-mobile
 @Component({
   selector: 'app-tasks-popup-mobile',
   standalone: true,
-  imports: [
-    CloseIconComponent,
-    DateIconComponent,
-    ClockIconComponent,
-    InitialsPipe,
-    DatePipe,
-    NgClass,
-    ModalMobileComponent,
-  ],
+  imports: [ClockIconComponent, InitialsPipe, DatePipe, NgClass, ModalMobileComponent],
   templateUrl: './tasks-popup-mobile.component.html',
   styleUrl: './tasks-popup-mobile.component.css',
 })

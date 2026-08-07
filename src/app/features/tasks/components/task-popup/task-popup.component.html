@@ -27,7 +27,7 @@
         <div class="py-6 px-8 flex flex-col gap-2">
           <header class="flex gap-4 items-center">
             <span
-              class="inline-block px-2 py-0.5 leading-4 rounded-2xs text-[12px] weight-bold tracking-wide bg-surface-highest text-neutral-dark"
+              class="inline-block px-2 py-0.5 leading-4 rounded-2xs text-3xs weight-bold tracking-wide bg-surface-highest text-neutral-dark"
             >
               {{ openPopupService.task()?.task_id }}
             </span>
@@ -86,7 +86,7 @@
             (click)="copyURL()"
             class="text-dark weight-medium text-xs cursor-pointer leading-5 flex justify-center items-center gap-3 transition-colors duration-150 hover:text-dark/85"
           >
-            <svg icon-copylink class="size-4"></svg>
+            <svg icon="copy" class="size-4"></svg>
             Copy Link
           </button>
 
@@ -105,7 +105,7 @@
           @if (!isEditingStatus) {
             <div
               id="status"
-              class="py-2.5 px-4 w-full rounded-xs text-[12px] weight-bold outline-none cursor-pointer"
+              class="py-2.5 px-4 w-full rounded-xs text-3xs weight-bold outline-none cursor-pointer"
               [ngClass]="statusBadgeClass()"
               (click)="isEditingStatus = true"
             >
@@ -113,7 +113,7 @@
                 <p>
                   {{ openPopupService.task()?.status }}
                 </p>
-                <svg icon-arrow-down class="size-6 text-[#6B7280]"></svg>
+                <svg icon="arrowDown" class="size-6 text-[#6B7280]"></svg>
               </div>
             </div>
           } @else {
@@ -186,13 +186,13 @@
           <label class="text-sm font-semibold text-neutral-dark"> Due Date </label>
 
           <div
-            class="relative py-2 px-4 w-full flex justify-between items-center rounded-lg text-[12px] weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
+            class="relative py-2 px-4 w-full flex justify-between items-center rounded-lg text-3xs weight-bold border border-[#C9D7FF] bg-white text-neutral-dark outline-none"
           >
             <input
               type="date"
               formControlName="dueDate"
               (change)="updateDueDate()"
-              class="w-full bg-transparent outline-none border-none text-[12px] weight-bold text-neutral-dark cursor-pointer"
+              class="w-full bg-transparent outline-none border-none text-3xs weight-bold text-neutral-dark cursor-pointer"
             />
           </div>
 

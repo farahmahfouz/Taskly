@@ -1,6 +1,5 @@
 import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SearchIconComponent } from '../../shared/icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksListViewComponent } from './components/tasks-list-view/tasks-list-view.component';
 import { TasksBoardViewComponent } from './components/tasks-board-view/tasks-board-view.component';
@@ -9,18 +8,18 @@ import { TASK_STATUSES } from './task.constants';
 import { TasksMobileViewComponent } from './components/tasks-mobile-view/tasks-mobile-view.component';
 import { TaskPopupComponent } from './components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../core/services/open-popup.service';
-import { TooltipDirective } from '../../shared/directives/tooltip.directive';
 import { SelectComponent } from '../../shared/components/select/select.component';
 import { TasksPopupMobileComponent } from './components/tasks-popup-mobile/tasks-popup-mobile.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
+import { IconComponent } from '../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
   imports: [
-    SearchIconComponent,
+    IconComponent,
     TasksListViewComponent,
     TasksBoardViewComponent,
     RouterLink,

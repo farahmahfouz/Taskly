@@ -5,14 +5,12 @@ import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 import { TooltipDirective } from '../../../../shared/directives/tooltip.directive';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
-import { DateIconComponent } from "../../../../shared/icons";
-import { PinIconComponent } from "../../../../shared/icons/pin-icon.component";
-import { EditIconComponent } from "../../../../shared/icons/edit-icon.component";
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [DatePipe, ClickOutsideDirective, TooltipDirective, DateIconComponent, PinIconComponent, EditIconComponent],
+  imports: [DatePipe, ClickOutsideDirective, TooltipDirective, IconComponent],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

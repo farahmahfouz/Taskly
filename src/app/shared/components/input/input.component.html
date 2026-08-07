@@ -8,7 +8,7 @@
     }
 
     @if (optional) {
-      <span class="text-[#737685] ">(Optional)</span>
+      <span class="text-neutral-grey-light ">(Optional)</span>
     }
 
     @if (forgot) {
@@ -21,7 +21,7 @@
   <div class="field-wrapper">
     <div class="input-field">
       @if (showEmailIcon) {
-        <svg icon-email class="leading-icon size-5 text-[#737685]"></svg>
+        <svg icon="email" class="leading-icon size-5 text-neutral-grey-light"></svg>
       }
 
       <input
@@ -43,9 +43,9 @@
           [attr.aria-label]="isVisible ? 'Hide password' : 'Show password'"
         >
           @if (isVisible) {
-            <svg icon-hide-password class="size-6 text-[#737685]"></svg>
+            <svg icon="hidePassword" class="size-6 text-neutral-grey-light"></svg>
           } @else {
-            <svg icon-show-password class="size-6 text-[#737685]"></svg>
+            <svg icon="showpassword" class="size-6 text-neutral-grey-light"></svg>
           }
         </button>
       }

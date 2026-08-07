@@ -10,7 +10,10 @@
           <div class="skeleton h-12 w-48 rounded-lg"></div>
         </div>
       } @else {
-        <a class="btn btn-primary bg-gradient-primary hidden md:flex" routerLink="/project/add">+ Create New Project</a>
+        <a class="btn btn-primary bg-gradient-primary hidden md:flex items-center gap-2" routerLink="/project/add">
+          <svg icon="plus" class="text-white size-2.5"></svg>
+          Create New Project
+        </a>
       }
     </header>
   }
@@ -36,8 +39,8 @@
           routerLink="/project/add"
           class="min-h-52.5 border-2 border-dashed border-[#C3C6D633] rounded-xl bg-white hidden md:flex flex-col justify-center items-center gap-3 cursor-pointer"
         >
-          <span class="w-12 h-12 rounded-xl bg-[#eef4ff] flex items-center justify-center"> 
-            <svg icon-plus-circle class="size-5 text-neutral-dark"></svg>
+          <span class="w-12 h-12 rounded-xl bg-[#eef4ff] flex items-center justify-center">
+            <svg icon="plusStroke" class="size-5 text-neutral-dark"></svg>
           </span>
 
           <span class="text-xs font-bold uppercase text-dark tracking-wide"> Add Project </span>
@@ -51,7 +54,7 @@
       routerLink="/project/add"
       class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center"
     >
-      <svg icon-plus-circle class="size-5"></svg>
+      <svg icon="plusStroke" class="size-5"></svg>
     </a>
   </div>
 

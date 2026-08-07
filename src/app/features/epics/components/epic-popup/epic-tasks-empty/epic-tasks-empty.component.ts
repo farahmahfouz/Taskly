@@ -1,10 +1,10 @@
 import { Component, output } from '@angular/core';
-import { TaskListIconComponent } from '../../../../../shared/icons';
+import { IconComponent } from '../../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-epic-tasks-empty',
   standalone: true,
-  imports: [TaskListIconComponent],
+  imports: [IconComponent],
   templateUrl: './epic-tasks-empty.component.html',
   styleUrl: './epic-tasks-empty.component.css',
 })

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ArchitectureIconComponent, RocketIconComponent } from '../../../../shared/icons';
 import {
   SparkleIconComponent,
   FlowIconComponent,
@@ -7,17 +6,17 @@ import {
 } from '../../../../shared/icons/index';
 import { RouterLink } from '@angular/router';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-empty-epics',
   standalone: true,
   imports: [
-    ArchitectureIconComponent,
-    RocketIconComponent,
     SparkleIconComponent,
     FlowIconComponent,
     TrendIconComponent,
     RouterLink,
+    IconComponent
   ],
   templateUrl: './empty-epics.component.html',
   styleUrl: './empty-epics.component.css',

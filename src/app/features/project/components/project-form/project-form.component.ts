@@ -7,11 +7,9 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
-import { VerifiedIconComponent } from '../../../../shared/icons/verified-icon.component';
-import { ErrorIconComponent } from '../../../../shared/icons/error-icon.component';
 import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { IdeaIconComponent } from '../../../../shared/icons/idea-icon.component';
 import { getControlError } from '../../../../core/utils/form-error.util';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-project-form',
@@ -20,10 +18,8 @@ import { getControlError } from '../../../../core/utils/form-error.util';
     TextareaComponent,
     InputComponent,
     ReactiveFormsModule,
-    VerifiedIconComponent,
-    ErrorIconComponent,
     BreadcrumbComponent,
-    IdeaIconComponent,
+    IconComponent,
   ],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',

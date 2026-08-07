@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EditIconComponent } from '../../icons/edit-icon.component';
+import { IconComponent } from '../../icons/icon.component';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [EditIconComponent],
+  imports: [IconComponent],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

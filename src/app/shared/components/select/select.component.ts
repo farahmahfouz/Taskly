@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ArrowDownIconComponent } from "../../icons/arrow-down-icon.component";
 import { ClickOutsideDirective } from "../../directives/click-outside.directive";
+import { IconComponent } from '../../icons/icon.component';
 export interface SelectOption {
   label: string;
   value: string;
@@ -10,7 +10,7 @@ export interface SelectOption {
 @Component({
   selector: 'app-select',
   standalone: true,
-  imports: [ArrowDownIconComponent, ClickOutsideDirective],
+  imports: [ClickOutsideDirective, IconComponent],
   templateUrl: './select.component.html',
   styleUrl: './select.component.css'
 })

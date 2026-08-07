@@ -10,7 +10,7 @@
       [class.lg:justify-start]="!collapsed"
       [class.lg:pl-0]="collapsed"
     >
-      <svg icon-logo class="text-primary size-5"></svg>
+      <svg icon="logo" class="text-primary size-5"></svg>
 
       @if (isMobile || !collapsed) {
         <p class="uppercase text-neutral-dark weight-bold leading-lg text-base">taskly</p>
@@ -33,22 +33,22 @@
           >
             @switch (item.icon) {
               @case ('projects') {
-                <svg icon-projects class="size-5"></svg>
+                <svg icon="projects" class="size-5"></svg>
               }
               @case ('stats') {
                 <svg icon-stats class="size-5"></svg>
               }
               @case ('epics') {
-                <svg icon-epics class="size-5"></svg>
+                <svg icon="epics" class="size-5"></svg>
               }
               @case ('tasks') {
-                <svg icon-tasks class="size-5"></svg>
+                <svg icon="tasks" class="size-5"></svg>
               }
               @case ('members') {
-                <svg icon-members class="size-5"></svg>
+                <svg icon="members" class="size-5"></svg>
               }
               @case ('details') {
-                <svg icon-details class="size-5"></svg>
+                <svg icon="details" class="size-5"></svg>
               }
             }
             @if (isMobile || !collapsed) {
@@ -66,10 +66,10 @@
       (click)="toggleSidebar()"
     >
       @if (isMobile || !collapsed) {
-        <svg icon-collapse class="size-5"></svg>
+        <svg icon="closeCollapse" class="size-5"></svg>
         <span class="hidden lg:block">Collapse</span>
       } @else {
-        <svg icon-collapse-open class="size-5"></svg>
+        <svg icon="openCollapse" class="size-5"></svg>
       }
     </div>
     <div
@@ -77,7 +77,7 @@
       [class.lg:justify-start]="!collapsed"
       (click)="logout()"
     >
-      <svg icon-logout class="w-4.5 h-4.5 text-error"></svg>
+      <svg icon="logout" class="w-4.5 h-4.5 text-error"></svg>
       @if (isMobile || !collapsed) {
         <span>Logout</span>
       }

@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { getControlError } from '../../../core/utils/form-error.util';
-import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
+import { IconComponent } from '../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +21,7 @@ import { ErrorIconComponent } from '../../../shared/icons/error-icon.component';
     PasswordHintsComponent,
     RouterLink,
     InputComponent,
-    ErrorIconComponent,
+    IconComponent
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',

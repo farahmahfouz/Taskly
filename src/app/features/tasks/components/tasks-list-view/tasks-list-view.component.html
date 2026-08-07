@@ -23,7 +23,7 @@
             role="row"
             (click)="onRowClick(task)"
           >
-            <div class="px-5 py-4 text-primary font-regular text-[12px] leading-2xs whitespace-nowrap" role="cell">
+            <div class="px-5 py-4 text-primary font-regular text-3xs leading-2xs whitespace-nowrap" role="cell">
               {{ task.task_id }}
             </div>
 
@@ -56,14 +56,14 @@
 
             <div class="px-5 py-4 flex justify-center" role="cell">
               <button class="rounded-full p-1 hover:bg-neutral-light/20">
-                <svg icon-edit class="size-3.5 text-dark rotate-90"></svg>
+                <svg icon="ellipise" class="size-3.5 text-dark rotate-90"></svg>
               </button>
             </div>
           </div>
         }
       </div>
 
-      <div class="flex items-center justify-between px-5 py-3.5 text-[12px] text-dark weight-medium bg-white">
+      <div class="flex items-center justify-between px-5 py-3.5 text-3xs text-dark weight-medium bg-white">
         <span>Showing {{ tasks.length }} of {{ totalCount }} tasks</span>
         <span class="flex gap-2">
           <button (click)="previousPage()" class="cursor-pointer">‹</button> Page {{ currentPage }} of {{ totalPages }}

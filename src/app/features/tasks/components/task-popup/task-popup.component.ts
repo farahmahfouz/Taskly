@@ -10,14 +10,11 @@ import {
   signal,
 } from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
-import { CopyLinkIconComponent } from '../../../../shared/icons';
 import { TASK_STATUS_BADGE_STYLES } from '../../task.constants';
 import { DatePipe, NgClass } from '@angular/common';
 import { InitialsPipe } from '../../../../shared/pipes/initials.pipe';
-import { ArrowDownIconComponent } from '../../../../shared/icons/arrow-down-icon.component';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { futureValidator } from '../../../../core/utils/futureValidator';
 import { TasksService } from '../../tasks.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { MembersService } from '../../../members/members.service';
@@ -26,19 +23,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { EpicsService } from '../../../epics/epics.service';
 import { Epic } from '../../../epics/epic.model';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-task-popup',
   standalone: true,
-  imports: [
-    ModalComponent,
-    CopyLinkIconComponent,
-    DatePipe,
-    InitialsPipe,
-    ArrowDownIconComponent,
-    NgClass,
-    ReactiveFormsModule,
-  ],
+  imports: [ModalComponent, IconComponent, DatePipe, InitialsPipe, NgClass, ReactiveFormsModule],
   templateUrl: './task-popup.component.html',
   styleUrl: './task-popup.component.css',
 })

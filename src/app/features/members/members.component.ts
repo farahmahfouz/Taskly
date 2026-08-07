@@ -1,30 +1,28 @@
-import { Component, DestroyRef, HostListener, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MembersService } from './members.service';
 import { Member } from './members.model';
-import { NgClass, UpperCasePipe } from '@angular/common';
-import { EditIconComponent } from '../../shared/icons/edit-icon.component';
+import { NgClass } from '@angular/common';
 import { SkeltonComponent } from './components/skelton/skelton.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { InitialsPipe } from '../../shared/pipes/initials.pipe';
-import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb.component";
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { InviteMembersComponent } from './components/invite-members/invite-members.component';
-import { InviteMembersIconComponent } from "../../shared/icons/invite-memners-icon.component";
+import { IconComponent } from '../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-members',
   standalone: true,
   imports: [
     NgClass,
-    EditIconComponent,
     SkeltonComponent,
     ErrorPageComponent,
     InitialsPipe,
     BreadcrumbComponent,
     InviteMembersComponent,
-    InviteMembersIconComponent
-],
+    IconComponent,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })

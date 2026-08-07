@@ -9,11 +9,6 @@ import {
   effect,
 } from '@angular/core';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
-import {
-  CloseIconComponent,
-  DateIconComponent,
-  EpicColumnsIconComponent,
-} from '../../../../shared/icons';
 import { EpicsService } from '../../epics.service';
 import { Epic } from '../../epic.model';
 import { DatePipe } from '@angular/common';
@@ -22,7 +17,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { Member } from '../../../members/members.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { futureValidator } from '../../../../core/utils/futureValidator';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TasksService } from '../../../tasks/tasks.service';
 import { Task } from '../../../tasks/task.constants';
@@ -33,15 +28,14 @@ import { EpicTasksEmptyComponent } from './epic-tasks-empty/epic-tasks-empty.com
 import { EpicTasksErrorComponent } from './epic-tasks-error/epic-tasks-error.component';
 import { TaskPopupComponent } from '../../../tasks/components/task-popup/task-popup.component';
 import { OpenPopupService } from '../../../../core/services/open-popup.service';
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-epic-popup',
   standalone: true,
   imports: [
     ModalComponent,
-    CloseIconComponent,
-    DateIconComponent,
-    EpicColumnsIconComponent,
+    IconComponent,
     DatePipe,
     ReactiveFormsModule,
     InitialsPipe,
@@ -50,6 +44,7 @@ import { OpenPopupService } from '../../../../core/services/open-popup.service';
     EpicTasksEmptyComponent,
     EpicTasksErrorComponent,
     TaskPopupComponent,
+    RouterLink
   ],
   templateUrl: './epic-popup.component.html',
   styleUrl: './epic-popup.component.css',

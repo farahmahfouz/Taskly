@@ -12,8 +12,8 @@ import { InfinteScrollDirective } from '../../shared/directives/infinte-scroll.d
 import { ProjectContextService } from '../../core/services/project-context.service';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { PaginationBase } from '../../shared/classes/pagination.base';
-import { LoaderComponent } from "../../shared/components/loader/loader.component";
-import { PlusCircleIconComponent } from "../../shared/icons/plus-circle-icon.component";
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { IconComponent } from '../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-project',
@@ -27,8 +27,8 @@ import { PlusCircleIconComponent } from "../../shared/icons/plus-circle-icon.com
     InfinteScrollDirective,
     ErrorPageComponent,
     LoaderComponent,
-    PlusCircleIconComponent
-],
+    IconComponent,
+  ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })

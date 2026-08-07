@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PlusCircleIconComponent } from "../../../../shared/icons/plus-circle-icon.component";
+import { IconComponent } from '../../../../shared/icons/icon.component';
 
 @Component({
   selector: 'app-empty-projects',
   standalone: true,
-  imports: [RouterLink, PlusCircleIconComponent],
+  imports: [RouterLink, IconComponent],
   templateUrl: './empty-projects.component.html',
   styleUrl: './empty-projects.component.css',
 })

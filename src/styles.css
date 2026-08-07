@@ -25,6 +25,7 @@ body {
   --color-neutral-mid: #4f5f7b;
   --color-neutral-light: #c3c6d6;
   --color-neutral-grey: #43465499;
+  --color-neutral-grey-light: #737685;
 
   /* Semantic */
   --color-success: #82f9be;
@@ -197,6 +198,6 @@ body {
 @media (min-width: 48em) {
   .btn {
     padding: 0.75rem 1.5rem;
-    border-radius: var(--rounded-xs);
+    border-radius: var(--rounded-2xs);
   }
 }
