@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, input, signal } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, input, signal, ViewChild } from '@angular/core';
 import { TasksService } from '../../tasks.service';
 import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { Task } from '../../task.constants';
@@ -18,13 +18,7 @@ const DRAG_DATA_KEY = 'application/json';
 @Component({
   selector: 'app-tasks-board-view',
   standalone: true,
-  imports: [
-    DatePipe,
-    InitialsPipe,
-    RouterLink,
-    InfinteScrollDirective,
-    IconComponent
-  ],
+  imports: [DatePipe, InitialsPipe, RouterLink, InfinteScrollDirective, IconComponent],
   templateUrl: './tasks-board-view.component.html',
   styleUrl: './tasks-board-view.component.css',
 })
@@ -35,12 +29,15 @@ export class TasksBoardViewComponent extends PaginationBase {
   projectId = '';
   search = input<string>('');
 
+  @ViewChild('scrollContainer')
+  scrollContainer!: ElementRef<HTMLElement>;
+
   constructor(
     private tasksService: TasksService,
     private projectContext: ProjectContextService,
     private openPopupService: OpenPopupService,
     private destroyRef: DestroyRef,
-    private toast: ToastService
+    private toast: ToastService,
   ) {
     super();
     effect(() => {
@@ -125,13 +122,24 @@ export class TasksBoardViewComponent extends PaginationBase {
     if (event.dataTransfer) {
       event.dataTransfer.dropEffect = 'move';
     }
+    const container = this.scrollContainer.nativeElement;
+    const rect = container.getBoundingClientRect();
+    const scrollX = event.clientX;
+    
+    const scrollZone = 200;
+    const scrollSpeed = 20;
+
+    if (scrollX > rect.right - scrollZone) {
+      container.scrollLeft += scrollSpeed;
+    } else if (scrollX < rect.left + scrollZone) {
+      container.scrollLeft -= scrollSpeed;
+    }
   }
 
   onDragLeave(event: DragEvent) {
     const related = event.relatedTarget as HTMLElement | null;
     const current = event.currentTarget as HTMLElement;
     if (related && current.contains(related)) return;
-
   }
 
   onDrop(event: DragEvent) {
@@ -161,8 +169,7 @@ export class TasksBoardViewComponent extends PaginationBase {
       .updateTask(draggedTask.id, { status: newStatus })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-        },
+        next: () => {},
         error: () => {
           this.openPopupService.setTask(originalTask);
           this.toast.showError('Something went wrong please try again!');
