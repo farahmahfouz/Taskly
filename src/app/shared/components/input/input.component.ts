@@ -8,11 +8,12 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IconComponent } from '../../icons/icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [IconComponent],
+  imports: [IconComponent, RouterLink],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   providers: [
