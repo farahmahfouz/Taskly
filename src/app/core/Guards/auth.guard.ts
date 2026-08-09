@@ -22,18 +22,18 @@ export const authGuard: CanActivateFn = (route, state) => {
     return auth.refreshToken().pipe(
       switchMap(() => auth.getUser()),
       map(() => true),
-      catchError(() => {
-        auth.clearSession();
-        return of(router.createUrlTree(['/login']));
-      }),
+      // catchError(() => {
+      //   auth.clearSession();
+      //   return of(router.createUrlTree(['/login']));
+      // }),
     );
   }
 
   return auth.getUser().pipe(
     map(() => true),
-    catchError(err => {
-      auth.clearSession();
-      return of(router.createUrlTree(['/login']));
-    }),
+    // catchError(err => {
+    //   auth.clearSession();
+    //   return of(router.createUrlTree(['/login']));
+    // }),
   );
 };
