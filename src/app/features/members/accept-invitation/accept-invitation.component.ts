@@ -4,7 +4,6 @@ import { AuthService } from '../../auth/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { MembersService } from '../members.service';
 import { HttpContext } from '@angular/common/http';
-import { SKIP_GLOBAL_ERROR_TOAST } from '../../../core/interceptors/error.interceptor';
 import { IconComponent } from '../../../shared/icons/icon.component';
 
 type InvitationState = 'idle' | 'invalid-link' | 'expired' | 'forbidden' | 'invalid-token';
@@ -58,7 +57,7 @@ export class AcceptInvitationComponent implements OnInit {
     this.membersService
       .acceptInvite(
         { p_token: this.token },
-        { context: new HttpContext().set(SKIP_GLOBAL_ERROR_TOAST, true) },
+        // { context: new HttpContext().set(SKIP_GLOBAL_ERROR_TOAST, true) },
       )
       .subscribe({
         next: () => {
