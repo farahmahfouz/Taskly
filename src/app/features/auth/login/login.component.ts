@@ -50,7 +50,7 @@ export class LoginComponent {
     };
 
     this.authService.login(body, !!rememberMe).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading = false;
         this.authService.getUser().subscribe(() => {
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/project';

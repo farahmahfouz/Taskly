@@ -8,11 +8,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  const expiry =
-    localStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY) ??
-    sessionStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY);
+  const expiresAt =
+    localStorage.getItem(STORAGE_KEYS.EXPIRES_AT) ??
+    sessionStorage.getItem(STORAGE_KEYS.EXPIRES_AT);
 
-  const isExpired = expiry && Date.now() > Number(expiry);
+  const isExpired = expiresAt && Date.now() > Number(expiresAt) * 1000;
 
   if (auth.getCurrentUser() && !isExpired) {
     return true;
@@ -23,8 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       switchMap(() => auth.getUser()),
       map(() => true),
       catchError(() => {
-        localStorage.clear();
-        sessionStorage.clear();
+        auth.clearSession();
         return of(router.createUrlTree(['/login']));
       }),
     );
@@ -33,8 +32,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   return auth.getUser().pipe(
     map(() => true),
     catchError(err => {
-      localStorage.clear();
-      sessionStorage.clear();
+      auth.clearSession();
       return of(router.createUrlTree(['/login']));
     }),
   );

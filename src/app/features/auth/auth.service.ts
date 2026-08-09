@@ -30,7 +30,10 @@ export class AuthService {
 
   login(body: LoginRequest, rememberMeValue: boolean) {
     return this.http.post<LoginResponse>(`${API.AUTH}/token?grant_type=password`, body).pipe(
-      tap(res => this.rememberMe(res, rememberMeValue)),
+      tap(res => {
+        console.log(res);
+        this.rememberMe(res, rememberMeValue);
+      }),
       switchMap(() => this.getUser()),
     );
   }
@@ -51,9 +54,11 @@ export class AuthService {
   }
 
   refreshToken() {
-    const refreshToken =
-      localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN) ??
-      sessionStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+    const storage = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN)
+      ? localStorage
+      : sessionStorage;
+
+    const refreshToken = storage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
 
     return this.http
       .post<any>(`${API.AUTH}/token?grant_type=refresh_token`, {
@@ -61,9 +66,6 @@ export class AuthService {
       })
       .pipe(
         tap(res => {
-          const storage = localStorage.getItem(STORAGE_KEYS.SESSION_EXPIRY)
-            ? localStorage
-            : sessionStorage;
           this.saveTokens(res, storage);
         }),
       );
@@ -109,6 +111,7 @@ export class AuthService {
   private saveTokens(res: LoginResponse, storage: Storage) {
     storage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.access_token);
     storage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.refresh_token);
+    storage.setItem(STORAGE_KEYS.EXPIRES_AT, res.expires_at.toString());
   }
 
   private rememberMe(res: LoginResponse, rememberMe: boolean) {
