@@ -81,7 +81,11 @@ export class ResetPasswordComponent implements OnInit {
 
   getError(controlName: string): string {
     if (controlName === 'confirmPassword' && this.form.hasError('notMatch')) {
-      return 'Passwords do not match';
+      const confirmControl = this.form.get('confirmControl');
+      if (confirmControl?.touched || confirmControl?.dirty) {
+        return 'Passwords do not match';
+      }
+      return getControlError(confirmControl);
     }
 
     return getControlError(this.form.get(controlName));

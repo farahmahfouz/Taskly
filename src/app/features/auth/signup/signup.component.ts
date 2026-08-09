@@ -94,7 +94,7 @@ export class SignupComponent implements OnInit {
   getError(controlName: string): string {
     if (controlName === 'confirmPassword' && this.form.hasError('notMatch')) {
       const confirmControl = this.form.get('confirmPassword');
-      if ((confirmControl?.touched || confirmControl?.dirty) && this.form.hasError('notMatch')) {
+      if (confirmControl?.touched || confirmControl?.dirty) {
         return 'Passwords do not match';
       }
       return getControlError(confirmControl);
