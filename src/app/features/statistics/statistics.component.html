@@ -1,0 +1,261 @@
+<div class="flex flex-col gap-8">
+  <!-- header -->
+  <section class="hidden md:block">
+    <h1 class="weight-bold text-neutral-dark text-md leading-9 tracking-normal">Weekly Planner</h1>
+    <p class="weight-regular leading-6 text-dark">Manage your deadlines and track team velocity.</p>
+  </section>
+  <!-- select date -->
+  <section class="bg-transparent md:bg-surface-low rounded-sm p-4 flex flex-col md:flex-row gap-3 md:justify-between">
+    <div
+      class="relative flex gap-3 items-center weight-bold text-xs leading-5 cursor-pointer order-2 md:order-1"
+      (click)="isOpenCalender = !isOpenCalender"
+      (appClickOutside)="isOpenCalender = false"
+    >
+      <span class="text-dark"> ‹ </span>
+      <p class="text-neutral-dark">{{ fullDate() }}</p>
+      <span class="text-dark"> › </span>
+
+      @if (isOpenCalender) {
+        <div class="absolute top-full left-0 mt-2 z-50 w-87.5" (click)="$event.stopPropagation()">
+          <app-calender
+            [selectedRange]="weekRange()"
+            (rangeSelected)="onRangeSelected($event)"
+            (cancelled)="cancel()"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-3 md:gap-4 order-1 md:order-2">
+      <div class="relative w-full md:min-w-51 md:w-auto">
+        <button
+          [value]="selectedProjectId"
+          type="button"
+          class="w-full flex items-center justify-between gap-3 bg-surface-low md:bg-white py-2 px-4 shadow-[0px_1px_2px_0px_#0000000D] rounded-sm md:rounded-2xs text-xs weight-medium leading-5 text-neutral-dark"
+          (click)="isProjectsOpen = !isProjectsOpen"
+        >
+          <span>{{ selectedProject?.name || 'All Projects' }}</span>
+          <svg icon="arrowDown" class="text-dark size-5"></svg>
+        </button>
+
+        @if (isProjectsOpen) {
+          <div class="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-2xs z-50">
+            @for (option of projectOptions; track option?.name) {
+              <button
+                type="button"
+                class="w-full px-4 py-3 flex items-center gap-2 text-left text-xs weight-medium text-neutral-dark hover:bg-gray-100"
+                (click)="onProjectChange(option.id); isProjectsOpen = false"
+              >
+                {{ option.name }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex gap-3">
+        <div class="relative flex-1 md:flex-initial">
+          <button
+            [value]="selectedStatus"
+            type="button"
+            class="w-full md:w-auto flex items-center justify-between gap-3 bg-surface-low md:bg-white py-2 px-4 shadow-[0px_1px_2px_0px_#0000000D] rounded-sm md:rounded-2xs text-xs weight-medium leading-5 text-neutral-dark"
+            (click)="isStatusesOpen = !isStatusesOpen"
+          >
+            <span> All Statuses</span>
+            <svg icon="arrowDown" class="text-dark size-5"></svg>
+          </button>
+
+          @if (isStatusesOpen) {
+            <div class="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-2xs z-50">
+              @for (option of STATUS_OPTIONS; track option.value) {
+                <button
+                  type="button"
+                  class="w-full px-4 py-3 text-left text-2xs weight-medium text-neutral-dark hover:bg-gray-100"
+                  (click)="onStatusChange(option.value); isStatusesOpen = false"
+                >
+                  {{ option.label }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- summary -->
+  <section class="flex justify-between gap-3 md:gap-6">
+    @for (summary of summaryCard; track summary.label) {
+      <div
+        class="min-h-26 md:h-26 min-w-28.25 p-4 md:p-6 rounded-sm flex max-sm:flex-col max-sm:shadow-[0px_1px_2px_0px_#0000000D] justify-between bg-white flex-1"
+      >
+        <div class="flex flex-col gap-1 max-sm:order-2">
+          <p class="text-[#041B3C99] text-[10px] md:text-3xs weight-medium md:weight-bold leading-4 traking-[0.6px]">
+            {{ summary.label }}
+          </p>
+          <p class="weight-bold text-[20px] md:text-md leading-8.5" [ngClass]="[summary.valueColor]">
+            {{ summary.value }}
+          </p>
+        </div>
+        <div
+          [ngClass]="[summary.iconBg, summary.iconColor]"
+          class="md:h-12 md:w-12 rounded-2xs flex max-sm:order-1 max-sm:pb-1.5 max-sm:justify-start items-center justify-center max-sm:bg-transparent"
+        >
+          @if (summary.icon === 'clipboard') {
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H6.2C6.41667 1.4 6.77917 0.916667 7.2875 0.55C7.79583 0.183333 8.36667 0 9 0C9.63333 0 10.2042 0.183333 10.7125 0.55C11.2208 0.916667 11.5833 1.4 11.8 2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V4H2V18ZM4 16H11V14H4V16ZM4 12H14V10H4V12ZM4 8H14V6H4V8ZM9 3.25C9.21667 3.25 9.39583 3.17917 9.5375 3.0375C9.67917 2.89583 9.75 2.71667 9.75 2.5C9.75 2.28333 9.67917 2.10417 9.5375 1.9625C9.39583 1.82083 9.21667 1.75 9 1.75C8.78333 1.75 8.60417 1.82083 8.4625 1.9625C8.32083 2.10417 8.25 2.28333 8.25 2.5C8.25 2.71667 8.32083 2.89583 8.4625 3.0375C8.60417 3.17917 8.78333 3.25 9 3.25ZM2 18V4V18Z"
+                fill="#0052CC"
+              />
+            </svg>
+          } @else if (summary.icon === 'check') {
+            <svg class="text-green size-5" icon="checkMark"></svg>
+          } @else {
+            <svg icon-warning class="text-error size-5"></svg>
+          }
+        </div>
+      </div>
+    }
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-7 gap-3">
+  @for (day of calendarData()?.daily ?? []; track day.day) {
+    <div
+      class="flex flex-row lg:flex-col items-center lg:items-stretch justify-between lg:justify-start rounded-2xl border bg-surface-low md:bg-white p-4 h-auto lg:h-105 relative"
+      [ngClass]="
+        isToday(day.day) ? 'border-none md:border-primary border-2 text-primary' : 'shadow-[0px_1px_2px_0px_#0000000D] border-none'
+      "
+    >
+      <!-- TODAY badge desktop -->
+      <div class="hidden lg:flex mb-2 justify-center relative">
+        @if (isToday(day.day)) {
+          <span
+            class="rounded-full -top-7 bg-primary px-3 py-0.5 text-[10px] font-semibold tracking-wide text-white absolute"
+          >
+            TODAY
+          </span>
+        }
+      </div>
+
+      <!-- Day header -->
+      <div class="flex flex-col lg:mb-4 min-w-14">
+        <p class="text-3xs weight-bold leading-4" [ngClass]="isToday(day.day) ? 'text-primary' : 'text-gray-400'">
+          {{ day.day | date: 'EEE' }}
+        </p>
+        <p
+          class="text-[20px] leading-5 font-extrabold"
+          [ngClass]="isToday(day.day) ? 'text-neutral-dark' : 'text-gray-800'"
+        >
+          {{ day.day | date: 'd' }}
+        </p>
+      </div>
+
+      <!-- Statuses / empty state -->
+      <section class="flex flex-1 flex-row lg:flex-col items-center lg:items-stretch justify-end lg:justify-start gap-2">
+        @if ((day.statuses | keyvalue).length > 0) {
+          <div class="flex flex-row lg:flex-col items-center lg:items-stretch gap-2">
+            @for (status of day.statuses | keyvalue; track status.key) {
+              <div
+                class="flex items-center justify-center lg:justify-between rounded-2xs md:rounded-full lg:rounded-2xs w-7 h-7 lg:w-auto lg:h-auto lg:p-2 text-xs font-semibold"
+                [ngClass]="{
+                  'bg-[#0052CC1A] text-primary': status.key === 'ACTIVE',
+                  'bg-red-50 text-error': status.key === 'BLOCKED',
+                  'bg-green-50 text-green': status.key === 'DONE',
+                  'bg-[#C3C6D61A] text-neutral-grey-light': status.key === 'TO_DO',
+                  'border-none md:border-l-4 border-primary bg-blue-100 text-primary': status.key === 'IN_PROGRESS',
+                  'bg-pink-50 text-pink-900': status.key === 'REOPENED',
+                  'bg-orange-50 text-orange-700': status.key === 'READY_FOR_PRODUCTION',
+                }"
+              >
+                <span class="hidden lg:inline uppercase weight-bold text-2xs leading-2xs">{{ statusLabelFn(status.key) }}</span>
+                <span class="text-[#041B3C] text-3xs lg:text-3xs">{{ status.value }}</span>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="flex flex-1 flex-row lg:flex-col items-center justify-center gap-2 text-[#041B3C66]">
+            <svg width="18" height="25" class="lg:w-6.75 lg:h-9.5 hidden md:block" viewBox="0 0 27 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.05 25.05L7.95 22.95L11.4 19.5L7.95 16.05L10.05 13.95L13.5 17.4L16.95 13.95L19.05 16.05L15.6 19.5L19.05 22.95L16.95 25.05L13.5 21.6L10.05 25.05ZM3 30C2.175 30 1.46875 29.7062 0.88125 29.1187C0.29375 28.5312 0 27.825 0 27V6C0 5.175 0.29375 4.46875 0.88125 3.88125C1.46875 3.29375 2.175 3 3 3H4.5V0H7.5V3H19.5V0H22.5V3H24C24.825 3 25.5312 3.29375 26.1187 3.88125C26.7062 4.46875 27 5.175 27 6V27C27 27.825 26.7062 28.5312 26.1187 29.1187C25.5312 29.7062 24.825 30 24 30H3ZM3 27H24V12H3V27ZM3 9H24V6H3V9ZM3 9V6V9Z"
+                fill="#041B3C66"
+              />
+            </svg>
+
+            <span class="hidden md:inline text-2xs weight-medium tracking-wide text-gray-400">NO TASKS</span>
+            <div class="md:hidden px-2 py-1.5 bg-surface-highest rounded-2xs text-2xs font-medium tracking-wide text-neutral-dark mr-auto">0</div>
+          </div>
+        }
+      </section>
+
+      <!-- TODAY badge mobile -->
+      @if (isToday(day.day)) {
+        <span
+          class="lg:hidden rounded-full bg-primary px-3 py-1 text-[10px] font-semibold tracking-wide text-white ml-2"
+        >
+          TODAY
+        </span>
+      }
+    </div>
+  }
+</div>
+
+  <section class="flex flex-col md:flex-row gap-8 pb-20">
+    <div class="bg-white rounded-2xl p-8 shadow-[0px_1px_2px_0px_#0000000D] h-78 flex-1">
+      <h3 class="text-base font-bold mb-10">Tasks by Status</h3>
+      <div class="flex justify-between">
+        <div class="flex items-center gap-9">
+          <div
+            class="relative w-40 h-40 rounded-full flex items-center justify-center"
+            [style.background]="chartGradient()"
+          >
+            <div class="w-28 h-28 bg-white rounded-full flex flex-col items-center justify-center">
+              <span class="text-md leading-5.5 font-extrabold text-neutral-dark">
+                {{ totalTasks }}
+              </span>
+
+              <span class="text-xs weight-bold text-[#8C97A7]"> Total </span>
+            </div>
+          </div>
+        </div>
+
+        @for (status of statusConfigs(); track status.key) {
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full shrink-0" [style.background-color]="status.color"></div>
+                <span class="text-2xs weight-bold text-[#041B3CB2]">
+                  {{ statusLabelFn(status.key) }}
+                </span>
+              </div>
+              <span class="text-3xs font-bold text-neutral-dark pl-2">
+                {{ status.value }}
+              </span>
+            </div>
+
+            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+              <div
+                class="h-full rounded-full transition-all duration-300"
+                [style.width.%]="status.percentage"
+                [style.background-color]="status.color"
+              ></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="bg-white rounded-sm p-8 shadow-[0px_1px_2px_0px_#0000000D] h-66 flex-1">
+      <h3 class="text-[18px] weight-bold leading-7 pb-10">All Projects</h3>
+      @if (projects.length > 0) {
+        @for (project of projects; track project.project_id) {
+          <div class="flex items-center justify-between pb-4">
+            <span class="weight-bold text-3xs leading-4 text-[#041B3CB2]">{{ project.project_name }}</span>
+            <span class="font-semibold text-3xs text-neutral-dark">{{ project.tasks_count }} Tasks</span>
+          </div>
+        }
+      } @else {
+        <p class="weight-bold text-3xs leading-4 text-[#041B3CB2] text-center">No Projects Provided.</p>
+      }
+    </div>
+  </section>
+</div>

@@ -1,0 +1,39 @@
+<div
+  class="bg-[#fffffff3] border border-[#FFFFFF66] max-w-[320px] rounded-sm shadow-[0px_25px_ 50px_-12px_#00000040] p-5"
+>
+  <div class="calendar-header">
+    <h2>{{ viewDate() | date: 'MMMM yyyy' }}</h2>
+    <div class="nav-buttons">
+      <button type="button" (click)="changeMonth(-1)">‹</button>
+      <button type="button" (click)="changeMonth(1)">›</button>
+    </div>
+  </div>
+  <div class="calendar-grid">
+    @for (day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; track $index) {
+      <div class="weekday">
+        {{ day }}
+      </div>
+    }
+    @for (date of days(); track $index) {
+      <div
+        class="calendar-cell"
+        [class.inactive]="date.getMonth() !== currentMonth()"
+        [class.in-range]="isInRange(date)"
+        [class.range-start]="isRangeStart(date)"
+        [class.range-end]="isRangeEnd(date)"
+        (click)="selectDay(date)"
+      >
+        <span class="day-number">{{ date.getDate() }}</span>
+      </div>
+    }
+  </div>
+
+  @if (errorMessage()) {
+    <p class="text-error weight-semibold">{{ errorMessage() }}</p>
+  }
+
+  <div class="calendar-footer">
+    <button type="button" class="btn btn-ghost py-2! text-3xs!" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-primary py-2! text-3xs!" [disabled]="!rangeStart() || !rangeEnd()" (click)="onApply()">Apply Range</button>
+  </div>
+</div>

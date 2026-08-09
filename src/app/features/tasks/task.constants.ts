@@ -97,11 +97,11 @@ export const TASK_STATUSES: TaskStatusConfig[] = [
 
 export interface CreateTaskRequest {
   project_id: string;
-  epic_id?: string;
+  epic_id?: string | null;
   title: string;
   description?: string;
-  assignee_id?: string;
-  due_date?: string;
+  assignee_id?: string | null;
+  due_date?: string | null;
   status: TaskStatus;
 }
 

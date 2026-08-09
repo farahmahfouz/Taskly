@@ -114,10 +114,10 @@ export class AddNewTaskComponent {
     const body: CreateTaskRequest = {
       project_id: this.projectId,
       title: this.taskForm.value.title!,
-      epic_id: this.taskForm.value.epic_id || '',
+      epic_id: this.taskForm.value.epic_id || null,
       description: this.taskForm.value.description || '',
-      assignee_id: this.taskForm.value.assignee_id || '',
-      due_date: this.taskForm.value.due_date || '',
+      assignee_id: this.taskForm.value.assignee_id || null,
+      due_date: this.taskForm.value.due_date || null,
       status: this.taskForm.value.status as TaskStatus,
     };
 

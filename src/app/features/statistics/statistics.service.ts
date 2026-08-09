@@ -14,11 +14,11 @@ import { API } from '../../core/utils/constants';
 export class StatisticsService {
   constructor(private http: HttpClient) {}
 
-  getCalendarStats(request: CalendarStatsRequest) {
+  getCalendarStats(request: any) {
     return this.http.post<CalendarStatsResponse>(`${API.STATISTICS}/get_tasks_calendar_stats`, request);
   }
 
   getTasksPerProject(request: ProjectCountRequest) {
-    return this.http.post<ProjectTaskCount[]>(`${API.STATISTICS}/get_tasks_count_per_project`, request);
+    return this.http.post<any>(`${API.STATISTICS}/get_tasks_count_per_project`, request);
   }
 }
