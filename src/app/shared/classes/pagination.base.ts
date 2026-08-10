@@ -1,6 +1,6 @@
   export abstract class PaginationBase {
     currentPage = 1;
-    limit = 2;
+    limit = 8;
 
     totalCount = 0;
     totalPages = 0;
