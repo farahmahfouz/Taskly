@@ -133,7 +133,7 @@
               <app-epic-tasks-section [task]="task" [last]="$last" />
             }
             <a
-              [routerLink]="['/project', projectId, 'tasks', 'new']"
+              (click)="goToTasks()"
               class="border-2 border-dashed border-[#C3C6D64D] rounded-sm py-4 flex items-center justify-center gap-2 text-3xs weight-bold text-neutral-grey leading-2xs tracking-wide uppercase"
             >
               <svg icon="plusStroke" class="text-dark size-3.75"></svg>

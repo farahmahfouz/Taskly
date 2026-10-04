@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 p-5 md:p-6 min-h-55 bg-white rounded-lg cursor-pointer" (click)="goToEpics()">
+<div class="flex flex-col gap-6 p-5 md:p-6 h-56 bg-white rounded-lg cursor-pointer" (click)="goToEpics()">
   <div class="flex items-start justify-between gap-4">
     <h3 class="text-sm leading-7 weight-medium text-neutral-dark">
       {{ project.name }}
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <p class="weight-regular text-xs leading-5.5 text-dark">
+  <p class="weight-regular text-xs leading-5.5 text-dark line-clamp-3">
     {{ project.description }}
   </p>
 
