@@ -19,9 +19,9 @@
       </button>
     </header>
 
-    <div class="bg-white rounded-lg md:border-4 border-[#F1F3FF] overflow-hidden md:w-197.25 md:mx-auto md:my-16">
+    <div class="bg-white rounded-lg md:border-4 border-border overflow-hidden md:w-197.25 md:mx-auto md:my-16">
       <div
-        class="hidden md:grid grid-cols-[2fr_1fr_60px] items-center px-6 py-4 bg-[#E0E8FF4D] text-dark border-neutral-light text-2xs uppercase tracking-wide weight-bold"
+        class="hidden md:grid grid-cols-[2fr_1fr_60px] items-center px-6 py-4 bg-[#E0E8FF4D] text-dark border-border text-2xs uppercase tracking-wide weight-bold"
       >
         <span>Member</span>
         <span class="ps-3">Role</span>
@@ -30,7 +30,7 @@
 
       @for (member of members; track member.member_id) {
         <div
-          class="flex items-center justify-between gap-4 md:grid md:grid-cols-[2fr_1fr_60px] px-6 py-5 border-b border-[#E8EDFF] last:border-none"
+          class="flex items-center justify-between gap-4 md:grid md:grid-cols-[2fr_1fr_60px] px-6 py-5 border-b border-border last:border-none"
         >
           <div class="flex items-center gap-4">
             <div

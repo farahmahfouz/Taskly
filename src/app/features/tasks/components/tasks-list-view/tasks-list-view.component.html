@@ -19,7 +19,7 @@
           <div
             class="col-span-6 grid grid-cols-subgrid text-sm text-neutral-dark items-center bg-white"
             [class.border-b]="!$last"
-            [class.border-gray-100]="!$last"
+            [class.border-border]="!$last"
             role="row"
             (click)="onRowClick(task)"
           >
@@ -69,6 +69,14 @@
           <button (click)="previousPage()" class="cursor-pointer">‹</button> Page {{ currentPage }} of {{ totalPages }}
           <button (click)="nextPage()" class="cursor-pointer">›</button></span
         >
+      </div>
+      <div class="flex justify-end">
+        <a
+          [routerLink]="['/project', projectId, 'tasks', 'new']"
+          class="w-14 h-14 rounded-xl bg-primary gradient-primary text-white text-2xl shadow-lg flex items-center justify-center mt-10"
+        >
+          +
+        </a>
       </div>
     } @else {
       <div class="flex flex-col items-center justify-center py-20 bg-white">

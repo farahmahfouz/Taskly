@@ -36,7 +36,8 @@
   font-family: var(--font-sans);
   color: var(--color-neutral-dark);
   background-color: var(--color-surface-highest);
-
+  border: 1px solid var(--color-border);
+  
   resize: none;
   outline: none;
   transition: 0.2s;

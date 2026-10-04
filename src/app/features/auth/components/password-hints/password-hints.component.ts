@@ -16,5 +16,5 @@ export interface PasswordHint {
 export class PasswordHintsComponent {
   @Input({ required: true }) hints!: PasswordHint[];
   @Input() title!: string;
-  @Input() backgroundClass = 'bg-[#e8edff]';
+  @Input() backgroundClass = 'bg-password-hint';      
 }

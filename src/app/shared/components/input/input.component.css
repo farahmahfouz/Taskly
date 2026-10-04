@@ -7,6 +7,7 @@
   font-family: var(--font-sans);
   color: var(--color-neutral-dark);
   background-color: var(--color-surface-highest);
+  border: 1px solid var(--color-border);
   outline: none;
   opacity: 1;
   transition: border-color 0.15s;

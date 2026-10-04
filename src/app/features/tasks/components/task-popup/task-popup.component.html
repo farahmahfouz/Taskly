@@ -1,7 +1,7 @@
 <app-modal [isOpen]="isOpen" (close)="close.emit()" width="56rem">
   @if (openPopupService.isLoading()) {
     <div class="grid grid-cols-[3fr_1.6fr] min-h-100">
-      <div class="bg-white border border-[#E8EDFF] p-8 flex flex-col gap-4 animate-pulse">
+      <div class="bg-white border border-border p-8 flex flex-col gap-4 animate-pulse">
         <div class="h-4 w-24 bg-surface-highest rounded"></div>
         <div class="h-6 w-3/4 bg-surface-highest rounded"></div>
         <div class="h-40 w-full bg-surface-highest rounded mt-4"></div>
@@ -23,7 +23,7 @@
     </div>
   } @else {
     <form [formGroup]="taskForm" class="grid grid-cols-[3fr_1.6fr]">
-      <div class="bg-white border border-[#E8EDFF]">
+      <div class="bg-white border border-border">
         <div class="py-6 px-8 flex flex-col gap-2">
           <header class="flex gap-4 items-center">
             <span
@@ -33,7 +33,7 @@
             </span>
             @if (!isEditingEpic) {
               <div
-                class="border border-[#E8EDFF] p-2 text-dark rounded-lg cursor-pointer"
+                class="border border-border p-2 text-dark rounded-lg cursor-pointer"
                 (click)="isEditingEpic = true"
               >
                 <p class="weight-medium text-xs leading-5 flex gap-1.5 items-center">
@@ -64,18 +64,18 @@
             }
           </header>
           <input
-            class="text-md weight-bold text-neutral-dark leading-lg border border-transparent rounded-lg px-2 py-1 w-full focus:outline-none focus:border-[#E8EDFF]"
+            class="text-md weight-bold text-neutral-dark leading-lg border border-transparent rounded-lg px-2 py-1 w-full focus:outline-none focus:border-border"
             formControlName="title"
             (blur)="updateTitle()"
           />
         </div>
-        <hr class="border-[#E8EDFF]" />
+        <hr class="border-border" />
         <div class="p-8 flex flex-col gap-3">
           <label for="description">description</label>
           <textarea
             formControlName="description"
             rows="20"
-            class="w-full bg-white border p-3 text-xs weight-regular focus:outline-none border-[#E8EDFF]"
+            class="w-full bg-white border p-3 text-xs weight-regular focus:outline-none border-border"
             [value]="openPopupService.task()?.description || 'No description provided for this task!'"
             (blur)="updateDescription()"
           >
@@ -182,7 +182,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-3 border-t border-[#E8EDFF] pt-4">
+        <div class="flex flex-col gap-3 border-t border-border pt-4">
           <label class="text-sm font-semibold text-neutral-dark"> Due Date </label>
 
           <div

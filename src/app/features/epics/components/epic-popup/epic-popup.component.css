@@ -3,7 +3,7 @@
   font-weight: 700;
   letter-spacing: 0.025em; 
   margin-bottom: 0.5rem; 
-  color: #041B3C66;
+  color: var(--color-text-muted);
 }
 
 .custom-scrollbar::-webkit-scrollbar {

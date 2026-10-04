@@ -10,14 +10,14 @@
       <span class="w-5 h-5 rounded-full bg-[#CDDDFF] flex items-center justify-center text-[8px] weight-bold">
         {{ task().assignee!.name | initials }}
       </span>
-      <p class="weight-regular text-3xs text-[#041B3C99] leading-2xs">
+      <p class="weight-regular text-3xs text-text-muted leading-2xs">
         {{ task().assignee!.name || 'Unassigned' }}
       </p>
     </div>
   </div>
   <div class="flex flex-col justify-center">
-    <p class="text-[#041B3C66] weight-bold text-[10px] uppercase leading-3.75 text-end">Due Date</p>
-    <p class="text-[#041B3CB2] weight-medium text-3xs leading-4">
+    <p class="text-text-muted weight-bold text-[10px] uppercase leading-3.75 text-end">Due Date</p>
+    <p class="text-text-muted weight-medium text-3xs leading-4">
       {{ task().due_date | date: 'dd MMM y' }}
     </p>
   </div>
